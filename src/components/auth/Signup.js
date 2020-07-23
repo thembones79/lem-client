@@ -10,8 +10,19 @@ class Signup extends Component {
       this.props.history.push("/scanner");
     });
   };
+
+  renderField = ({ input, label, type, meta: { touched, error } }) => (
+    <div>
+      <label>{label}</label>
+      <div>
+        <input {...input} placeholder={label} type={type} />
+        {touched && error && <span>{error}</span>}
+      </div>
+    </div>
+  );
+
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, submitting } = this.props;
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <fieldset>
@@ -27,15 +38,25 @@ class Signup extends Component {
           <Field
             name="email"
             type="email"
-            component="input"
+            component={this.renderField}
             autoComplete="none"
             required
           />
         </fieldset>
         <fieldset>
-          <label htmlFor="password">Password</label>
           <Field
             name="password"
+            type="password"
+            component={this.renderField}
+            label="Password"
+            required
+            autoComplete="none"
+          />
+        </fieldset>
+        <fieldset>
+          <label htmlFor="passwordConfirm">Confirm Password</label>
+          <Field
+            name="passwordConfirm"
             type="password"
             component="input"
             required
@@ -50,17 +71,43 @@ class Signup extends Component {
           </Field>
         </fieldset>
         <div>{this.props.errorMessage}</div>
-        <button>Sign Up</button>
+
+        <button disabled={submitting}>Sign Up</button>
       </form>
     );
   }
 }
 
+const validate = (values) => {
+  const errors = {};
+
+  if (!values.email) {
+    errors.email = "Required";
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = "Invalid email address";
+  }
+
+  if (values.password !== values.passwordConfirm) {
+    errors.password = "Passwords must match";
+  }
+
+  return errors;
+};
+/*
+function validate(formProps) {
+  const errors = {};
+  if (formProps.password !== formProps.passwordConfirm) {
+    errors.password = "Passwords must match";
+  }
+
+  return errors;
+}
+*/
 function mapStateToProps(state) {
   return { errorMessage: state.auth.errorMessage };
 }
 
 export default compose(
   connect(mapStateToProps, actions),
-  reduxForm({ form: "signup" })
+  reduxForm({ form: "signup", validate: validate })
 )(Signup);

@@ -10,6 +10,12 @@ class Signin extends Component {
       this.props.history.push("/scanner");
     });
   };
+
+  renderAlert() {
+    if (this.props.errorMessage) {
+      return <div>{this.props.errorMessage}</div>;
+    }
+  }
   render() {
     const { handleSubmit } = this.props;
     return (
@@ -35,7 +41,7 @@ class Signin extends Component {
           />
         </fieldset>
 
-        <div>{this.props.errorMessage}</div>
+        <div>{this.renderAlert()}</div>
         <button>Sign In</button>
       </form>
     );

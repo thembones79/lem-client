@@ -1,11 +1,14 @@
 import axios from "axios";
-import { AUTH_USER, AUTH_ERROR } from "./types";
+import { AUTH_USER, AUTH_ERROR, FETCH_MESSAGE } from "./types";
+
+const ROOT_URL = "http://localhost:3090";
+
 export const signup = (
   { firstname, lastname, email, password, type },
   callback // for redirect user to "scanner" route
 ) => async (dispatch) => {
   try {
-    const response = await axios.post("http://localhost:3090/signup", {
+    const response = await axios.post(`${ROOT_URL}/signup`, {
       firstname,
       lastname,
       email,
@@ -25,7 +28,7 @@ export const signin = (
   callback // for redirect user to "scanner" route
 ) => async (dispatch) => {
   try {
-    const response = await axios.post("http://localhost:3090/signin", {
+    const response = await axios.post(`${ROOT_URL}/signin`, {
       email,
       password,
     });
@@ -45,5 +48,17 @@ export const signout = () => {
   return {
     type: AUTH_USER,
     payload: "",
+  };
+};
+
+export const fetchMessage = () => {
+  return function (dispatch) {
+    axios
+      .get(ROOT_URL, {
+        headers: { authorization: localStorage.getItem("token") },
+      })
+      .then((response) => {
+        dispatch({ type: FETCH_MESSAGE, payload: response.data.message });
+      });
   };
 };
