@@ -1,7 +1,7 @@
 import axios from "axios";
 import { AUTH_USER, AUTH_ERROR, FETCH_MESSAGE } from "./types";
 
-const ROOT_URL = "http://localhost:3090";
+const ROOT_URL = "https://riverdi-lem.herokuapp.com";
 
 export const signup = (
   { firstname, lastname, email, password, type },
