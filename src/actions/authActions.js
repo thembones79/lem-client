@@ -41,7 +41,7 @@ export const signin = (
     dispatch({ type: AUTH_USER, payload: response.data });
     // save JWT
     localStorage.setItem("token", response.data.token);
-    console.log({ ru: ROOT_URL });
+
     // redirect user to "scanner" route (in this case)
     callback();
   } catch (e) {
