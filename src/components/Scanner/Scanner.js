@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as actions from "../actions";
-import requireAuth from "./requireAuth";
+import * as actions from "../../actions";
+import requireAuth from "../requireAuth";
 
 class Scanner extends Component {
   componentDidMount() {

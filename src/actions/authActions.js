@@ -1,11 +1,5 @@
 import axios from "axios";
-import {
-  AUTH_USER,
-  AUTH_ERROR,
-  FETCH_MESSAGE,
-  ADD_USER,
-  ADD_USER_ERROR,
-} from "./types";
+import { AUTH_USER, AUTH_ERROR, ADD_USER, ADD_USER_ERROR } from "./types";
 import { ROOT_URL } from "../config";
 
 export const signup = (
@@ -54,18 +48,6 @@ export const signout = () => {
   return {
     type: AUTH_USER,
     payload: "",
-  };
-};
-
-export const fetchMessage = () => {
-  return function (dispatch) {
-    axios
-      .get(ROOT_URL, {
-        headers: { authorization: localStorage.getItem("token") },
-      })
-      .then((response) => {
-        dispatch({ type: FETCH_MESSAGE, payload: response.data });
-      });
   };
 };
 

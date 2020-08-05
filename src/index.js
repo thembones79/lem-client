@@ -11,8 +11,8 @@ import Welcome from "./components/Welcome";
 import Signup from "./components/auth/Signup";
 import Signout from "./components/auth/Signout";
 import Signin from "./components/auth/Signin";
-import Scanner from "./components/Scanner";
-import AddUser from "./components/dashboard/AddUser";
+import Scanner from "./components/Scanner/Scanner";
+import AddUser from "./components/Dashboard/AddUser";
 
 const store = createStore(
   reducers,
