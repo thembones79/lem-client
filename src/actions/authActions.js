@@ -39,7 +39,7 @@ export const signin = (
     // redirect user to "scanner" route (in this case)
     callback();
   } catch (e) {
-    dispatch({ type: AUTH_ERROR, payload: "Invalid login credentials" });
+    dispatch({ type: AUTH_ERROR, payload: e.message });
   }
 };
 
