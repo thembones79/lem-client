@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
+import Reader from "./Reader";
 
 class Scanner extends Component {
   componentDidMount() {
@@ -16,6 +17,10 @@ class Scanner extends Component {
         </div>
         <div>Id: {this.props.userId}</div>
         <div>token: {this.props.authenticated}</div>
+        <hr />
+        <div>
+          <Reader />
+        </div>
       </div>
     );
   }
