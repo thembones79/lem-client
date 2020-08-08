@@ -2,6 +2,8 @@ import {
   FETCH_MESSAGE,
   INSERT_SCAN,
   INSERT_SCAN_ERROR,
+  GET_ORDER,
+  GET_ORDER_ERROR,
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -37,6 +39,14 @@ export default function (state = INITIAL_STATE, action) {
         existingOrder: action.payload.existingOrder,
       };
     case INSERT_SCAN_ERROR:
+      return { ...state, errorMessage: action.payload };
+
+    case GET_ORDER:
+      return {
+        ...state,
+        existingOrder: action.payload.existingOrder,
+      };
+    case GET_ORDER_ERROR:
       return { ...state, errorMessage: action.payload };
 
     default:

@@ -4,8 +4,10 @@ import * as actions from "../../actions";
 import ScanContent from "./ScanContent";
 
 class ScanList extends Component {
+  componentDidMount() {
+    this.props.getOrder("20/832");
+  }
   render() {
-    console.log("dopa");
     return (
       <div>
         {this.props.existingOrder.scans.map((scan) => (
