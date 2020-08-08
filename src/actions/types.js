@@ -6,3 +6,5 @@ export const FETCH_MESSAGE = "fetch_message";
 export const FETCH_USER = "fetch_user";
 export const INSERT_SCAN = "insert_scan";
 export const INSERT_SCAN_ERROR = "insert_scan_error";
+export const GET_ORDER = "get_order";
+export const GET_ORDER_ERROR = "get_order_error";
