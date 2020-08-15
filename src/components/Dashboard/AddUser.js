@@ -68,6 +68,7 @@ class AddUser extends Component {
         <fieldset>
           <label htmlFor="type">Type</label>
           <Field name="type" type="text" component="select" required>
+            <option />
             <option value="operator">operator</option>
             <option value="manager">manager</option>
           </Field>
