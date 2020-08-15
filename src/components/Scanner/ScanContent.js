@@ -1,8 +1,13 @@
 import React, { Component } from "react";
+import { errors } from "../../translations/errors";
 
 class ScanContent extends Component {
   concatenateZeroIfLessThanTen(number) {
     return number < 10 ? "0" + number : number;
+  }
+
+  renderError(code, language) {
+    return code ? errors[code][language] : "";
   }
 
   renderTime(timeUTC) {
@@ -26,7 +31,7 @@ class ScanContent extends Component {
         <div>{this.renderTime(this.props.timeStamp)}</div>
         <div>
           {this.props.scanContent}
-          <span>{this.props.errorCode}</span>
+          <span>{this.renderError(this.props.errorCode, "en")}</span>
         </div>
       </div>
     );
