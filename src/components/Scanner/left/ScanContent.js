@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { errors } from "../../translations/errors";
+import { errors } from "../../../translations/errors";
 
 class ScanContent extends Component {
   concatenateZeroIfLessThanTen(number) {

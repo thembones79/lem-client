@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
-import Reader from "./Reader";
+import Reader from "./left/Reader";
+import MiddlePanel from "./middle/MiddlePanel";
+import RightPanel from "./right/RightPanel";
 
 class Scanner extends Component {
   componentDidMount() {
@@ -20,6 +22,8 @@ class Scanner extends Component {
         <hr />
         <div>
           <Reader />
+          <MiddlePanel />
+          <RightPanel />
         </div>
       </div>
     );
@@ -32,6 +36,7 @@ function mapStateToProps(state) {
     authenticated: state.auth.authenticated,
     userType: state.scanner.userType,
     userName: state.scanner.userName,
+    userEmail: state.scanner.userEmail,
     userId: state.scanner.userId,
   };
 }
