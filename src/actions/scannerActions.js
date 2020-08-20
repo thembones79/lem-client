@@ -12,6 +12,10 @@ import {
   CHANGE_LINE,
   CHANGE_LINE_ERROR,
   LOAD_LINE,
+  GET_MENU,
+  GET_MENU_ERROR,
+  PICK_ORDER,
+  PICK_ORDER_ERROR,
 } from "./types";
 import { ROOT_URL } from "../config";
 
@@ -131,3 +135,45 @@ export const pickLine = (currentLineId, newLineId, userName) => async (
 };
 
 export const loadLine = (data) => ({ type: LOAD_LINE, payload: data });
+
+export const getMenu = () => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      `${ROOT_URL}/api/menu`,
+
+      {
+        headers: { authorization: localStorage.getItem("token") },
+      }
+    );
+
+    //update state
+    dispatch({ type: GET_MENU, payload: response.data });
+  } catch (e) {
+    dispatch({ type: GET_MENU_ERROR, payload: e.message });
+  }
+};
+
+export const pickOrder = (orderNumber) => async (dispatch) => {
+  try {
+    const dashedOrderNumber = orderNumber.replace(/\//g, "-");
+    const response = await axios.get(
+      `${ROOT_URL}/api/order/${dashedOrderNumber}`,
+
+      {
+        headers: { authorization: localStorage.getItem("token") },
+      }
+    );
+
+    //update state
+    dispatch({
+      type: PICK_ORDER,
+      payload: {
+        orderNumberFromMenu: orderNumber,
+        orderDetails: response.data,
+      },
+    });
+    localStorage.setItem("order", orderNumber);
+  } catch (e) {
+    dispatch({ type: PICK_ORDER_ERROR, payload: e.message });
+  }
+};

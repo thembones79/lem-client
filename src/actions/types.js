@@ -15,3 +15,7 @@ export const PICK_LINE_ERROR = "pick_line_error";
 export const CHANGE_LINE = "change_line";
 export const CHANGE_LINE_ERROR = "change_line_error";
 export const LOAD_LINE = "load_line";
+export const GET_MENU = "get_menu";
+export const GET_MENU_ERROR = "get_menu_error";
+export const PICK_ORDER = "pick_order";
+export const PICK_ORDER_ERROR = "pick_order_error";

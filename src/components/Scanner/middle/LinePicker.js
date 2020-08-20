@@ -55,8 +55,6 @@ class LinePicker extends Component {
               name="line"
               type="text"
               component="select"
-              value="02"
-              selected="02"
               onChange={this.handleLineChange}
               required
             >

@@ -7,7 +7,12 @@ import {
   GET_LINES,
   GET_LINES_ERROR,
   PICK_LINE,
+  PICK_LINE_ERROR,
   LOAD_LINE,
+  GET_MENU,
+  GET_MENU_ERROR,
+  PICK_ORDER,
+  PICK_ORDER_ERROR,
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -17,6 +22,8 @@ const INITIAL_STATE = {
   userName: "",
   userId: "",
   userEmail: "",
+  pickedOrder: "",
+  orderDetails: {},
   existingOrder: {
     scans: [
       {
@@ -70,11 +77,34 @@ export default function (state = INITIAL_STATE, action) {
         pickedLine: action.payload,
       };
 
+    case PICK_LINE_ERROR:
+      return { ...state, errorMessage: action.payload };
+
     case LOAD_LINE:
       return {
         ...state,
         initialLine: action.payload,
       };
+
+    case GET_MENU:
+      return {
+        ...state,
+        menu: action.payload,
+      };
+
+    case GET_MENU_ERROR:
+      return { ...state, errorMessage: action.payload };
+
+    case PICK_ORDER:
+      return {
+        ...state,
+        pickedOrder: action.payload.orderNumberFromMenu,
+        orderDetails: action.payload.orderDetails,
+      };
+
+    case PICK_ORDER_ERROR:
+      return { ...state, errorMessage: action.payload };
+
     default:
       return state;
   }
