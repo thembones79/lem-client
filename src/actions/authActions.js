@@ -45,6 +45,8 @@ export const signin = (
 
 export const signout = () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("line");
+  localStorage.removeItem("order");
   return {
     type: AUTH_USER,
     payload: "",

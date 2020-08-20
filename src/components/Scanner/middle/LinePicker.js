@@ -7,14 +7,14 @@ import * as actions from "../../../actions";
 class LinePicker extends Component {
   componentDidMount() {
     this.props.getLines();
-    this.props.loadLine({ line: localStorage.getItem("line") });
+    //   this.props.loadLine({ line: localStorage.getItem("line") });
   }
 
   handleLineChange = (formProps) => {
     const currentLineId = this.props.initialValues.line;
     const newLineId = formProps.target.value;
     const userName = this.props.userName;
-    this.props.loadLine({ line: localStorage.getItem("line") });
+    //  this.props.loadLine({ line: localStorage.getItem("line") });
     this.props.pickLine(currentLineId, newLineId, userName);
   };
 
@@ -72,9 +72,9 @@ class LinePicker extends Component {
 function mapStateToProps(state) {
   return {
     errorMessage: state.auth.errorMessage,
-    initialValues: state.scanner.initialLine,
+    initialValues: { line: localStorage.getItem("line") },
     userName: state.scanner.userName,
-    line: state.scanner.pickedLine,
+    line: state.scanner.pickedLine || localStorage.getItem("line"),
     enableReinitialize: true,
     lines: state.scanner.lines,
   };
