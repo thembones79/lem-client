@@ -4,7 +4,10 @@ import * as actions from "../../actions";
 
 class Signout extends Component {
   componentDidMount() {
-    this.props.freeLine(this.props.line); // free ocuppied line
+    if (this.props.line) {
+      this.props.freeLine(this.props.line); // free ocuppied line
+    }
+
     this.props.signout(); // sigout is a name of action creator
   }
   render() {
