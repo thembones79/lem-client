@@ -7,21 +7,11 @@ import * as actions from "../../../actions";
 class OrderPicker extends Component {
   componentDidMount() {
     this.props.getMenu();
-    // this.props.loadOrder({ order: localStorage.getItem("order") });
   }
 
   handleOrderChange = (formProps) => {
     const orderNumber = formProps.target.value;
-    /*
-    const currentorderId = this.props.initialValues.order;
-    const neworderId = formProps.target.value;
-    const userName = this.props.userName;
-    this.props.loadorder({ order: localStorage.getItem("order") });
-    this.props.pickorder(currentorderId, neworderId, userName);
-
-    */
     this.props.pickOrder(orderNumber);
-    console.log({ val: formProps.target.value });
   };
 
   renderAlert() {
@@ -33,7 +23,7 @@ class OrderPicker extends Component {
   renderOptions() {
     if (this.props.menu) {
       const orders = this.props.menu.menuContent;
-      console.log(orders);
+
       return (
         <>
           {orders.map((order) => {
@@ -52,7 +42,6 @@ class OrderPicker extends Component {
   }
 
   render() {
-    console.log({ propsiki: this.props });
     return (
       <div>
         <form>
@@ -81,7 +70,7 @@ function mapStateToProps(state) {
     errorMessage: state.auth.errorMessage,
     initialValues: { order: localStorage.getItem("order") },
     userName: state.scanner.userName,
-    orderNumber: state.scanner.pickedOrder,
+    orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
     orderDetails: state.scanner.orderDetails,
     enableReinitialize: true,
     menu: state.scanner.menu,

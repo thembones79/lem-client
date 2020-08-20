@@ -9,9 +9,6 @@ import {
   GET_LINES_ERROR,
   PICK_LINE,
   PICK_LINE_ERROR,
-  CHANGE_LINE,
-  CHANGE_LINE_ERROR,
-  LOAD_LINE,
   GET_MENU,
   GET_MENU_ERROR,
   PICK_ORDER,
@@ -97,7 +94,7 @@ export const pickLine = (currentLineId, newLineId, userName) => async (
   dispatch
 ) => {
   try {
-    const response = await axios.put(
+    await axios.put(
       `${ROOT_URL}/api/line/status`,
       {
         lineId: currentLineId || newLineId,
@@ -108,13 +105,6 @@ export const pickLine = (currentLineId, newLineId, userName) => async (
       }
     );
 
-    //update state
-    dispatch({ type: CHANGE_LINE, payload: response.data });
-  } catch (e) {
-    dispatch({ type: CHANGE_LINE_ERROR, payload: e.message });
-  }
-
-  try {
     await axios.put(
       `${ROOT_URL}/api/line/status`,
       {
@@ -134,7 +124,25 @@ export const pickLine = (currentLineId, newLineId, userName) => async (
   }
 };
 
-export const loadLine = (data) => ({ type: LOAD_LINE, payload: data });
+export const freeLine = (lineId) => async (dispatch) => {
+  try {
+    await axios.put(
+      `${ROOT_URL}/api/line/status`,
+      {
+        lineId,
+        lineStatus: "free",
+      },
+      {
+        headers: { authorization: localStorage.getItem("token") },
+      }
+    );
+
+    //update state
+    dispatch({ type: PICK_LINE, payload: "" });
+  } catch (e) {
+    dispatch({ type: PICK_LINE_ERROR, payload: e.message });
+  }
+};
 
 export const getMenu = () => async (dispatch) => {
   try {

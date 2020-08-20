@@ -4,11 +4,14 @@ import * as actions from "../../actions";
 
 class Signout extends Component {
   componentDidMount() {
-    this.props.signout(); // sigbout is a name of action creator
+    this.props.freeLine(this.props.line); // free ocuppied line
+    this.props.signout(); // sigout is a name of action creator
   }
   render() {
     return <div>Sorry to see you go</div>;
   }
 }
-
-export default connect(null, actions)(Signout);
+function mapStateToProps(state) {
+  return { line: state.scanner.pickedLine || localStorage.getItem("line") };
+}
+export default connect(mapStateToProps, actions)(Signout);

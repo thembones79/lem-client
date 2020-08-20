@@ -8,7 +8,6 @@ import {
   GET_LINES_ERROR,
   PICK_LINE,
   PICK_LINE_ERROR,
-  LOAD_LINE,
   GET_MENU,
   GET_MENU_ERROR,
   PICK_ORDER,
@@ -79,12 +78,6 @@ export default function (state = INITIAL_STATE, action) {
 
     case PICK_LINE_ERROR:
       return { ...state, errorMessage: action.payload };
-
-    case LOAD_LINE:
-      return {
-        ...state,
-        initialLine: action.payload,
-      };
 
     case GET_MENU:
       return {
