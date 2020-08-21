@@ -3,6 +3,7 @@ import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import { renderTime } from "../../../utils/renderTime";
 
 class OrderPicker extends Component {
   componentDidMount() {
@@ -17,6 +18,13 @@ class OrderPicker extends Component {
   renderAlert() {
     if (this.props.errorMessage) {
       return <div>{this.props.errorMessage}</div>;
+    }
+  }
+
+  renderTimestamp() {
+    if (this.props.menu) {
+      const { timestamp } = this.props.menu;
+      return <span>(Sync time: {renderTime(timestamp)})</span>;
     }
   }
 
@@ -46,7 +54,7 @@ class OrderPicker extends Component {
       <div>
         <form>
           <fieldset>
-            <label htmlFor="order">order</label>
+            <label htmlFor="order">order {this.renderTimestamp()}</label>
             <Field
               name="order"
               type="text"
