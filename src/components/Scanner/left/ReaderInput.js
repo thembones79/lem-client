@@ -4,13 +4,10 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
 
-const _line = "5f2574bb21148083191d0f75";
-const _user = "5f194c826f17a53d07525068";
-const orderNumber = "20/832";
-
 class ReaderInput extends Component {
   onSubmit = (formProps) => {
-    this.props.insertScan(formProps, _line, _user, orderNumber);
+    const { orderNumber, lineId, userId } = this.props;
+    this.props.insertScan(formProps, lineId, userId, orderNumber);
     this.props.reset();
   };
 
@@ -20,6 +17,7 @@ class ReaderInput extends Component {
     }
   }
   render() {
+    console.log({ propsyReaderInputa: this.props });
     const { handleSubmit } = this.props;
     return (
       <div>
@@ -44,8 +42,14 @@ class ReaderInput extends Component {
 
 function mapStateToProps(state) {
   return {
-    errorMessage: state.auth.errorMessage,
+    errorMessage: state.scanner.errorMessage,
     existingOrder: state.scanner.existingOrder,
+    userId: state.scanner.userId,
+    orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
+    lineId: state.scanner.pickedLine || localStorage.getItem("line"),
+    orderDetails: state.scanner.orderDetails,
+    enableReinitialize: true,
+    menu: state.scanner.menu,
   };
 }
 

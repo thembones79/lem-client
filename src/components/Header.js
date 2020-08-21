@@ -49,7 +49,7 @@ class Header extends Component {
     return (
       <div className="header">
         <Link className="header__link" to="/">
-          Redux Auth
+          Riverdi LEM
         </Link>
         {this.renderLinks()}
       </div>

@@ -23,6 +23,7 @@ const INITIAL_STATE = {
   userEmail: "",
   pickedOrder: "",
   orderDetails: {},
+  errorMessage: "",
   existingOrder: {
     scans: [
       {
