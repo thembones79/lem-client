@@ -7,14 +7,13 @@ import * as actions from "../../../actions";
 class LinePicker extends Component {
   componentDidMount() {
     this.props.getLines();
-    //   this.props.loadLine({ line: localStorage.getItem("line") });
   }
 
   handleLineChange = (formProps) => {
     const currentLineId = this.props.initialValues.line;
     const newLineId = formProps.target.value;
     const userName = this.props.userName;
-    //  this.props.loadLine({ line: localStorage.getItem("line") });
+
     this.props.pickLine(currentLineId, newLineId, userName);
   };
 
