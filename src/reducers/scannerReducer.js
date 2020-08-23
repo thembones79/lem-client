@@ -12,6 +12,17 @@ import {
   GET_MENU_ERROR,
   PICK_ORDER,
   PICK_ORDER_ERROR,
+  CREATE_ORDER,
+  CREATE_ORDER_ERROR,
+  ENABLE_READER_INPUT,
+  DISABLE_READER_INPUT,
+  ADD_BREAK_START,
+  ADD_BREAK_START_ERROR,
+  ADD_BREAK_END,
+  ADD_BREAK_END_ERROR,
+  SET_ORDER_PAUSE_STATUS,
+  PAUSE_ORDER,
+  RESUME_ORDER,
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -22,8 +33,12 @@ const INITIAL_STATE = {
   userId: "",
   userEmail: "",
   pickedOrder: "",
+  isPaused: false,
+  isRunning: false,
   orderDetails: {},
   errorMessage: "",
+  readerInputState: { isDisabled: 1 },
+  newOrder: {},
   existingOrder: {
     scans: [
       {
@@ -98,6 +113,57 @@ export default function (state = INITIAL_STATE, action) {
 
     case PICK_ORDER_ERROR:
       return { ...state, errorMessage: action.payload };
+
+    case CREATE_ORDER:
+      return {
+        ...state,
+        newOrder: action.payload.order,
+        orderDetails: action.payload.order,
+        existingOrder: action.payload.order,
+      };
+
+    case CREATE_ORDER_ERROR:
+      return { ...state, errorMessage: action.payload };
+
+    case ENABLE_READER_INPUT:
+      return { ...state, readerInputState: action.payload };
+
+    case DISABLE_READER_INPUT:
+      return { ...state, readerInputState: action.payload };
+
+    case ADD_BREAK_START:
+      return {
+        ...state,
+        existingOrder: action.payload.existingOrder,
+      };
+    case ADD_BREAK_START_ERROR:
+      return { ...state, errorMessage: action.payload };
+
+    case ADD_BREAK_END:
+      return {
+        ...state,
+        existingOrder: action.payload.existingOrder,
+      };
+    case ADD_BREAK_END_ERROR:
+      return { ...state, errorMessage: action.payload };
+
+    case SET_ORDER_PAUSE_STATUS:
+      return {
+        ...state,
+        isRunning: action.payload,
+      };
+
+    case PAUSE_ORDER:
+      return {
+        ...state,
+        isRunning: action.payload.isRunning,
+      };
+
+    case RESUME_ORDER:
+      return {
+        ...state,
+        isRunning: action.payload.isRunning,
+      };
 
     default:
       return state;

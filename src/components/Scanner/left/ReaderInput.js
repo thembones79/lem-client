@@ -5,6 +5,18 @@ import { connect } from "react-redux";
 import * as actions from "../../../actions";
 
 class ReaderInput extends Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.existingOrder !== prevProps.existingOrder) {
+      if (!this.props.existingOrder) {
+        this.props.disableReaderInput();
+      } else if (this.props.isRunning) {
+        this.props.enableReaderInput();
+      } else {
+        this.props.disableReaderInput();
+      }
+    }
+  }
+
   onSubmit = (formProps) => {
     const { orderNumber, lineId, userId } = this.props;
     this.props.insertScan(formProps, lineId, userId, orderNumber);
@@ -17,8 +29,8 @@ class ReaderInput extends Component {
     }
   }
   render() {
-    console.log({ propsyReaderInputa: this.props });
-    const { handleSubmit } = this.props;
+    const { handleSubmit, readerInputState } = this.props;
+    const { isDisabled } = readerInputState;
     return (
       <div>
         <form onSubmit={handleSubmit(this.onSubmit)}>
@@ -29,6 +41,7 @@ class ReaderInput extends Component {
               type="text"
               component="input"
               autoComplete="none"
+              disabled={isDisabled}
               autoFocus
             />
           </fieldset>
@@ -50,6 +63,9 @@ function mapStateToProps(state) {
     orderDetails: state.scanner.orderDetails,
     enableReinitialize: true,
     menu: state.scanner.menu,
+    isPaused: state.scanner.isPaused,
+    isRunning: state.scanner.isRunning,
+    readerInputState: state.scanner.readerInputState,
   };
 }
 

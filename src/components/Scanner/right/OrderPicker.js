@@ -13,6 +13,7 @@ class OrderPicker extends Component {
   handleOrderChange = (formProps) => {
     const orderNumber = formProps.target.value;
     this.props.pickOrder(orderNumber);
+    this.props.getOrder(orderNumber);
   };
 
   renderAlert() {
@@ -50,6 +51,7 @@ class OrderPicker extends Component {
   }
 
   render() {
+    const isReaderInputEnabled = !this.props.readerInputState.isDisabled;
     return (
       <div>
         <form>
@@ -61,6 +63,8 @@ class OrderPicker extends Component {
               component="select"
               onChange={this.handleOrderChange}
               required
+              // because it will be always opposite to reader input enabled/disabled state
+              disabled={isReaderInputEnabled}
             >
               <option />
               {this.renderOptions()}
@@ -82,6 +86,7 @@ function mapStateToProps(state) {
     orderDetails: state.scanner.orderDetails,
     enableReinitialize: true,
     menu: state.scanner.menu,
+    readerInputState: state.scanner.readerInputState,
   };
 }
 

@@ -45,6 +45,7 @@ class LinePicker extends Component {
   }
 
   render() {
+    const isReaderInputEnabled = !this.props.readerInputState.isDisabled;
     return (
       <div>
         <form>
@@ -56,6 +57,8 @@ class LinePicker extends Component {
               component="select"
               onChange={this.handleLineChange}
               required
+              // because it will be always opposite to reader input enabled/disabled state
+              disabled={isReaderInputEnabled}
             >
               <option />
               {this.renderOptions()}
@@ -75,7 +78,9 @@ function mapStateToProps(state) {
     userName: state.scanner.userName,
     line: state.scanner.pickedLine || localStorage.getItem("line"),
     enableReinitialize: true,
+    isPaused: state.scanner.isPaused,
     lines: state.scanner.lines,
+    readerInputState: state.scanner.readerInputState,
   };
 }
 
