@@ -9,30 +9,6 @@ class ScanList extends Component {
     this.props.getOrder(this.props.orderNumber);
   }
 
-  renderOrderDetails() {
-    if (this.props.menu) {
-      const orders = this.props.menu.menuContent;
-
-      const filteredOrders = orders.filter(
-        (order) => order.orderNumber === this.props.orderNumber
-      );
-
-      return (
-        <>
-          {filteredOrders.map((order) => {
-            const { _id, orderNumber, quantity, customer, partNumber } = order;
-            return (
-              <div
-                key={_id}
-                children={`${orderNumber} - ${customer} - ${partNumber} - [${quantity}]`}
-              />
-            );
-          })}
-        </>
-      );
-    }
-  }
-
   renderScanList() {
     if (this.props.existingOrder) {
       return this.props.existingOrder.scans.map((scan) => (
@@ -46,27 +22,16 @@ class ScanList extends Component {
     }
   }
   render() {
-    return (
-      <div className="reader__scan-list">
-        {this.renderOrderDetails()}
-        {this.renderScanList()}
-      </div>
-    );
+    return <div className="reader__scan-list">{this.renderScanList()}</div>;
   }
 }
 
 function mapStateToProps(state) {
   return {
-    //message: state.scanner.message,
-    // authenticated: state.auth.authenticated,
-    //userType: state.scanner.userType,
-    //userName: state.scanner.userName,
-    //userId: state.scanner.userId,
     orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
     existingOrder: state.scanner.existingOrder,
     orderDetails: state.scanner.orderDetails,
     enableReinitialize: true,
-    menu: state.scanner.menu,
   };
 }
 

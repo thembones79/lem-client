@@ -93,16 +93,7 @@ const validate = (values) => {
 
   return errors;
 };
-/*
-function validate(formProps) {
-  const errors = {};
-  if (formProps.password !== formProps.passwordConfirm) {
-    errors.password = "Passwords must match";
-  }
 
-  return errors;
-}
-*/
 function mapStateToProps(state) {
   return { errorMessage: state.auth.errorMessage };
 }

@@ -13,6 +13,17 @@ import {
   GET_MENU_ERROR,
   PICK_ORDER,
   PICK_ORDER_ERROR,
+  CREATE_ORDER,
+  CREATE_ORDER_ERROR,
+  ENABLE_READER_INPUT,
+  DISABLE_READER_INPUT,
+  ADD_BREAK_START,
+  ADD_BREAK_START_ERROR,
+  ADD_BREAK_END,
+  ADD_BREAK_END_ERROR,
+  SET_ORDER_PAUSE_STATUS,
+  PAUSE_ORDER,
+  RESUME_ORDER,
 } from "./types";
 import { ROOT_URL } from "../config";
 
@@ -184,4 +195,112 @@ export const pickOrder = (orderNumber) => async (dispatch) => {
   } catch (e) {
     dispatch({ type: PICK_ORDER_ERROR, payload: e.message });
   }
+};
+
+export const createOrder = ({
+  orderNumber,
+  quantity,
+  partNumber,
+  qrCode,
+  tactTime,
+  customer,
+}) => async (dispatch) => {
+  try {
+    const response = await axios.post(
+      `${ROOT_URL}/api/order`,
+      {
+        orderNumber,
+        quantity,
+        partNumber,
+        qrCode,
+        tactTime,
+        customer,
+      },
+      {
+        headers: { authorization: localStorage.getItem("token") },
+      }
+    );
+
+    dispatch({ type: CREATE_ORDER, payload: response.data });
+  } catch (e) {
+    dispatch({
+      type: CREATE_ORDER_ERROR,
+      payload: "Can not create this order - incomplete information",
+    });
+  }
+};
+
+export const enableReaderInput = () => {
+  return {
+    type: ENABLE_READER_INPUT,
+    payload: { isDisabled: 0 },
+  };
+};
+
+export const disableReaderInput = () => {
+  return {
+    type: DISABLE_READER_INPUT,
+    payload: { isDisabled: 1 },
+  };
+};
+
+export const addBreakStart = ({ orderNumber, _line }) => async (dispatch) => {
+  try {
+    const response = await axios.post(
+      `${ROOT_URL}/api/break/start`,
+      {
+        orderNumber,
+        _line,
+      },
+      {
+        headers: { authorization: localStorage.getItem("token") },
+      }
+    );
+
+    //update state
+    dispatch({ type: ADD_BREAK_START, payload: response.data });
+  } catch (e) {
+    dispatch({ type: ADD_BREAK_START_ERROR, payload: e.message });
+  }
+};
+
+export const addBreakEnd = ({ orderNumber, _line }) => async (dispatch) => {
+  try {
+    const response = await axios.post(
+      `${ROOT_URL}/api/break/end`,
+      {
+        orderNumber,
+        _line,
+      },
+      {
+        headers: { authorization: localStorage.getItem("token") },
+      }
+    );
+
+    //update state
+    dispatch({ type: ADD_BREAK_END, payload: response.data });
+  } catch (e) {
+    dispatch({ type: ADD_BREAK_END_ERROR, payload: e.message });
+  }
+};
+
+export const setOrderPauseStatus = (isRunning) => {
+  return {
+    type: SET_ORDER_PAUSE_STATUS,
+    payload: isRunning,
+  };
+};
+
+export const pauseOrder = () => {
+  return {
+    type: PAUSE_ORDER,
+    payload: { isRunning: false },
+  };
+};
+
+export const resumeOrder = () => {
+  return {
+    type: RESUME_ORDER,
+    payload: { isRunning: true },
+  };
 };
