@@ -95,7 +95,12 @@ class OrderButtons extends Component {
     this.endCurrentBreak();
   };
 
-  renderButtons(orderRunningStatus) {
+  handleDeleteClick = () => {
+    const { orderNumber } = this.props;
+    this.props.deleteOrder({ orderNumber });
+  };
+
+  renderStartPauseResumeButtons(orderRunningStatus) {
     if (!this.props.existingOrder) {
       return <button onClick={this.handleStartClick}>START</button>;
     }
@@ -107,8 +112,38 @@ class OrderButtons extends Component {
     }
   }
 
+  renderDeleteButton() {
+    if (this.props.existingOrder) {
+      const isReaderInputEnabled = !this.props.readerInputState.isDisabled;
+      return (
+        <button
+          disabled={isReaderInputEnabled}
+          onClick={this.handleDeleteClick}
+        >
+          DELETE
+        </button>
+      );
+    }
+  }
+
+  renderDeleteConfirmation() {
+    if (this.props.deleteMessage) {
+      return <div>{this.props.deleteMessage}</div>;
+    }
+  }
+
   render() {
-    return <div>{this.renderButtons(this.returnOrderStatus())}</div>;
+    return (
+      <div>
+        <div>
+          {this.renderStartPauseResumeButtons(this.returnOrderStatus())}
+        </div>
+        <div>
+          {this.renderDeleteButton()}
+          {this.renderDeleteConfirmation()}
+        </div>
+      </div>
+    );
   }
 }
 
@@ -123,6 +158,8 @@ function mapStateToProps(state) {
     isPaused: state.scanner.isPaused,
     isRunning: state.scanner.isRunning,
     errorMessage: state.scanner.errorMessage,
+    deleteMessage: state.scanner.deleteMessage,
+    readerInputState: state.scanner.readerInputState,
   };
 }
 export default connect(mapStateToProps, actions)(OrderButtons);

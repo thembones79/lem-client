@@ -14,6 +14,8 @@ import {
   PICK_ORDER_ERROR,
   CREATE_ORDER,
   CREATE_ORDER_ERROR,
+  DELETE_ORDER,
+  DELETE_ORDER_ERROR,
   ENABLE_READER_INPUT,
   DISABLE_READER_INPUT,
   ADD_BREAK_START,
@@ -33,6 +35,7 @@ const INITIAL_STATE = {
   userId: "",
   userEmail: "",
   pickedOrder: "",
+  deleteMessage: "",
   isPaused: false,
   isRunning: false,
   orderDetails: {},
@@ -124,6 +127,15 @@ export default function (state = INITIAL_STATE, action) {
 
     case CREATE_ORDER_ERROR:
       return { ...state, errorMessage: action.payload };
+
+    case DELETE_ORDER:
+      return {
+        ...state,
+        deleteMessage: action.payload.message,
+      };
+
+    case DELETE_ORDER_ERROR:
+      return { ...state, deleteMessage: action.payload };
 
     case ENABLE_READER_INPUT:
       return { ...state, readerInputState: action.payload };

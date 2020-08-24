@@ -15,6 +15,8 @@ import {
   PICK_ORDER_ERROR,
   CREATE_ORDER,
   CREATE_ORDER_ERROR,
+  DELETE_ORDER,
+  DELETE_ORDER_ERROR,
   ENABLE_READER_INPUT,
   DISABLE_READER_INPUT,
   ADD_BREAK_START,
@@ -226,6 +228,26 @@ export const createOrder = ({
     dispatch({
       type: CREATE_ORDER_ERROR,
       payload: "Can not create this order - incomplete information",
+    });
+  }
+};
+
+export const deleteOrder = ({ orderNumber }) => async (dispatch) => {
+  const dashedordernumber = orderNumber.replace(/\//g, "-");
+  try {
+    const response = await axios.delete(
+      `${ROOT_URL}/api/order/${dashedordernumber}`,
+
+      {
+        headers: { authorization: localStorage.getItem("token") },
+      }
+    );
+
+    dispatch({ type: DELETE_ORDER, payload: response.data });
+  } catch (e) {
+    dispatch({
+      type: DELETE_ORDER_ERROR,
+      payload: "Can not delete this order",
     });
   }
 };
