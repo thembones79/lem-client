@@ -6,6 +6,10 @@ import * as actions from "../../../actions";
 
 class ReaderInput extends Component {
   componentDidUpdate(prevProps) {
+    const nastyWayToForceFocusOnInputComponent = document.querySelector(
+      "input"
+    );
+    nastyWayToForceFocusOnInputComponent.focus();
     if (this.props.existingOrder !== prevProps.existingOrder) {
       if (!this.props.existingOrder) {
         this.props.disableReaderInput();
@@ -28,19 +32,23 @@ class ReaderInput extends Component {
       return <div>{this.props.errorMessage}</div>;
     }
   }
+
   render() {
+    console.log({ p: this.props });
     const { handleSubmit, readerInputState } = this.props;
     const { isDisabled } = readerInputState;
     return (
       <div>
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <fieldset>
-            <label htmlFor="email">:::</label>
+            <label htmlFor="scanContent">:::</label>
             <Field
               name="scanContent"
               type="text"
+              id="scanContent"
               component="input"
               autoComplete="none"
+              required
               disabled={isDisabled}
               autoFocus
             />

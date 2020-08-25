@@ -15,6 +15,8 @@ import {
   PICK_ORDER_ERROR,
   CREATE_ORDER,
   CREATE_ORDER_ERROR,
+  CLOSE_ORDER,
+  CLOSE_ORDER_ERROR,
   DELETE_ORDER,
   DELETE_ORDER_ERROR,
   ENABLE_READER_INPUT,
@@ -64,7 +66,10 @@ export const insertScan = (
     //update state
     dispatch({ type: INSERT_SCAN, payload: response.data });
   } catch (e) {
-    dispatch({ type: INSERT_SCAN_ERROR, payload: e.message });
+    dispatch({
+      type: INSERT_SCAN_ERROR,
+      payload: "Please enter some value in the field.",
+    });
   }
 };
 
@@ -232,10 +237,29 @@ export const createOrder = ({
   }
 };
 
+export const closeOrder = ({ orderNumber }) => async (dispatch) => {
+  try {
+    await axios.put(
+      `${ROOT_URL}/api/order/close`,
+      {
+        orderNumber,
+      },
+      {
+        headers: { authorization: localStorage.getItem("token") },
+      }
+    );
+
+    //update state
+    dispatch({ type: CLOSE_ORDER, payload: "closed" });
+  } catch (e) {
+    dispatch({ type: CLOSE_ORDER_ERROR, payload: e.message });
+  }
+};
+
 export const deleteOrder = ({ orderNumber }) => async (dispatch) => {
   const dashedordernumber = orderNumber.replace(/\//g, "-");
   try {
-    const response = await axios.delete(
+    await axios.delete(
       `${ROOT_URL}/api/order/${dashedordernumber}`,
 
       {
@@ -243,7 +267,7 @@ export const deleteOrder = ({ orderNumber }) => async (dispatch) => {
       }
     );
 
-    dispatch({ type: DELETE_ORDER, payload: response.data });
+    dispatch({ type: DELETE_ORDER, payload: "" });
   } catch (e) {
     dispatch({
       type: DELETE_ORDER_ERROR,

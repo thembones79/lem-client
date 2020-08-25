@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
 
@@ -95,6 +96,11 @@ class OrderButtons extends Component {
     this.endCurrentBreak();
   };
 
+  handleFinishClick = () => {
+    const { orderNumber } = this.props;
+    this.props.closeOrder({ orderNumber });
+  };
+
   handleDeleteClick = () => {
     const { orderNumber } = this.props;
     this.props.deleteOrder({ orderNumber });
@@ -105,10 +111,39 @@ class OrderButtons extends Component {
       return <button onClick={this.handleStartClick}>START</button>;
     }
 
-    if (orderRunningStatus) {
-      return <button onClick={this.handlePauseClick}>PAUSE</button>;
+    const { orderStatus } = this.props.existingOrder;
+    if (orderStatus !== "closed") {
+      if (orderRunningStatus) {
+        return <button onClick={this.handlePauseClick}>PAUSE</button>;
+      } else {
+        return <button onClick={this.handleResumeClick}>RESUME</button>;
+      }
     } else {
-      return <button onClick={this.handleResumeClick}>RESUME</button>;
+      return (
+        <div>
+          order completed{" "}
+          <span role="img" aria-label="Confetti">
+            🎉
+          </span>{" "}
+        </div>
+      );
+    }
+  }
+
+  renderFinishButton() {
+    if (this.props.existingOrder) {
+      const { orderStatus } = this.props.existingOrder;
+      if (orderStatus !== "closed") {
+        const isReaderInputEnabled = !this.props.readerInputState.isDisabled;
+        return (
+          <button
+            disabled={isReaderInputEnabled}
+            onClick={this.handleFinishClick}
+          >
+            FINISH
+          </button>
+        );
+      }
     }
   }
 
@@ -126,21 +161,17 @@ class OrderButtons extends Component {
     }
   }
 
-  renderDeleteConfirmation() {
-    if (this.props.deleteMessage) {
-      return <div>{this.props.deleteMessage}</div>;
-    }
-  }
-
   render() {
+    console.log({ propsiki: this.props });
+
     return (
       <div>
         <div>
           {this.renderStartPauseResumeButtons(this.returnOrderStatus())}
         </div>
         <div>
+          {this.renderFinishButton()}
           {this.renderDeleteButton()}
-          {this.renderDeleteConfirmation()}
         </div>
       </div>
     );
@@ -158,7 +189,6 @@ function mapStateToProps(state) {
     isPaused: state.scanner.isPaused,
     isRunning: state.scanner.isRunning,
     errorMessage: state.scanner.errorMessage,
-    deleteMessage: state.scanner.deleteMessage,
     readerInputState: state.scanner.readerInputState,
   };
 }

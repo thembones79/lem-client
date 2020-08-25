@@ -14,6 +14,8 @@ import {
   PICK_ORDER_ERROR,
   CREATE_ORDER,
   CREATE_ORDER_ERROR,
+  CLOSE_ORDER,
+  CLOSE_ORDER_ERROR,
   DELETE_ORDER,
   DELETE_ORDER_ERROR,
   ENABLE_READER_INPUT,
@@ -131,11 +133,23 @@ export default function (state = INITIAL_STATE, action) {
     case DELETE_ORDER:
       return {
         ...state,
-        deleteMessage: action.payload.message,
+        existingOrder: action.payload,
       };
 
     case DELETE_ORDER_ERROR:
-      return { ...state, deleteMessage: action.payload };
+      return { ...state, errorMessage: action.payload };
+
+    case CLOSE_ORDER:
+      return {
+        ...state, // copy the state (level 0)
+        existingOrder: {
+          ...state.existingOrder, // copy the nested object (level 1)
+          orderStatus: action.payload,
+        },
+      };
+
+    case CLOSE_ORDER_ERROR:
+      return { ...state, errorMessage: action.payload };
 
     case ENABLE_READER_INPUT:
       return { ...state, readerInputState: action.payload };
