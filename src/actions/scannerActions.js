@@ -47,7 +47,8 @@ export const insertScan = (
   { scanContent },
   _line,
   _user,
-  orderNumber
+  orderNumber,
+  compareScanQuantitiesAndClose
 ) => async (dispatch) => {
   try {
     const response = await axios.post(
@@ -65,6 +66,7 @@ export const insertScan = (
 
     //update state
     dispatch({ type: INSERT_SCAN, payload: response.data });
+    compareScanQuantitiesAndClose();
   } catch (e) {
     dispatch({
       type: INSERT_SCAN_ERROR,
@@ -86,6 +88,7 @@ export const getOrder = (orderNumber) => async (dispatch) => {
 
     //update state
     dispatch({ type: GET_ORDER, payload: response.data });
+    localStorage.setItem("order", orderNumber);
   } catch (e) {
     dispatch({ type: GET_ORDER_ERROR, payload: e.message });
   }
@@ -252,7 +255,7 @@ export const closeOrder = ({ orderNumber }) => async (dispatch) => {
     //update state
     dispatch({ type: CLOSE_ORDER, payload: "closed" });
   } catch (e) {
-    dispatch({ type: CLOSE_ORDER_ERROR, payload: e.message });
+    dispatch({ type: CLOSE_ORDER_ERROR, payload: e.response.data.error });
   }
 };
 
@@ -306,7 +309,7 @@ export const addBreakStart = ({ orderNumber, _line }) => async (dispatch) => {
     //update state
     dispatch({ type: ADD_BREAK_START, payload: response.data });
   } catch (e) {
-    dispatch({ type: ADD_BREAK_START_ERROR, payload: e.message });
+    dispatch({ type: ADD_BREAK_START_ERROR, payload: e.response.data.error });
   }
 };
 

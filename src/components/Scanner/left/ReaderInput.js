@@ -10,20 +10,51 @@ class ReaderInput extends Component {
       "input"
     );
     nastyWayToForceFocusOnInputComponent.focus();
-    if (this.props.existingOrder !== prevProps.existingOrder) {
-      if (!this.props.existingOrder) {
-        this.props.disableReaderInput();
-      } else if (this.props.isRunning) {
-        this.props.enableReaderInput();
-      } else {
-        this.props.disableReaderInput();
+
+    if (this.props.existingOrder) {
+      if (this.props.existingOrder !== prevProps.existingOrder) {
+        if (this.props.existingOrder.orderStatus !== "closed") {
+        }
+        if (!this.props.existingOrder) {
+          this.props.disableReaderInput();
+        } else if (this.props.isRunning) {
+          this.props.enableReaderInput();
+        } else {
+          this.props.disableReaderInput();
+        }
+      }
+    }
+  }
+
+  compareScanQuantitiesAndClose() {
+    if (this.props.existingOrder) {
+      const {
+        orderNumber,
+        _line,
+        isOrderedQuantityMatchesValidScansQuantity,
+      } = this.props;
+      const { orderStatus } = this.props.existingOrder;
+
+      if (
+        isOrderedQuantityMatchesValidScansQuantity &&
+        orderStatus !== "closed"
+      ) {
+        this.props.addBreakStart({ orderNumber, _line });
+
+        this.props.pauseOrder();
+
+        this.props.closeOrder({ orderNumber });
+        // for clearing cached state
+        window.location.reload(false);
       }
     }
   }
 
   onSubmit = (formProps) => {
-    const { orderNumber, lineId, userId } = this.props;
-    this.props.insertScan(formProps, lineId, userId, orderNumber);
+    const { orderNumber, _line, userId } = this.props;
+    this.props.insertScan(formProps, _line, userId, orderNumber, () => {
+      this.compareScanQuantitiesAndClose();
+    });
     this.props.reset();
   };
 
@@ -34,7 +65,6 @@ class ReaderInput extends Component {
   }
 
   render() {
-    console.log({ p: this.props });
     const { handleSubmit, readerInputState } = this.props;
     const { isDisabled } = readerInputState;
     return (
@@ -67,8 +97,9 @@ function mapStateToProps(state) {
     existingOrder: state.scanner.existingOrder,
     userId: state.scanner.userId,
     orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
-    lineId: state.scanner.pickedLine || localStorage.getItem("line"),
-    orderDetails: state.scanner.orderDetails,
+    _line: state.scanner.pickedLine || localStorage.getItem("line"),
+    isOrderedQuantityMatchesValidScansQuantity:
+      state.scanner.isOrderedQuantityMatchesValidScansQuantity,
     enableReinitialize: true,
     menu: state.scanner.menu,
     isPaused: state.scanner.isPaused,
