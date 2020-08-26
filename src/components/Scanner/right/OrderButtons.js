@@ -188,9 +188,7 @@ function mapStateToProps(state) {
   return {
     orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
     _line: state.scanner.pickedLine || localStorage.getItem("line"),
-
     existingOrder: state.scanner.existingOrder,
-
     menu: state.scanner.menu,
     isPaused: state.scanner.isPaused,
     isRunning: state.scanner.isRunning,
