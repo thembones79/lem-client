@@ -83,7 +83,7 @@ function mapStateToProps(state) {
     initialValues: { order: localStorage.getItem("order") },
     userName: state.scanner.userName,
     orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
-    orderDetails: state.scanner.orderDetails,
+
     enableReinitialize: true,
     menu: state.scanner.menu,
     readerInputState: state.scanner.readerInputState,

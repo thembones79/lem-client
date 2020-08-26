@@ -6,7 +6,9 @@ import "./ScanListStyle.scss";
 
 class ScanList extends Component {
   componentDidMount() {
-    this.props.getOrder(this.props.orderNumber);
+    if (this.props.orderNumber) {
+      this.props.getOrder(this.props.orderNumber);
+    }
   }
 
   renderScanList() {
@@ -29,8 +31,10 @@ class ScanList extends Component {
 function mapStateToProps(state) {
   return {
     orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
+    _line: state.scanner.pickedLine || localStorage.getItem("line"),
     existingOrder: state.scanner.existingOrder,
-    orderDetails: state.scanner.orderDetails,
+    isOrderedQuantityMatchesValidScansQuantity:
+      state.scanner.isOrderedQuantityMatchesValidScansQuantity,
     enableReinitialize: true,
   };
 }

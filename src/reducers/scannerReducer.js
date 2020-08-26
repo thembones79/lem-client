@@ -40,10 +40,10 @@ const INITIAL_STATE = {
   deleteMessage: "",
   isPaused: false,
   isRunning: false,
+  isOrderedQuantityMatchesValidScansQuantity: false,
   orderDetails: {},
   errorMessage: "",
   readerInputState: { isDisabled: 1 },
-  newOrder: {},
   existingOrder: {
     scans: [
       {
@@ -54,6 +54,28 @@ const INITIAL_STATE = {
       },
     ],
   },
+};
+
+const compareOrderedQuantityWithValidScansQuantity = (existingOrder) => {
+  if (existingOrder) {
+    const { scans } = existingOrder;
+    if (scans.length === 0) {
+      return false;
+    }
+    const scansWithoutErrors = scans
+      .filter((scan) => scan.errorCode === "e000")
+      .map((scan) => scan.scanContent);
+    const orderedQuantity = existingOrder.quantity;
+    const currentlyScannedQuantity = scansWithoutErrors.length;
+
+    if (orderedQuantity === currentlyScannedQuantity) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -71,6 +93,10 @@ export default function (state = INITIAL_STATE, action) {
       return {
         ...state,
         existingOrder: action.payload.existingOrder,
+        isOrderedQuantityMatchesValidScansQuantity: compareOrderedQuantityWithValidScansQuantity(
+          action.payload.existingOrder
+        ),
+        errorMessage: "",
       };
     case INSERT_SCAN_ERROR:
       return { ...state, errorMessage: action.payload };
@@ -79,6 +105,9 @@ export default function (state = INITIAL_STATE, action) {
       return {
         ...state,
         existingOrder: action.payload.existingOrder,
+        isOrderedQuantityMatchesValidScansQuantity: compareOrderedQuantityWithValidScansQuantity(
+          action.payload.existingOrder
+        ),
       };
     case GET_ORDER_ERROR:
       return { ...state, errorMessage: action.payload };
@@ -122,8 +151,6 @@ export default function (state = INITIAL_STATE, action) {
     case CREATE_ORDER:
       return {
         ...state,
-        newOrder: action.payload.order,
-        orderDetails: action.payload.order,
         existingOrder: action.payload.order,
       };
 

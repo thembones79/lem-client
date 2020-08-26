@@ -6,7 +6,7 @@ import * as actions from "../../../actions";
 class OrderButtons extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.existingOrder !== prevProps.existingOrder) {
-      if (this.returnOrderStatus()) {
+      if (this.returnOrderRunningStatus()) {
         this.props.enableReaderInput();
       } else {
         this.props.disableReaderInput();
@@ -14,7 +14,7 @@ class OrderButtons extends Component {
     }
   }
 
-  returnOrderStatus() {
+  returnOrderRunningStatus() {
     const { _line } = this.props;
     if (this.props.existingOrder) {
       if (this.props.existingOrder.breaks) {
@@ -161,20 +161,26 @@ class OrderButtons extends Component {
     }
   }
 
-  render() {
-    console.log({ propsiki: this.props });
+  renderAllTheButtons() {
+    if (this.props.orderNumber && this.props._line) {
+      return (
+        <div>
+          <div>
+            {this.renderStartPauseResumeButtons(
+              this.returnOrderRunningStatus()
+            )}
+          </div>
+          <div>
+            {this.renderFinishButton()}
+            {this.renderDeleteButton()}
+          </div>
+        </div>
+      );
+    }
+  }
 
-    return (
-      <div>
-        <div>
-          {this.renderStartPauseResumeButtons(this.returnOrderStatus())}
-        </div>
-        <div>
-          {this.renderFinishButton()}
-          {this.renderDeleteButton()}
-        </div>
-      </div>
-    );
+  render() {
+    return <div>{this.renderAllTheButtons()}</div>;
   }
 }
 
@@ -182,9 +188,9 @@ function mapStateToProps(state) {
   return {
     orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
     _line: state.scanner.pickedLine || localStorage.getItem("line"),
-    orderDetails: state.scanner.orderDetails,
+
     existingOrder: state.scanner.existingOrder,
-    newOrder: state.scanner.newOrder,
+
     menu: state.scanner.menu,
     isPaused: state.scanner.isPaused,
     isRunning: state.scanner.isRunning,
