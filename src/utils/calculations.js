@@ -1,3 +1,5 @@
+import { renderTime } from "./renderTime";
+
 export const getTactTime = ({ orderNumber, menuContent }) => {
   const orders = menuContent;
   if (!orderNumber || !orders) {
@@ -242,4 +244,40 @@ export const getEfficiency = ({
   const mct = getMeanCycleTime({ _line, existingOrder });
   if (!mct || !tt) return 0;
   return Math.floor((tt / mct) * 100);
+};
+
+export const getEstDuration = ({ existingOrder, _line }) => {
+  if (existingOrder && _line) {
+    const { quantity } = existingOrder;
+    const breaksTime = Math.floor(
+      getBreaksTime({ _line, existingOrder }) / 1000
+    );
+    return getMeanCycleTime({ _line, existingOrder }) * quantity + breaksTime;
+  } else return 0;
+};
+
+export const getEstCompletionTime = ({ existingOrder, _line }) => {
+  if (existingOrder && _line) {
+    const { orderAddedAt } = existingOrder;
+    const estCompletionTimestamp =
+      getEstDuration({ _line, existingOrder }) * 1000 +
+      new Date(orderAddedAt).getTime();
+    return renderTime(estCompletionTimestamp);
+  } else return "---- -- -- --:--:--";
+};
+
+export const getRealDuration = ({ existingOrder, _line }) => {
+  if (existingOrder && _line) {
+    return Math.floor(getGrossDuration({ _line, existingOrder }) / 1000);
+  } else return 0;
+};
+
+export const getRealCompletionTime = ({ existingOrder, _line }) => {
+  if (existingOrder && _line) {
+    const { scans } = existingOrder;
+    if (scans !== []) {
+      const realCompletionTimestamp = scans[0].timeStamp;
+      return renderTime(realCompletionTimestamp);
+    }
+  } else return "---- -- -- --:--:--";
 };

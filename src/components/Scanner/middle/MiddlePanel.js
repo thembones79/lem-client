@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import LinePicker from "./LinePicker";
 import OrderInfoCard from "./OrderInfoCard";
 import EfficiencyCard from "./EfficiencyCard";
+import DurationTimeCard from "./DurationTimeCard";
 
 class MiddlePanel extends Component {
   render() {
@@ -10,6 +11,7 @@ class MiddlePanel extends Component {
         <LinePicker />
         <OrderInfoCard />
         <EfficiencyCard />
+        <DurationTimeCard />
       </div>
     );
   }
