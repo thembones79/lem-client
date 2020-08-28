@@ -46,7 +46,6 @@ class OrderInfoCard extends Component {
   renderQuantity() {
     if (this.props.existingOrder) {
       const { quantity } = this.props.existingOrder;
-      console.log({ quantity });
       return quantity;
     } else {
       return "--";

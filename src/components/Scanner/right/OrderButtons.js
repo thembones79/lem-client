@@ -6,7 +6,10 @@ import * as actions from "../../../actions";
 class OrderButtons extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.existingOrder !== prevProps.existingOrder) {
-      if (this.returnOrderRunningStatus()) {
+      if (
+        this.returnOrderRunningStatus() &&
+        this.props.existingOrder.orderStatus !== "closed"
+      ) {
         this.props.enableReaderInput();
       } else {
         this.props.disableReaderInput();
@@ -19,9 +22,7 @@ class OrderButtons extends Component {
     if (this.props.existingOrder) {
       if (this.props.existingOrder.breaks) {
         const { breaks } = this.props.existingOrder;
-
         const thisLineBreaks = breaks.filter((item) => item._line === _line);
-
         if (thisLineBreaks.length === 0) {
           return true;
         }

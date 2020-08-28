@@ -108,9 +108,10 @@ export default function (state = INITIAL_STATE, action) {
         isOrderedQuantityMatchesValidScansQuantity: compareOrderedQuantityWithValidScansQuantity(
           action.payload.existingOrder
         ),
+        errorMessage: "",
       };
     case GET_ORDER_ERROR:
-      return { ...state, errorMessage: action.payload };
+      return { ...state, errorMessage: "" };
 
     case GET_LINES:
       return {
@@ -124,10 +125,11 @@ export default function (state = INITIAL_STATE, action) {
       return {
         ...state,
         pickedLine: action.payload,
+        errorMessage: "",
       };
 
     case PICK_LINE_ERROR:
-      return { ...state, errorMessage: action.payload };
+      return { ...state, errorMessage: "" };
 
     case GET_MENU:
       return {
@@ -143,10 +145,11 @@ export default function (state = INITIAL_STATE, action) {
         ...state,
         pickedOrder: action.payload.orderNumberFromMenu,
         orderDetails: action.payload.orderDetails,
+        errorMessage: "",
       };
 
     case PICK_ORDER_ERROR:
-      return { ...state, errorMessage: action.payload };
+      return { ...state, errorMessage: "" };
 
     case CREATE_ORDER:
       return {
