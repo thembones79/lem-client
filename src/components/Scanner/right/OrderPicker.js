@@ -79,11 +79,9 @@ class OrderPicker extends Component {
 
 function mapStateToProps(state) {
   return {
-    errorMessage: state.auth.errorMessage,
     initialValues: { order: localStorage.getItem("order") },
     userName: state.scanner.userName,
     orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
-
     enableReinitialize: true,
     menu: state.scanner.menu,
     readerInputState: state.scanner.readerInputState,
