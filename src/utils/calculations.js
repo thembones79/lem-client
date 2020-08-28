@@ -1,4 +1,5 @@
-export const getTactTime = (orderNumber, orders) => {
+export const getTactTime = ({ orderNumber, menuContent }) => {
+  const orders = menuContent;
   if (!orderNumber || !orders) {
     return 0;
   }
@@ -11,7 +12,8 @@ export const getTactTime = (orderNumber, orders) => {
   return orderDetails.tactTime;
 };
 
-export const getBreaksTime = (_line, breaks) => {
+export const getBreaksTime = ({ _line, existingOrder }) => {
+  const { breaks } = existingOrder;
   if (!_line || !breaks) {
     return 0;
   }
@@ -30,10 +32,15 @@ export const getBreaksTime = (_line, breaks) => {
   return breakTimesInMilliseconds;
 };
 
-export const getBreaksInLastCycle = (_line, ealierScan, laterScan) => {
+export const getBreaksInLastCycle = ({
+  _line,
+  ealierScan,
+  laterScan,
+  existingOrder,
+}) => {
   const earlier = new Date(ealierScan).getTime();
   const later = new Date(laterScan).getTime();
-  const { breaks } = this.props.existingOrder;
+  const { breaks } = existingOrder;
   if (!_line || !breaks) {
     return 0;
   }
@@ -55,9 +62,9 @@ export const getBreaksInLastCycle = (_line, ealierScan, laterScan) => {
   return breakTimesInMilliseconds;
 };
 
-export const getGrossDuration = (_line) => {
-  if (this.props.existingOrder) {
-    const { scans, orderAddedAt } = this.props.existingOrder;
+export const getGrossDuration = ({ _line, existingOrder }) => {
+  if (existingOrder) {
+    const { scans, orderAddedAt } = existingOrder;
 
     if (!_line || !scans || !orderAddedAt) {
       return 0;
@@ -80,7 +87,7 @@ export const getGrossDuration = (_line) => {
         (scan) => scan.errorCode === "e000" && scan._line === _line
       );
 
-      // now we know that there are scans bun no on this line, so...
+      // now we know that there are scans but no on this line, so...
       if (scansWithoutErrorsOnThisLine.length === 0) {
         return 0;
       }
@@ -102,9 +109,9 @@ export const getGrossDuration = (_line) => {
   } else return 0;
 };
 
-export const getNetDuration = (_line) => {
-  if (this.props.existingOrder) {
-    const { scans, orderAddedAt } = this.props.existingOrder;
+export const getNetDuration = ({ _line, existingOrder }) => {
+  if (existingOrder) {
+    const { scans, orderAddedAt } = existingOrder;
 
     if (!_line || !scans || !orderAddedAt) {
       return 0;
@@ -117,13 +124,13 @@ export const getNetDuration = (_line) => {
       return 0;
     }
     if (scansWithoutErrors.length === 1) {
-      return this.getGrossDuration(_line);
+      return getGrossDuration(_line);
     } else {
       const scansWithoutErrorsOnThisLine = scans.filter(
         (scan) => scan.errorCode === "e000" && scan._line === _line
       );
 
-      // now we know that there are scans bun no on this line, so...
+      // now we know that there are scans but no on this line, so...
       if (scansWithoutErrorsOnThisLine.length === 0) {
         return 0;
       }
@@ -131,15 +138,18 @@ export const getNetDuration = (_line) => {
         // we can not measure this timestamp against orderAddedAt, so...
         return 0;
       } else {
-        return this.getGrossDuration(_line) - this.getBreaksTime(_line);
+        return (
+          getGrossDuration({ _line, existingOrder }) -
+          getBreaksTime({ _line, existingOrder })
+        );
       }
     }
   } else return 0;
 };
 
-export const getMeanCycleTime = (_line) => {
-  if (this.props.existingOrder) {
-    const { scans, orderAddedAt } = this.props.existingOrder;
+export const getMeanCycleTime = ({ _line, existingOrder }) => {
+  if (existingOrder) {
+    const { scans, orderAddedAt } = existingOrder;
 
     if (!_line || !scans || !orderAddedAt) {
       return 0;
@@ -152,13 +162,13 @@ export const getMeanCycleTime = (_line) => {
       return 0;
     }
     if (scansWithoutErrors.length === 1) {
-      return Math.floor(this.getNetDuration(_line) / 1000);
+      return Math.floor(getNetDuration({ _line, existingOrder }) / 1000);
     } else {
       const scansWithoutErrorsOnThisLine = scans.filter(
         (scan) => scan.errorCode === "e000" && scan._line === _line
       );
 
-      // now we know that there are scans bun no on this line, so...
+      // now we know that there are scans but no on this line, so...
       if (scansWithoutErrorsOnThisLine.length === 0) {
         return 0;
       }
@@ -167,7 +177,7 @@ export const getMeanCycleTime = (_line) => {
         return 0;
       } else {
         return Math.floor(
-          this.getNetDuration(_line) /
+          getNetDuration({ _line, existingOrder }) /
             (scansWithoutErrorsOnThisLine.length - 1) /
             1000
         );
@@ -176,9 +186,9 @@ export const getMeanCycleTime = (_line) => {
   } else return 0;
 };
 
-export const getLastCycleTime = (_line) => {
-  if (this.props.existingOrder) {
-    const { scans, orderAddedAt } = this.props.existingOrder;
+export const getLastCycleTime = ({ _line, existingOrder }) => {
+  if (existingOrder) {
+    const { scans, orderAddedAt } = existingOrder;
 
     if (!_line || !scans || !orderAddedAt) {
       return 0;
@@ -191,13 +201,13 @@ export const getLastCycleTime = (_line) => {
       return 0;
     }
     if (scansWithoutErrors.length === 1) {
-      return this.getNetDuration(_line);
+      return getNetDuration({ _line, existingOrder });
     } else {
       const scansWithoutErrorsOnThisLine = scans.filter(
         (scan) => scan.errorCode === "e000" && scan._line === _line
       );
 
-      // now we know that there are scans bun no on this line, so...
+      // now we know that there are scans but no on this line, so...
       if (scansWithoutErrorsOnThisLine.length === 0) {
         return 0;
       }
@@ -209,11 +219,12 @@ export const getLastCycleTime = (_line) => {
           new Date(scansWithoutErrorsOnThisLine[0].timeStamp).getTime() -
           new Date(scansWithoutErrorsOnThisLine[1].timeStamp).getTime();
 
-        const breakTimes = this.getBreaksInLastCycle(
+        const breakTimes = getBreaksInLastCycle({
           _line,
-          scansWithoutErrorsOnThisLine[1].timeStamp,
-          scansWithoutErrorsOnThisLine[0].timeStamp
-        );
+          ealierScan: scansWithoutErrorsOnThisLine[1].timeStamp,
+          laterScan: scansWithoutErrorsOnThisLine[0].timeStamp,
+          existingOrder,
+        });
 
         return Math.floor((grossLastCycleMilliseconds - breakTimes) / 1000);
       }
@@ -221,10 +232,14 @@ export const getLastCycleTime = (_line) => {
   } else return 0;
 };
 
-export const getEfficiency = (_line, orderNumber) => {
-  const tt = this.getTactTime(orderNumber);
-  const mct = this.getMeanCycleTime(_line);
-  console.log({ tt, mct });
+export const getEfficiency = ({
+  _line,
+  orderNumber,
+  menuContent,
+  existingOrder,
+}) => {
+  const tt = getTactTime({ orderNumber, menuContent });
+  const mct = getMeanCycleTime({ _line, existingOrder });
   if (!mct || !tt) return 0;
   return Math.floor((tt / mct) * 100);
 };
