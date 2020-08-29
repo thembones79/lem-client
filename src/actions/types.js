@@ -32,3 +32,7 @@ export const ADD_BREAK_START_ERROR = "add_break_start_error";
 export const ADD_BREAK_END = "add_break_end";
 export const ADD_BREAK_END_ERROR = "add_break_end_error";
 export const SET_ORDER_PAUSE_STATUS = "set_order_pause_status";
+export const OPEN_FINISH_MODAL = "open_finish_modal";
+export const CLOSE_FINISH_MODAL = "close_finish_modal";
+export const OPEN_DELETE_MODAL = "open_delete_modal";
+export const CLOSE_DELETE_MODAL = "close_delete_modal";

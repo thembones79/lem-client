@@ -275,7 +275,7 @@ export const getRealDuration = ({ existingOrder, _line }) => {
 export const getRealCompletionTime = ({ existingOrder, _line }) => {
   if (existingOrder && _line) {
     const { scans } = existingOrder;
-    if (scans !== []) {
+    if (scans[0]) {
       const realCompletionTimestamp = scans[0].timeStamp;
       return renderTime(realCompletionTimestamp);
     }

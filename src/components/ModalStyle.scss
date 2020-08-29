@@ -1,0 +1,25 @@
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: #46484eed;
+  justify-content: center;
+  align-items: center;
+
+  &--active {
+    display: flex;
+  }
+
+  &__card {
+    width: 600px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+  }
+}

@@ -28,6 +28,10 @@ import {
   SET_ORDER_PAUSE_STATUS,
   PAUSE_ORDER,
   RESUME_ORDER,
+  OPEN_FINISH_MODAL,
+  CLOSE_FINISH_MODAL,
+  OPEN_DELETE_MODAL,
+  CLOSE_DELETE_MODAL,
 } from "./types";
 import { ROOT_URL } from "../config";
 
@@ -352,4 +356,20 @@ export const resumeOrder = () => {
     type: RESUME_ORDER,
     payload: { isRunning: true },
   };
+};
+
+export const openFinishModal = () => {
+  return { type: OPEN_FINISH_MODAL };
+};
+
+export const closeFinishModal = () => {
+  return { type: CLOSE_FINISH_MODAL };
+};
+
+export const openDeleteModal = () => {
+  return { type: OPEN_DELETE_MODAL };
+};
+
+export const closeDeleteModal = () => {
+  return { type: CLOSE_DELETE_MODAL };
 };

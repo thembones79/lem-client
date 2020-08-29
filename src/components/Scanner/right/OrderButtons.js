@@ -98,13 +98,11 @@ class OrderButtons extends Component {
   };
 
   handleFinishClick = () => {
-    const { orderNumber } = this.props;
-    this.props.closeOrder({ orderNumber });
+    this.props.openFinishModal();
   };
 
   handleDeleteClick = () => {
-    const { orderNumber } = this.props;
-    this.props.deleteOrder({ orderNumber });
+    this.props.openDeleteModal();
   };
 
   renderStartPauseResumeButtons(orderRunningStatus) {

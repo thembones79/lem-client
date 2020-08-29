@@ -11,7 +11,7 @@ import {
 
 class DurationTimeCard extends Component {
   renderDuration() {
-    if (this.props.menu) {
+    if (this.props.menu && this.props.existingOrder) {
       const { orderNumber, existingOrder, _line } = this.props;
       if (orderNumber && _line) {
         const { orderStatus } = existingOrder;
@@ -31,7 +31,7 @@ class DurationTimeCard extends Component {
   }
 
   renderCompletionTime() {
-    if (this.props.menu) {
+    if (this.props.menu && this.props.existingOrder) {
       const { orderNumber, existingOrder, _line } = this.props;
       if (orderNumber && _line) {
         const { orderStatus } = existingOrder;
