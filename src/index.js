@@ -9,7 +9,6 @@ import reducers from "./reducers";
 import App from "./components/App";
 import Modal from "./components/Modal";
 import Welcome from "./components/Welcome";
-import Signup from "./components/auth/Signup";
 import Signout from "./components/auth/Signout";
 import Signin from "./components/auth/Signin";
 import Scanner from "./components/Scanner/Scanner";
@@ -28,7 +27,6 @@ ReactDOM.render(
     <BrowserRouter>
       <App>
         <Route path="/" exact component={Welcome} />
-        <Route path="/signup" component={Signup} />
         <Route path="/scanner" component={Scanner} />
         <Route path="/signout" component={Signout} />
         <Route path="/signin" component={Signin} />
