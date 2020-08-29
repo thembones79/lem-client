@@ -13,13 +13,6 @@ class Scanner extends Component {
   render() {
     return (
       <div>
-        {this.props.message} !!!
-        <div>
-          Hello {this.props.userName}, {this.props.userType}
-        </div>
-        <div>Id: {this.props.userId}</div>
-        <div>token: {this.props.authenticated}</div>
-        <hr />
         <div>
           <Reader />
           <MiddlePanel />
@@ -32,12 +25,9 @@ class Scanner extends Component {
 
 function mapStateToProps(state) {
   return {
-    message: state.scanner.message,
-    authenticated: state.auth.authenticated,
     userType: state.scanner.userType,
     userName: state.scanner.userName,
     userEmail: state.scanner.userEmail,
-    userId: state.scanner.userId,
   };
 }
 
