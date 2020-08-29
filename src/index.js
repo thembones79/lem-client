@@ -7,6 +7,7 @@ import reduxThunk from "redux-thunk";
 
 import reducers from "./reducers";
 import App from "./components/App";
+import Modal from "./components/Modal";
 import Welcome from "./components/Welcome";
 import Signup from "./components/auth/Signup";
 import Signout from "./components/auth/Signout";
@@ -34,6 +35,7 @@ ReactDOM.render(
         <Route path="/adduser" component={AddUser} />
       </App>
     </BrowserRouter>
+    <Modal />
   </Provider>,
   document.querySelector("#root")
 );
