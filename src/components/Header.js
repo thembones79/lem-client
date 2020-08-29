@@ -35,9 +35,6 @@ class Header extends Component {
     } else {
       return (
         <div>
-          <Link className="header__link" to="/signup">
-            Sign Up
-          </Link>
           <Link className="header__link" to="/signin">
             Sign In
           </Link>
