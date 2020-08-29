@@ -12,8 +12,8 @@ class Header extends Component {
   renderManagerLinks() {
     if (this.props.userType === "manager") {
       return (
-        <Link className="header__link" to="/adduser">
-          Add User
+        <Link className="header__link" to="/dashboard">
+          Dashboard
         </Link>
       );
     }
@@ -23,20 +23,23 @@ class Header extends Component {
     if (this.props.authenticated) {
       return (
         <div>
-          <Link className="header__link" to="/signout">
-            Sign Out
-          </Link>
+          {this.renderManagerLinks()}
           <Link className="header__link" to="/scanner">
             Scanner
           </Link>
-          {this.renderManagerLinks()}
+          <Link className="header__link" to="/user">
+            {this.props.userName}
+          </Link>
+          <Link className="header__link" to="/signout">
+            Log Out
+          </Link>
         </div>
       );
     } else {
       return (
         <div>
           <Link className="header__link" to="/signin">
-            Sign In
+            Log In
           </Link>
         </div>
       );
@@ -58,6 +61,7 @@ function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated,
     userType: state.scanner.userType,
+    userName: state.scanner.userName,
   };
 }
 

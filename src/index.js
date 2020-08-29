@@ -11,8 +11,10 @@ import Modal from "./components/Modal";
 import Welcome from "./components/Welcome";
 import Signout from "./components/auth/Signout";
 import Signin from "./components/auth/Signin";
+import User from "./components/auth/User";
 import Scanner from "./components/Scanner/Scanner";
 import AddUser from "./components/Dashboard/AddUser";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 const store = createStore(
   reducers,
@@ -31,6 +33,8 @@ ReactDOM.render(
         <Route path="/signout" component={Signout} />
         <Route path="/signin" component={Signin} />
         <Route path="/adduser" component={AddUser} />
+        <Route path="/user" component={User} />
+        <Route path="/dashboard" component={Dashboard} />
       </App>
     </BrowserRouter>
     <Modal />
