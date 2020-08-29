@@ -75,13 +75,6 @@ class Modal extends Component {
 function mapStateToProps(state) {
   return {
     orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
-    _line: state.scanner.pickedLine || localStorage.getItem("line"),
-    existingOrder: state.scanner.existingOrder,
-    menu: state.scanner.menu,
-    isPaused: state.scanner.isPaused,
-    isRunning: state.scanner.isRunning,
-    errorMessage: state.scanner.errorMessage,
-    readerInputState: state.scanner.readerInputState,
     isModalOpened: state.scanner.isModalOpened,
     modalHeader: state.scanner.modalHeader,
     modalContent: state.scanner.modalContent,

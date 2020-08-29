@@ -42,7 +42,7 @@ class Signin extends Component {
         </fieldset>
 
         <div>{this.renderAlert()}</div>
-        <button>Sign In</button>
+        <button>Log In</button>
       </form>
     );
   }
