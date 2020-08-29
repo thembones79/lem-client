@@ -44,30 +44,39 @@ class LinePicker extends Component {
     }
   }
 
-  render() {
+  renderLineComponent() {
     const isReaderInputEnabled = !this.props.readerInputState.isDisabled;
+    if (isReaderInputEnabled) {
+      const filteredLine = this.props.lines.filter(
+        (line) => line._id === this.props.line
+      );
+      return <div>LINE - {filteredLine[0].lineDescription.toUpperCase()}</div>;
+    }
+
     return (
-      <div>
-        <form>
-          <fieldset>
-            <label htmlFor="line">line</label>
-            <Field
-              name="line"
-              type="text"
-              component="select"
-              onChange={this.handleLineChange}
-              required
-              // because it will be always opposite to reader input enabled/disabled state
-              disabled={isReaderInputEnabled}
-            >
-              <option />
-              {this.renderOptions()}
-            </Field>
-          </fieldset>
-          <div>{this.renderAlert()}</div>
-        </form>
-      </div>
+      <form>
+        <fieldset>
+          <label htmlFor="line">line</label>
+          <Field
+            name="line"
+            type="text"
+            component="select"
+            onChange={this.handleLineChange}
+            required
+            // because it will be always opposite to reader input enabled/disabled state
+            disabled={isReaderInputEnabled}
+          >
+            <option />
+            {this.renderOptions()}
+          </Field>
+        </fieldset>
+        <div>{this.renderAlert()}</div>
+      </form>
     );
+  }
+
+  render() {
+    return <div>{this.renderLineComponent()}</div>;
   }
 }
 
