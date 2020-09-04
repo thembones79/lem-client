@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import "./OrderButtonsStyle.scss";
 
 class OrderButtons extends Component {
   componentDidUpdate(prevProps) {
@@ -107,20 +108,32 @@ class OrderButtons extends Component {
 
   renderStartPauseResumeButtons(orderRunningStatus) {
     if (!this.props.existingOrder) {
-      return <button onClick={this.handleStartClick}>START</button>;
+      return (
+        <button className="btn btn--accent" onClick={this.handleStartClick}>
+          START
+        </button>
+      );
     }
 
     const { orderStatus } = this.props.existingOrder;
     if (orderStatus !== "closed") {
       if (orderRunningStatus) {
-        return <button onClick={this.handlePauseClick}>PAUSE</button>;
+        return (
+          <button className="btn btn--accent" onClick={this.handlePauseClick}>
+            PAUSE
+          </button>
+        );
       } else {
-        return <button onClick={this.handleResumeClick}>RESUME</button>;
+        return (
+          <button className="btn btn--accent" onClick={this.handleResumeClick}>
+            RESUME
+          </button>
+        );
       }
     } else {
       return (
-        <div>
-          order completed{" "}
+        <div className="order-completed">
+          order completed &nbsp;{" "}
           <span role="img" aria-label="Confetti">
             🎉
           </span>{" "}
@@ -136,6 +149,7 @@ class OrderButtons extends Component {
         const isReaderInputEnabled = !this.props.readerInputState.isDisabled;
         return (
           <button
+            className="btn btn--finish"
             disabled={isReaderInputEnabled}
             onClick={this.handleFinishClick}
           >
@@ -151,6 +165,7 @@ class OrderButtons extends Component {
       const isReaderInputEnabled = !this.props.readerInputState.isDisabled;
       return (
         <button
+          className="btn btn--delete"
           disabled={isReaderInputEnabled}
           onClick={this.handleDeleteClick}
         >
@@ -163,13 +178,13 @@ class OrderButtons extends Component {
   renderAllTheButtons() {
     if (this.props.orderNumber && this.props._line) {
       return (
-        <div>
-          <div>
+        <div className="order-buttons">
+          <div className="order-buttons__row">
             {this.renderStartPauseResumeButtons(
               this.returnOrderRunningStatus()
             )}
           </div>
-          <div>
+          <div className="order-buttons__row">
             {this.renderFinishButton()}
             {this.renderDeleteButton()}
           </div>

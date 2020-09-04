@@ -1,0 +1,168 @@
+/* colors */
+$primary-color2: #474766;
+$primary-color: #656588;
+$accent-color: #1160a9;
+$accent-color2: #0060a9;
+$background-color: #f5f6f8;
+$foreground-color: #ffffff;
+$success-color: #39c139;
+$danger-color: #f86969;
+$disabled-color: #eaeaea;
+
+/* fonts */
+$primary-font: "Montserrat", sans-serif;
+$accent-font: "Oswald", sans-serif;
+
+/* sizes */
+$header-height: 70px;
+$page-height: calc(100vh - 50px);
+
+/* shadows */
+$normal-shadow: 0px 10px 30px 0px rgba(0, 72, 155, 0.09);
+$big-shadow: 0 1.9px 1.6px rgba(0, 0, 0, 0.024),
+  0 4.3px 3.6px rgba(0, 0, 0, 0.035), 0 7.6px 6.3px rgba(0, 0, 0, 0.043),
+  0 12px 10px rgba(0, 0, 0, 0.05), 0 18.5px 15.5px rgba(0, 0, 0, 0.057),
+  0 28.9px 24.1px rgba(0, 0, 0, 0.065), 0 48px 40px rgba(0, 0, 0, 0.076),
+  0 96px 80px rgba(0, 0, 0, 0.1);
+$disabled-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 1);
+$cancel-btn-shadow: 0px 2px 5px 0px rgba(71, 71, 102, 0.2);
+$primary-btn-shadow: 0px 5px 10px 0px rgba(71, 71, 102, 0.4);
+$primary-btn-shadow-hover: 0px 12px 28px 0px rgba(71, 71, 102, 0.45);
+$accent-btn-shadow: 0px 5px 10px 0px rgba(17, 96, 169, 0.4);
+$accent-btn-shadow-hover: 0px 12px 28px 0px rgba(17, 96, 169, 0.45);
+$danger-btn-shadow: 0px 5px 10px 0px rgba(255, 105, 105, 0.4);
+$danger-btn-shadow-hover: 0px 12px 28px 0px rgba(255, 105, 105, 0.45);
+$success-btn-shadow: 0px 5px 10px 0px rgba(15, 193, 57, 0.4);
+
+/* borders */
+$small-radius: 10px;
+$normal-radius: 20px;
+$big-radius: 40px;
+
+/* CSS reset */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+input,
+option,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  color: $primary-color;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: $primary-font;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: baseline;
+}
+/* remember to define focus styles! */
+:focus {
+  outline: 0;
+}
+body {
+  line-height: 1;
+  color: $primary-color;
+  background: $background-color;
+  font-family: $primary-font;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+caption,
+th,
+td {
+  text-align: left;
+  font-weight: normal;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+}
+blockquote,
+q {
+  quotes: "" "";
+}
+input {
+  font-family: $primary-font;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*::before,
+*::after {
+  box-sizing: inherit;
+}

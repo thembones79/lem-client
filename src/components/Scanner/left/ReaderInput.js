@@ -3,6 +3,8 @@ import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import ScannerIcon from "../../icons/ScannerIcon";
+import "./ReaderInputStyle.scss";
 
 class ReaderInput extends Component {
   componentDidUpdate(prevProps) {
@@ -60,7 +62,7 @@ class ReaderInput extends Component {
 
   renderAlert() {
     if (this.props.errorMessage) {
-      return <div>{this.props.errorMessage}</div>;
+      return <div className="alert__message">{this.props.errorMessage}</div>;
     }
   }
 
@@ -68,10 +70,17 @@ class ReaderInput extends Component {
     const { handleSubmit, readerInputState } = this.props;
     const { isDisabled } = readerInputState;
     return (
-      <div>
+      <div className="reader">
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <fieldset>
-            <label htmlFor="scanContent">:::</label>
+            <label
+              className={`reader__label ${
+                isDisabled ? "reader__label--disabled" : ""
+              }`}
+              htmlFor="scanContent"
+            >
+              <ScannerIcon />
+            </label>
             <Field
               name="scanContent"
               type="text"
@@ -81,10 +90,10 @@ class ReaderInput extends Component {
               required
               disabled={isDisabled}
               autoFocus
+              className="reader__input"
             />
           </fieldset>
-
-          <div>{this.renderAlert()}</div>
+          <div className="alert">{this.renderAlert()}</div>
         </form>
       </div>
     );

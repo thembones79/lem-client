@@ -4,6 +4,8 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
 import { renderTime } from "../../../utils/renderTime";
+import OrderIcon from "../../icons/OrderIcon";
+import "./OrderPickerStyle.scss";
 
 class OrderPicker extends Component {
   componentDidMount() {
@@ -18,7 +20,7 @@ class OrderPicker extends Component {
 
   renderAlert() {
     if (this.props.errorMessage) {
-      return <div>{this.props.errorMessage}</div>;
+      return <div className="alert__message">{this.props.errorMessage}</div>;
     }
   }
 
@@ -55,22 +57,28 @@ class OrderPicker extends Component {
     return (
       <div>
         <form>
-          <fieldset>
-            <label htmlFor="order">order {this.renderTimestamp()}</label>
+          <fieldset className="order-picker">
+            <label className="order-picker__label" htmlFor="order">
+              <OrderIcon /> order{" "}
+              <span className="order-picker__label--sync-time">
+                {" "}
+                {this.renderTimestamp()}
+              </span>
+            </label>
             <Field
               name="order"
               type="text"
               component="select"
+              className="order-picker__select"
               onChange={this.handleOrderChange}
               required
               // because it will be always opposite to reader input enabled/disabled state
               disabled={isReaderInputEnabled}
             >
-              <option />
+              <option className="order-picker__option" />
               {this.renderOptions()}
             </Field>
           </fieldset>
-          <div>{this.renderAlert()}</div>
         </form>
       </div>
     );

@@ -3,6 +3,7 @@ import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
+import "./SigninStyle.scss";
 
 class Signin extends Component {
   onSubmit = (formProps) => {
@@ -13,37 +14,45 @@ class Signin extends Component {
 
   renderAlert() {
     if (this.props.errorMessage) {
-      return <div>{this.props.errorMessage}</div>;
+      return <div className="alert__message">{this.props.errorMessage}</div>;
     }
   }
   render() {
     const { handleSubmit } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.onSubmit)}>
-        <fieldset>
-          <label htmlFor="email">Email</label>
-          <Field
-            name="email"
-            type="email"
-            component="input"
-            autoComplete="none"
-            required
-          />
-        </fieldset>
-        <fieldset>
-          <label htmlFor="password">Password</label>
-          <Field
-            name="password"
-            type="password"
-            component="input"
-            required
-            autoComplete="none"
-          />
-        </fieldset>
+      <div className="signin-page">
+        <form className="signin-form" onSubmit={handleSubmit(this.onSubmit)}>
+          <fieldset>
+            <label className="signin-form__label" htmlFor="email">
+              Email
+            </label>
+            <Field
+              className="signin-form__select"
+              name="email"
+              type="email"
+              component="input"
+              autoComplete="none"
+              required
+            />
+          </fieldset>
+          <fieldset>
+            <label className="signin-form__label" htmlFor="password">
+              Password
+            </label>
+            <Field
+              className="signin-form__select"
+              name="password"
+              type="password"
+              component="input"
+              required
+              autoComplete="none"
+            />
+          </fieldset>
 
-        <div>{this.renderAlert()}</div>
-        <button>Log In</button>
-      </form>
+          <div className="alert">{this.renderAlert()}</div>
+          <button className="btn btn--accent spacer">Log In</button>
+        </form>
+      </div>
     );
   }
 }

@@ -1,6 +1,21 @@
-.reader__scan-list {
-  width: 500px;
-  height: 500px;
-  background-color: aliceblue;
+@import "../../base";
+
+.scan-list {
+  width: 100%;
+  height: calc(100vh - 200px);
+  min-width: 500px;
+  max-width: 950px;
+  padding: 10px;
   overflow: auto;
+  background-color: $foreground-color;
+  margin-top: 30px;
+  border-radius: $small-radius;
+  box-shadow: $normal-shadow;
+
+  &__item {
+    font-family: $accent-font;
+    font-weight: 300;
+    font-size: 0.7em;
+    line-height: 1.45em;
+  }
 }

@@ -3,6 +3,8 @@ import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import LineIcon from "../../icons/LineIcon";
+import "./LinePickerStyle.scss";
 
 class LinePicker extends Component {
   componentDidMount() {
@@ -19,7 +21,7 @@ class LinePicker extends Component {
 
   renderAlert() {
     if (this.props.errorMessage) {
-      return <div>{this.props.errorMessage}</div>;
+      return <div className="alert__message">{this.props.errorMessage}</div>;
     }
   }
 
@@ -50,17 +52,27 @@ class LinePicker extends Component {
       const filteredLine = this.props.lines.filter(
         (line) => line._id === this.props.line
       );
-      return <div>LINE - {filteredLine[0].lineDescription.toUpperCase()}</div>;
+      if (filteredLine[0]) {
+        return (
+          <div className="chosen-line">
+            LINE - {filteredLine[0].lineDescription.toUpperCase()}
+          </div>
+        );
+      }
+      return <div>Pick a line...</div>;
     }
 
     return (
       <form>
-        <fieldset>
-          <label htmlFor="line">line</label>
+        <fieldset className="line-picker">
+          <label className="line-picker__label" htmlFor="line">
+            <LineIcon /> line
+          </label>
           <Field
             name="line"
             type="text"
             component="select"
+            className="line-picker__select"
             onChange={this.handleLineChange}
             required
             // because it will be always opposite to reader input enabled/disabled state
@@ -70,7 +82,6 @@ class LinePicker extends Component {
             {this.renderOptions()}
           </Field>
         </fieldset>
-        <div>{this.renderAlert()}</div>
       </form>
     );
   }

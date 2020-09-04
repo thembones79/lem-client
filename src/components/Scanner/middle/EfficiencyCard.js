@@ -8,6 +8,7 @@ import {
   getLastCycleTime,
   getEfficiency,
 } from "../../../utils/calculations";
+import "./EfficiencyCardStyle.scss";
 
 class EfficiencyCard extends Component {
   renderTactTime() {
@@ -37,11 +38,16 @@ class EfficiencyCard extends Component {
         const mct = getMeanCycleTime({ _line, existingOrder });
         const tt = getTactTime({ orderNumber, menuContent });
         const meanCycleTime = secondsToHhMmSs(mct);
+        const mctClassName = meanCycleTime
+          ? `eff-card__item${mct > tt ? "--bad" : "--good"}`
+          : "";
 
         return (
-          <div className={`eff-card${mct > tt ? "--bad" : "--good"}`}>
-            <span>MCT</span>
-            <span>{meanCycleTime ? meanCycleTime : "--:--:--"}</span>
+          <div className="eff-card__item">
+            <span className={mctClassName}>MCT</span>
+            <span className={mctClassName}>
+              {meanCycleTime ? meanCycleTime : "--:--:--"}
+            </span>
           </div>
         );
       }
@@ -57,11 +63,16 @@ class EfficiencyCard extends Component {
         const lct = getLastCycleTime({ _line, existingOrder });
         const tt = getTactTime({ orderNumber, menuContent });
         const lastCycleTime = secondsToHhMmSs(lct);
+        const lctClassName = lastCycleTime
+          ? `eff-card__item${lct > tt ? "--bad" : "--good"}`
+          : "";
 
         return (
-          <div className={`eff-card${lct > tt ? "--bad" : "--good"}`}>
-            <span>LCT</span>
-            <span>{lastCycleTime ? lastCycleTime : "--:--:--"}</span>
+          <div className="eff-card__item">
+            <span className={lctClassName}>LCT</span>
+            <span className={lctClassName}>
+              {lastCycleTime ? lastCycleTime : "--:--:--"}
+            </span>
           </div>
         );
       }
@@ -74,21 +85,23 @@ class EfficiencyCard extends Component {
       const { menuContent } = this.props.menu;
       if (orderNumber) {
         const { _line } = this.props;
-        const efficiency = `${getEfficiency({
+        const efficiency = getEfficiency({
           _line,
           orderNumber,
           menuContent,
           existingOrder,
-        })}%`;
+        });
+
+        const efficiencyClassName = efficiency
+          ? `eff-card__item${efficiency < 100 ? "--bad" : "--good"}`
+          : "";
 
         return (
-          <div
-            className={`eff-card__item--thin eff-card${
-              efficiency < 100 ? "--bad" : "--good"
-            }`}
-          >
-            <span>efficiency</span>
-            <span>{efficiency ? efficiency : "--"}</span>
+          <div className="eff-card__item eff-card__item--thin">
+            <span className={efficiencyClassName}>efficiency</span>
+            <span className={efficiencyClassName}>
+              {efficiency ? `${efficiency}%` : "--"}
+            </span>
           </div>
         );
       }
@@ -99,7 +112,7 @@ class EfficiencyCard extends Component {
     return (
       <div className="eff-card">
         {this.renderTactTime()}
-        <div className="eff-card__item--accent">
+        <div className="eff-card__item eff-card__item--accent">
           {this.renderMeanCycleTime()}
           {this.renderLastCycleTime()}
         </div>

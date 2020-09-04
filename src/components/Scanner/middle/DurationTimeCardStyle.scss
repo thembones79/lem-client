@@ -1,0 +1,35 @@
+@import "../../base";
+.durtime-card {
+  background-color: $foreground-color;
+  margin-top: 30px;
+  margin-bottom: 43px;
+  border-radius: $normal-radius;
+  width: 100%;
+  min-height: 90px;
+  height: 30%;
+  max-height: 120px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: $normal-shadow;
+  &--bold {
+    font-weight: 600;
+  }
+  &__time {
+    display: flex;
+    padding: 20px;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  &__duration {
+    display: flex;
+    padding: 20px;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}

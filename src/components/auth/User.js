@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
+import "./UserStyle.scss";
 
 class User extends Component {
   componentDidMount() {
@@ -9,7 +10,7 @@ class User extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="user-page">
         {this.props.message} {this.props.userName}!
       </div>
     );

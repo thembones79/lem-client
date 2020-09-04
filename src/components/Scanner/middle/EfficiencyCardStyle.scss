@@ -1,0 +1,47 @@
+@import "../../base";
+
+.eff-card {
+  background-color: $foreground-color;
+  margin-top: 30px;
+  border-radius: $normal-radius;
+  width: 100%;
+  min-height: 210px;
+  height: 40%;
+  max-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.4em;
+  font-weight: 700;
+  box-shadow: $normal-shadow;
+
+  &__item {
+    display: flex;
+    width: 100%;
+    height: 33%;
+    padding: 20px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    &--accent {
+      flex-direction: column;
+      padding: 0px;
+      height: 40%;
+      background-color: $background-color;
+    }
+
+    &--thin {
+      font-weight: 400;
+    }
+
+    &--bad {
+      color: $danger-color;
+    }
+
+    &--good {
+      color: $success-color;
+    }
+  }
+}

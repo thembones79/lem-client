@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
+import "./DashboardStyle.scss";
 
 class Dashboard extends Component {
   handleAddUserClick = () => {
@@ -10,8 +11,10 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div>
-        <button onClick={this.handleAddUserClick}>Add new user</button>
+      <div className="dashboard-page">
+        <button className="btn btn--accent" onClick={this.handleAddUserClick}>
+          Add new user
+        </button>
       </div>
     );
   }

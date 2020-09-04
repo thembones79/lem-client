@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
+import "./SignoutStyle.scss";
 
 class Signout extends Component {
   componentDidMount() {
@@ -11,7 +12,7 @@ class Signout extends Component {
     this.props.signout(); // sigout is a name of action creator
   }
   render() {
-    return <div>Sorry to see you go</div>;
+    return <div className="signout-page">Sorry to see you go</div>;
   }
 }
 function mapStateToProps(state) {
