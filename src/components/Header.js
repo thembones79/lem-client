@@ -1,7 +1,11 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
+import ScannerIcon from "../components/icons/ScannerIcon";
+import DashboardIcon from "../components/icons/DashboardIcon";
+import UserIcon from "../components/icons/UserIcon";
+import LogOutIcon from "../components/icons/LogOutIcon";
 import "./HeaderStyle.scss";
 
 class Header extends Component {
@@ -12,35 +16,55 @@ class Header extends Component {
   renderManagerLinks() {
     if (this.props.userType === "manager") {
       return (
-        <Link className="header__link" to="/dashboard">
-          Dashboard
-        </Link>
+        <NavLink
+          className="nav__link"
+          activeClassName="nav__link--selected"
+          to="/dashboard"
+        >
+          <DashboardIcon /> Dashboard
+        </NavLink>
       );
     }
   }
 
-  renderLinks() {
+  renderNav() {
     if (this.props.authenticated) {
       return (
-        <div>
+        <div className="nav">
           {this.renderManagerLinks()}
-          <Link className="header__link" to="/scanner">
-            Scanner
-          </Link>
-          <Link className="header__link" to="/user">
-            {this.props.userName}
-          </Link>
-          <Link className="header__link" to="/signout">
-            Log Out
-          </Link>
+          <NavLink
+            className="nav__link"
+            activeClassName="nav__link--selected"
+            to="/scanner"
+          >
+            <ScannerIcon /> Scanner
+          </NavLink>
+          <NavLink
+            className="nav__link"
+            activeClassName="nav__link--selected"
+            to="/user"
+          >
+            <UserIcon /> {this.props.userName}
+          </NavLink>
+          <NavLink
+            className="nav__link"
+            activeClassName="nav__link--selected"
+            to="/signout"
+          >
+            <LogOutIcon /> Log Out
+          </NavLink>
         </div>
       );
     } else {
       return (
         <div>
-          <Link className="header__link" to="/signin">
+          <NavLink
+            className="nav__link"
+            activeClassName="nav__link--selected"
+            to="/signin"
+          >
             Log In
-          </Link>
+          </NavLink>
         </div>
       );
     }
@@ -48,10 +72,14 @@ class Header extends Component {
   render() {
     return (
       <div className="header">
-        <Link className="header__link" to="/">
-          Riverdi LEM
-        </Link>
-        {this.renderLinks()}
+        <NavLink className="logo" to="/">
+          <img
+            className="riverdi-lem-logo"
+            alt="RiverdiLEM Logo"
+            src="RiverdiLemLogo4.svg"
+          />
+        </NavLink>
+        {this.renderNav()}
       </div>
     );
   }

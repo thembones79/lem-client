@@ -8,6 +8,7 @@ import {
   getRealDuration,
   getRealCompletionTime,
 } from "../../../utils/calculations";
+import "./DurationTimeCardStyle.scss";
 
 class DurationTimeCard extends Component {
   renderDuration() {
@@ -21,9 +22,11 @@ class DurationTimeCard extends Component {
             : getEstDuration({ existingOrder, _line });
         const duration = secondsToHhMmSs(durationInSeconds);
         return (
-          <div>
+          <div className="durtime-card__duration">
             <div>{`${orderStatus === "closed" ? "" : "est. "}duration`}</div>
-            <div>{duration ? duration : "--:--:--"}</div>
+            <div className="durtime-card--bold">
+              {duration ? duration : "--:--:--"}
+            </div>
           </div>
         );
       }
@@ -40,11 +43,15 @@ class DurationTimeCard extends Component {
             ? getRealCompletionTime({ existingOrder, _line })
             : getEstCompletionTime({ existingOrder, _line });
         return (
-          <div>
+          <div className="durtime-card__time">
             <div>{`${
               orderStatus === "closed" ? "" : "est. "
             }completion time`}</div>
-            <div>{completionTime ? completionTime : "---- -- -- --:--:--"}</div>
+            <div className="durtime-card--bold">
+              {getEstDuration({ existingOrder, _line })
+                ? completionTime
+                : "---- -- -- --:--:--"}
+            </div>
           </div>
         );
       }

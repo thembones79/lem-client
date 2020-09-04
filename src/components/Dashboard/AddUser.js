@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
 import requireManager from "../requireManager";
+import "./AddUserStyle.scss";
 
 class AddUser extends Component {
   onSubmit = (formProps) => {
@@ -15,9 +16,13 @@ class AddUser extends Component {
 
   renderField = ({ input, label, type, meta: { touched, error } }) => (
     <div>
-      <label>{label}</label>
       <div>
-        <input {...input} placeholder={label} type={type} />
+        <input
+          className="add-user-form__select"
+          {...input}
+          placeholder={label}
+          type={type}
+        />
         {touched && error && <span>{error}</span>}
       </div>
     </div>
@@ -26,57 +31,95 @@ class AddUser extends Component {
   render() {
     const { handleSubmit, submitting } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.onSubmit)}>
-        <fieldset>
-          <label htmlFor="firstname">First name</label>
-          <Field name="firstname" type="text" component="input" required />
-        </fieldset>
-        <fieldset>
-          <label htmlFor="lastname">Last name</label>
-          <Field name="lastname" type="text" component="input" required />
-        </fieldset>
-        <fieldset>
-          <label htmlFor="email">Email</label>
-          <Field
-            name="email"
-            type="email"
-            component={this.renderField}
-            autoComplete="none"
-            required
-          />
-        </fieldset>
-        <fieldset>
-          <Field
-            name="password"
-            type="password"
-            component={this.renderField}
-            label="Password"
-            required
-            autoComplete="none"
-          />
-        </fieldset>
-        <fieldset>
-          <label htmlFor="passwordConfirm">Confirm Password</label>
-          <Field
-            name="passwordConfirm"
-            type="password"
-            component="input"
-            required
-            autoComplete="none"
-          />
-        </fieldset>
-        <fieldset>
-          <label htmlFor="type">Type</label>
-          <Field name="type" type="text" component="select" required>
-            <option />
-            <option value="operator">operator</option>
-            <option value="manager">manager</option>
-          </Field>
-        </fieldset>
-        <div>{this.props.errorMessage}</div>
+      <div className="add-user-page">
+        <form className="add-user-form " onSubmit={handleSubmit(this.onSubmit)}>
+          <fieldset>
+            <label className="add-user-form__label" htmlFor="firstname">
+              First name
+            </label>
+            <Field
+              className="add-user-form__select"
+              name="firstname"
+              type="text"
+              component="input"
+              required
+            />
+          </fieldset>
+          <fieldset>
+            <label className="add-user-form__label" htmlFor="lastname">
+              Last name
+            </label>
+            <Field
+              className="add-user-form__select"
+              name="lastname"
+              type="text"
+              component="input"
+              required
+            />
+          </fieldset>
+          <fieldset>
+            <label className="add-user-form__label" htmlFor="email">
+              Email
+            </label>
+            <Field
+              className="add-user-form__select"
+              name="email"
+              type="email"
+              component={this.renderField}
+              autoComplete="none"
+              required
+            />
+          </fieldset>
+          <fieldset>
+            <label className="add-user-form__label" htmlFor="password">
+              Password
+            </label>
+            <Field
+              className="add-user-form__select"
+              name="password"
+              type="password"
+              component={this.renderField}
+              label="Password"
+              required
+              autoComplete="none"
+            />
+          </fieldset>
+          <fieldset>
+            <label className="add-user-form__label" htmlFor="passwordConfirm">
+              Confirm Password
+            </label>
+            <Field
+              className="add-user-form__select"
+              name="passwordConfirm"
+              type="password"
+              component="input"
+              required
+              autoComplete="none"
+            />
+          </fieldset>
+          <fieldset>
+            <label className="add-user-form__label" htmlFor="type">
+              Type
+            </label>
+            <Field
+              className="add-user-form__select"
+              name="type"
+              type="text"
+              component="select"
+              required
+            >
+              <option />
+              <option value="operator">operator</option>
+              <option value="manager">manager</option>
+            </Field>
+          </fieldset>
+          <div>{this.props.errorMessage}</div>
 
-        <button disabled={submitting}>Add User</button>
-      </form>
+          <button className="btn btn--accent spacer" disabled={submitting}>
+            Add User
+          </button>
+        </form>
+      </div>
     );
   }
 }

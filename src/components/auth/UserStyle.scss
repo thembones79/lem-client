@@ -1,0 +1,11 @@
+@import "../base";
+
+.user-page {
+  height: $page-height;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5em;
+  font-weight: 200;
+}

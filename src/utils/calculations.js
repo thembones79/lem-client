@@ -15,23 +15,47 @@ export const getTactTime = ({ orderNumber, menuContent }) => {
 };
 
 export const getBreaksTime = ({ _line, existingOrder }) => {
-  const { breaks } = existingOrder;
-  if (!_line || !breaks) {
-    return 0;
+  if (existingOrder && _line) {
+    const { breaks, scans } = existingOrder;
+    if (!_line || !breaks || !scans || scans.length === 0) {
+      return 0;
+    }
+
+    const scansWithoutErrorsOnThisLine = scans.filter(
+      (scan) => scan.errorCode === "e000" && scan._line === _line
+    );
+
+    if (scansWithoutErrorsOnThisLine.length === 0) {
+      return 0;
+    }
+    const newestScan = new Date(
+      scansWithoutErrorsOnThisLine[0].timeStamp
+    ).getTime();
+
+    const oldestScan = new Date(
+      scansWithoutErrorsOnThisLine[
+        scansWithoutErrorsOnThisLine.length - 1
+      ].timeStamp
+    ).getTime();
+
+    const thisLineBreaksInsideLastCycle = breaks.filter(
+      (item) =>
+        item._line === _line &&
+        item.breakEnd &&
+        new Date(item.breakEnd).getTime() < newestScan &&
+        new Date(item.breakStart).getTime() > oldestScan
+    );
+
+    const individualBreakTimes = thisLineBreaksInsideLastCycle.map(
+      (item) =>
+        new Date(item.breakEnd).getTime() - new Date(item.breakStart).getTime()
+    );
+
+    const arrSum = (arr) => arr.reduce((a, b) => a + b, 0);
+    const breakTimesInMilliseconds = arrSum(individualBreakTimes);
+
+    return breakTimesInMilliseconds;
   }
-  const thisLineBreaksInsideLastCycle = breaks.filter(
-    (item) => item._line === _line && item.breakEnd
-  );
-
-  const individualBreakTimes = thisLineBreaksInsideLastCycle.map(
-    (item) =>
-      new Date(item.breakEnd).getTime() - new Date(item.breakStart).getTime()
-  );
-
-  const arrSum = (arr) => arr.reduce((a, b) => a + b, 0);
-  const breakTimesInMilliseconds = arrSum(individualBreakTimes);
-
-  return breakTimesInMilliseconds;
 };
 
 export const getBreaksInLastCycle = ({
@@ -242,6 +266,7 @@ export const getEfficiency = ({
 }) => {
   const tt = getTactTime({ orderNumber, menuContent });
   const mct = getMeanCycleTime({ _line, existingOrder });
+
   if (!mct || !tt) return 0;
   return Math.floor((tt / mct) * 100);
 };

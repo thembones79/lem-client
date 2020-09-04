@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import "./OrderInfoCardStyle.scss";
 
 class OrderInfoCard extends Component {
   renderOrderNumber() {
@@ -52,16 +53,31 @@ class OrderInfoCard extends Component {
     }
   }
 
+  renderInProgress() {
+    const isInProgress = !this.props.readerInputState.isDisabled;
+    return isInProgress ? "orderinfo-card--inprogress" : "";
+  }
+
   render() {
     return (
-      <div>
-        <div>
-          <span>{this.renderOrderNumber()}</span>
-          <span>{this.renderCustomer()}</span>
+      <div className="orderinfo-card ">
+        <div className="orderinfo-card__row">
+          <span className={`orderinfo-card__order ${this.renderInProgress()}`}>
+            {this.renderOrderNumber()}
+          </span>
+          <span
+            className={`orderinfo-card__customer ${this.renderInProgress()}`}
+          >
+            {this.renderCustomer()}
+          </span>
         </div>
-        <div>
-          <span>{this.renderPartNumber()}</span>
-          <span>
+        <div className="orderinfo-card__row">
+          <span className={`orderinfo-card__pn ${this.renderInProgress()}`}>
+            {this.renderPartNumber()}
+          </span>
+          <span
+            className={`orderinfo-card__quantity ${this.renderInProgress()}`}
+          >
             {this.renderDoneOnAllLines()}/{this.renderQuantity()}
           </span>
         </div>
@@ -73,6 +89,7 @@ class OrderInfoCard extends Component {
 function mapStateToProps(state) {
   return {
     existingOrder: state.scanner.existingOrder,
+    readerInputState: state.scanner.readerInputState,
   };
 }
 export default connect(mapStateToProps, actions)(OrderInfoCard);

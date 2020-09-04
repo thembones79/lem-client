@@ -1,0 +1,21 @@
+@import "../../base";
+
+.donetodo-card {
+  background-color: $foreground-color;
+  margin-top: 30px;
+  border-radius: $normal-radius;
+  width: 100%;
+  height: 68px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 1.4em;
+  box-shadow: $normal-shadow;
+  &__value {
+    font-weight: 700;
+  }
+  &__item {
+    padding: 0px;
+  }
+}

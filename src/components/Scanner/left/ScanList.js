@@ -40,7 +40,7 @@ class ScanList extends Component {
     }
   }
   render() {
-    return <div className="reader__scan-list">{this.renderScanList()}</div>;
+    return <div className="scan-list">{this.renderScanList()}</div>;
   }
 }
 

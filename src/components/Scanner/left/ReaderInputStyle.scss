@@ -1,0 +1,50 @@
+@import "../../base";
+
+.reader {
+  width: 100%;
+  height: $header-height;
+
+  position: relative;
+
+  &__label {
+    width: 2px;
+    height: 2px;
+    display: block;
+    position: absolute;
+    fill: $accent-color;
+    left: 0;
+    top: 30px;
+    z-index: 9999999;
+    &--disabled {
+      fill: $primary-color;
+      opacity: 0.2;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    margin: 35px 0;
+    height: 39px;
+    background-color: $foreground-color;
+    border-radius: $big-radius;
+    border: 0;
+    box-shadow: $normal-shadow;
+    font-family: $primary-font;
+    caret-color: $accent-color;
+    color: $accent-color;
+    fill: $accent-color;
+    padding: 10px 20px 10px 40px;
+    position: absolute;
+    font-size: 0.8em;
+
+    &:disabled {
+      background-color: $disabled-color;
+      box-shadow: $disabled-shadow;
+      fill: $disabled-color;
+    }
+
+    &:focus {
+      border: 1px solid $accent-color;
+    }
+  }
+}

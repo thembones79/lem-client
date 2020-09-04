@@ -5,6 +5,7 @@ import requireAuth from "../requireAuth";
 import Reader from "./left/Reader";
 import MiddlePanel from "./middle/MiddlePanel";
 import RightPanel from "./right/RightPanel";
+import "./ScannerStyle.scss";
 
 class Scanner extends Component {
   componentDidMount() {
@@ -12,12 +13,10 @@ class Scanner extends Component {
   }
   render() {
     return (
-      <div>
-        <div>
-          <Reader />
-          <MiddlePanel />
-          <RightPanel />
-        </div>
+      <div className="scanner-page">
+        <Reader />
+        <MiddlePanel />
+        <RightPanel />
       </div>
     );
   }

@@ -1,0 +1,9 @@
+@import "../base";
+
+.dashboard-page {
+  height: $page-height;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

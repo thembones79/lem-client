@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import MissingScansIcon from "../../icons/MissingScansIcon";
 import "./MissingScansStyle.scss";
 
 class MissingScans extends Component {
@@ -47,11 +48,23 @@ class MissingScans extends Component {
         return this.indexOf(scan) < 0;
       }, scansWithoutErrors);
 
-      return missingScans.map((scan) => <div key={scan}>{scan}</div>);
+      return missingScans.map((scan) => (
+        <div key={scan} className="missing-scans__item">
+          {scan}
+        </div>
+      ));
     }
   }
   render() {
-    return <div className="missing-scans">{this.renderMissingScans()}</div>;
+    return (
+      <div className="missing">
+        <div className="missing-scans__label">
+          {" "}
+          <MissingScansIcon /> missing scans
+        </div>
+        <div className="missing-scans">{this.renderMissingScans()}</div>
+      </div>
+    );
   }
 }
 

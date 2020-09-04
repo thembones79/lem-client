@@ -1,0 +1,13 @@
+@import "./base";
+
+.welcome-page {
+  height: $page-height;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.riverdi-lem-logo--big {
+  width: 50%;
+}

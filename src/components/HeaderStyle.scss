@@ -1,8 +1,87 @@
+@import "./base";
+
 .header {
   display: flex;
   justify-content: space-between;
+  background-color: $foreground-color;
+  width: 100vw;
+  height: $header-height;
+  transition: 1.3s;
+  box-shadow: $normal-shadow;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  background-color: $foreground-color;
+  transition: 1.3s;
+  height: $header-height;
 
   &__link {
-    margin: 0 10px;
+    margin: 0 5px;
+    padding: 20px 40px 20px 20px;
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    line-height: 1.2em;
+    justify-content: center;
+    height: $header-height;
+    border-bottom: 2px solid $foreground-color;
+    text-decoration: none;
+    transition: 1.3s;
+    text-transform: lowercase;
+    fill: $primary-color;
+    stroke: $primary-color;
+
+    &:hover {
+      color: $accent-color;
+      fill: $accent-color;
+      stroke: $accent-color;
+    }
+
+    &--selected {
+      color: $accent-color;
+      fill: $accent-color;
+      stroke: $accent-color;
+      border-bottom: 2px solid $accent-color;
+    }
+  }
+}
+
+.logo {
+  margin: 0 5px;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $header-height;
+}
+
+.riverdi-lem-logo {
+  padding-top: 10px;
+  width: 180px;
+}
+
+.dashboard-icon {
+  stroke: inherit;
+  margin: 15px;
+  width: 18px;
+  height: 18px;
+
+  &--active {
+    stroke: $accent-color;
+  }
+}
+
+.scanner-icon,
+.user-icon,
+.logout-icon {
+  fill: inherit;
+  margin: 15px;
+  width: 18px;
+  height: 18px;
+
+  &--active {
+    fill: $accent-color;
   }
 }
