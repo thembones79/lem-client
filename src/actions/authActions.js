@@ -39,7 +39,7 @@ export const signin = (
     // redirect user to "scanner" route (in this case)
     callback();
   } catch (e) {
-    dispatch({ type: AUTH_ERROR, payload: e.message });
+    dispatch({ type: AUTH_ERROR, payload: "Wrong email or password" });
   }
 };
 
