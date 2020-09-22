@@ -1,6 +1,29 @@
 {
-  "name": "client",
-  "version": "0.1.0",
+  "name": "lem-api-client",
+  "version": "1.1.0",
+  "description": "GUI in ReactJS for LEM (Line Efficiency Monitoring) System",
+  "main": "index.js",
+  "keywords": [
+    "frontend",
+    "spa",
+    "react",
+    "redux",
+    "bem",
+    "manufacturing",
+    "production",
+    "sass",
+    "gui"
+  ],
+  "author": {
+    "name": "Michal Szumnarski",
+    "email": "michal.szumnarski@gmail.com"
+  },
+  "license": "ISC",
+  "bugs": "https://github.com/thembones79/lem-client/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thembones79/lem-client.git"
+  },
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
