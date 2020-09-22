@@ -4,8 +4,26 @@
   height: $page-height;
   width: 100vw;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.centered-logo {
+  display: flex;
+  width: 100vw;
+  height: calc(100vw - 400px);
   justify-content: center;
   align-items: center;
+}
+
+.changelog {
+  display: flex;
+  width: 100vw;
+  height: $header-height;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 40px;
 }
 
 .riverdi-lem-logo--big {

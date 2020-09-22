@@ -11,19 +11,6 @@ class ScanList extends Component {
     }
   }
 
-  renderDoneOnThisLine() {
-    if (this.props.existingOrder) {
-      const { scans } = this.props.existingOrder;
-      const { _line } = this.props;
-      const scansWithoutErrorsOnThisLine = scans.filter(
-        (scan) => scan.errorCode === "e000" && scan._line === _line
-      ).length;
-      return scansWithoutErrorsOnThisLine.toString();
-    } else {
-      return "--";
-    }
-  }
-
   renderScanList() {
     if (this.props.existingOrder) {
       const { scans } = this.props.existingOrder;
