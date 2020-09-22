@@ -11,7 +11,7 @@ The application has to solve some issues that my folks have to tackle on daily b
 **The software has to:**
 
 1. Utilize bar-code scanners (in fact, it is not a bar code but [Data Matrix](https://en.wikipedia.org/wiki/Data_Matrix) – it&#39;s 2D code, somewhat similar to QR Code) that the company bought for scanning newly developed stickers that are placed on ready made products (as input data)
-2. Read MS Excel file with production schedule and part number details and retrieve data about: () input. To work with
+2. Read MS Excel file with production schedule and part number details and retrieve data about tact times, part numbers and orders to work with.
 3. Give an instant feedback about MCT LCT efficiency, estimated duration of the order and estimated time of order completion. (also with colors - GREEN and RED so people can instantly see if they are winning or losing)
 4. Give an information about Order, customer, manufactured piece (part number), ordered quantity
 5. Give an information about missing pieces
@@ -44,7 +44,7 @@ The application has to solve some issues that my folks have to tackle on daily b
 - Using [SASS](https://sass-lang.com/) preprocessor and [BEM](http://getbem.com/) naming convention for CSS development
 - Wireframes and mockups were created in Adobe XD
 
-The app is meant to work with some kind of backend. In this particular system, there is a REST API in NodeJS ([app](https://riverdi-lem.herokuapp.com/), [code](https://github.com/thembones79/lem-server)).
+The app is meant to work with some kind of backend. In this particular system, there is a REST API in NodeJS ([app](https://riverdi-lem.herokuapp.com/), [code](https://github.com/thembones79/lem-server#readme)).
 
 LEM System is meant to be an internal tool, so there is no &quot;sign up&quot; feature. Users can not add themselves to the system, they can be added only by admin/manager.
 
