@@ -1,38 +1,39 @@
 # GUI in ReactJS for LEM (Line Efficiency Monitoring) System
 
-[**LEM System**](https://riverdi-lem.netlify.app/) is an internal tool for measuring and monitoring manufacturing/production lines.
+[**LEM System**](https://riverdi-lem.netlify.app/) is an internal tool for measuring and monitoring manufacturing/production lines **[app overview](https://github.com/thembones79/cs50x/tree/master/project#readme)**.
 
 The project was created as the [final project](https://cs50.harvard.edu/x/2020/project/) to graduate [Harvard&#39;s CS50](https://cs50.harvard.edu/x/2020/) for benefit of my colleagues at Manufacturing Department of [Unisystem](https://www.unisystem-displays.com/en/) and [Riverdi](https://riverdi.com/) (Industrial display and touch screen manufacturer).
 
 The application has to solve some issues that my folks have to tackle on daily basis.
 
-## The main features of LEM System:
+## The main features of **[LEM System](https://github.com/thembones79/cs50x/tree/master/project#readme)**:
 
 **The software has to:**
 
 1. Utilize bar-code scanners (in fact, it is not a bar code but [Data Matrix](https://en.wikipedia.org/wiki/Data_Matrix) – it&#39;s 2D code, somewhat similar to QR Code) that the company bought for scanning newly developed stickers that are placed on ready made products (as input data)
-2. Read MS Excel file with production schedule and part number details and retrieve data about tact times, part numbers and orders to work with.
-3. Give an instant feedback about MCT LCT efficiency, estimated duration of the order and estimated time of order completion. (also with colors - GREEN and RED so people can instantly see if they are winning or losing)
-4. Give an information about Order, customer, manufactured piece (part number), ordered quantity
-5. Give an information about missing pieces
+2. Read MS Excel file with production schedule and part number details and retrieve data about `tact times`, `part numbers` and `orders` to work with.
+3. Give an instant feedback about `MCT` (Mean Cycle Time), `LCT` (Last Cycle Time), `Efficiency`, estimated `order duration` and estimated `time of order completion`. (also with colors - GREEN and RED so people can instantly see if they are winning or losing)
+4. Give an information about `order`, `customer`, manufactured piece (part number), ordered `quantity`
+5. Give an information about `missing pieces`
 6. Give an information of mixed up pieces (for example the same part number but form another order from same or another client
 7. Give feedback about counting one piece more than once
 8. Give information about how many pieces (of current order) was done on current line and on all the lines and how many pieces are to do
-9. Give ability to have brakes during completion the given order
-10. Give ability to work on more than one line
-11. Give ability to start an order on one line and finish it on another
-12. Give ability work on more than one order simultaneously
-13. Give ability to work on the same (big) order on more than one line at the same time
-14. Handle users (production workers, service, foremen and managers) accounts (with authorization and authentication)
+9. Give ability to have `breaks` during completion the given order
+10. Give ability to `work on more than one line`
+11. Give ability to `start an order on one line and finish it on another`
+12. Give ability to work on `more than one order simultaneously`
+13. Give ability to work on `the same (big) order on more than one line at the same time`
+14. Handle users (production workers, service, foremen and managers) accounts (with `authorization` and `authentication`)
 15. When user reserves a line, the line has to be unavailable to another user until it is released
 
 **Future:**
 
-1. Manager dashboard with:
-2. Statistics: orders, users, lines, errors, times, partnumbers
-3. User account management
-4. Line management
-5. Order and work scheduling (← that one, can be implemented only when the application will be independent form this huge excel spreadsheet that is currently a bread and butter of all department and everything is based on it)
+Manager dashboard with:
+
+1. Statistics: orders, users, lines, errors, times, partnumbers
+1. User account management
+1. Line management
+1. Order and work scheduling (← that one, can be implemented only when the application will be independent form this huge excel spreadsheet that is currently a bread and butter of all department and everything is based on it)
 
 ## Frontend tooling:
 
@@ -42,7 +43,7 @@ The application has to solve some issues that my folks have to tackle on daily b
 - Side effects and asynchronous actions dispatches are handled in [Redux Thunk](https://github.com/reduxjs/redux-thunk) middleware.
 - Using [React Router](https://reactrouter.com/) for routing.
 - Using [SASS](https://sass-lang.com/) preprocessor and [BEM](http://getbem.com/) naming convention for CSS development
-- Wireframes and mockups were created in Adobe XD
+- [Wireframes](https://xd.adobe.com/view/63aa12c9-36fe-4d67-a34a-670e314ef771-36f9/grid) and [mockups](https://xd.adobe.com/view/e7eef714-c7ad-4872-819a-0de046fcd278-b2bd/grid) were created in Adobe XD
 
 The app is meant to work with some kind of backend. In this particular system, there is a REST API in NodeJS ([app](https://riverdi-lem.herokuapp.com/), [code](https://github.com/thembones79/lem-server#readme)).
 
@@ -126,3 +127,5 @@ An order can be closed in two ways:
 ## Dashboard
 
 Besides `Scanner Page`, there is also `Dashboard Page` available. That page can be accessed only by user with a &quot;manager&quot; privileges. Currently it is almost empty, but in the near future it would be enhanced with: order and work scheduling (requires independence from the source excel spreadsheet), user management, line management, order management, very comprehensive statistics about errors, efficiency, tact times, cycle times, part numbers, lines with comparisons, orders, users (maybe with charts), and &quot;1 page all lines live view&quot;.
+
+## [ > Detailed Project Overview < ](https://github.com/thembones79/cs50x/tree/master/project#readme)
