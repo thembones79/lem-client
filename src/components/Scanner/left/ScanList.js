@@ -5,10 +5,27 @@ import ScanContent from "./ScanContent";
 import "./ScanListStyle.scss";
 
 class ScanList extends Component {
+  resultsDiv = React.createRef();
+
+  someFunction() {
+    //  this.resultsDiv.current.scrollIntoView({ behavior: "smooth" });
+
+    // alternative:
+    this.resultsDiv.current.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }
+
   componentDidMount() {
     if (this.props.orderNumber) {
       this.props.getOrder(this.props.orderNumber);
     }
+  }
+
+  componentDidUpdate(prevProps) {
+    this.someFunction();
   }
 
   renderScanList() {
@@ -27,7 +44,11 @@ class ScanList extends Component {
     }
   }
   render() {
-    return <div className="scan-list">{this.renderScanList()}</div>;
+    return (
+      <div className="scan-list" ref={this.resultsDiv}>
+        {this.renderScanList()}
+      </div>
+    );
   }
 }
 
