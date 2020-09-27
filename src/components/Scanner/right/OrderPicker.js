@@ -54,6 +54,7 @@ class OrderPicker extends Component {
 
   render() {
     const isReaderInputEnabled = !this.props.readerInputState.isDisabled;
+    const isLineMissing = this.props.line ? false : true;
     return (
       <div>
         <form>
@@ -73,7 +74,7 @@ class OrderPicker extends Component {
               onChange={this.handleOrderChange}
               required
               // because it will be always opposite to reader input enabled/disabled state
-              disabled={isReaderInputEnabled}
+              disabled={isReaderInputEnabled || isLineMissing}
             >
               <option className="order-picker__option" />
               {this.renderOptions()}
@@ -91,6 +92,7 @@ function mapStateToProps(state) {
     userName: state.scanner.userName,
     orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
     enableReinitialize: true,
+    line: state.scanner.pickedLine || localStorage.getItem("line"),
     menu: state.scanner.menu,
     readerInputState: state.scanner.readerInputState,
   };
