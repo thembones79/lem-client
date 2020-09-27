@@ -53,7 +53,6 @@ class LinePicker extends Component {
       );
       filteredLines.sort(this.compareValues("lineDescription"));
 
-      console.log({ filteredLines });
       return (
         <>
           {filteredLines.map((line) => (
