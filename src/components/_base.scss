@@ -9,6 +9,17 @@ $success-color: #39c139;
 $danger-color: #f86969;
 $disabled-color: #eaeaea;
 
+@mixin riverdi-gradient {
+  color: #ffb813;
+  line-height: 1.2em;
+  background-image: linear-gradient(45deg, #f9db49, #ff7600);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
 /* fonts */
 $primary-font: "Montserrat", sans-serif;
 $accent-font: "Oswald", sans-serif;

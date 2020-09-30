@@ -43,5 +43,9 @@
     &--good {
       color: $success-color;
     }
+
+    &--pretty {
+      @include riverdi-gradient;
+    }
   }
 }
