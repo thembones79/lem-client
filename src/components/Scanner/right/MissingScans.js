@@ -27,10 +27,10 @@ class MissingScans extends Component {
 
   generateCompleteScanList() {
     const { quantity } = this.props.existingOrder;
-    const { qrCode } = this.props.existingOrder;
+
     let generatedScans = [];
     for (let i = 1; i <= quantity; i++) {
-      generatedScans.push(qrCode + this.zeroAdder(i));
+      generatedScans.push(this.zeroAdder(i));
     }
     return generatedScans;
   }
@@ -40,7 +40,7 @@ class MissingScans extends Component {
       const { scans } = this.props.existingOrder;
       const scansWithoutErrors = scans
         .filter((scan) => scan.errorCode === "e000")
-        .map((scan) => scan.scanContent);
+        .map((scan) => scan.scanContent.substr(-5));
 
       const completeScanList = this.generateCompleteScanList();
 
