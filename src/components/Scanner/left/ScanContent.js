@@ -3,25 +3,40 @@ import { errors } from "../../../translations/errors";
 import { renderTime } from "../../../utils/renderTime";
 import CheckMarkIcon from "../../icons/CheckMarkIcon";
 import CrossMarkIcon from "../../icons/CrossMarkIcon";
+import WarningIcon from "../../icons/WarningIcon";
 import "./ScanContentStyle.scss";
 
 class ScanContent extends Component {
   renderError(code, language) {
+    const messageClassName = () => {
+      if (code === "e000") {
+        return "scan-item__message--good";
+      }
+
+      if (code === "e004") {
+        return "scan-item__message--pretty";
+      }
+
+      return "scan-item__message--bad";
+    };
+
     return (
-      <div
-        className={`scan-item__message ${
-          code === "e000"
-            ? "scan-item__message--good"
-            : "scan-item__message--bad"
-        }`}
-      >
+      <div className={`scan-item__message ${messageClassName()}`}>
         {code ? errors[code][language] : ""}
       </div>
     );
   }
 
   renderMark(code) {
-    return code === "e000" ? <CheckMarkIcon /> : <CrossMarkIcon />;
+    if (code === "e000") {
+      return <CheckMarkIcon />;
+    }
+
+    if (code === "e004") {
+      return <WarningIcon />;
+    }
+
+    return <CrossMarkIcon />;
   }
 
   render() {

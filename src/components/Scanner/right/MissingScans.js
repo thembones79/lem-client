@@ -39,7 +39,9 @@ class MissingScans extends Component {
     if (this.props.existingOrder) {
       const { scans } = this.props.existingOrder;
       const scansWithoutErrors = scans
-        .filter((scan) => scan.errorCode === "e000")
+        .filter(
+          (scan) => scan.errorCode === "e000" || scan.errorCode === "e004"
+        )
         .map((scan) => scan.scanContent.substr(-5));
 
       const completeScanList = this.generateCompleteScanList();

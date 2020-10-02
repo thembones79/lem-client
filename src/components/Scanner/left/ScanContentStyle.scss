@@ -10,6 +10,11 @@
   margin: 5px;
 }
 
+.warning-icon {
+  width: 28px;
+  margin: 5px;
+}
+
 .scan-item {
   width: 100%;
   display: flex;
@@ -70,6 +75,9 @@
 
     &--bad {
       color: $danger-color;
+    }
+    &--pretty {
+      @include riverdi-gradient;
     }
   }
 }

@@ -36,7 +36,7 @@ class OrderInfoCard extends Component {
     if (this.props.existingOrder) {
       const { scans } = this.props.existingOrder;
       const scansWithoutErrors = scans.filter(
-        (scan) => scan.errorCode === "e000"
+        (scan) => scan.errorCode === "e000" || scan.errorCode === "e004"
       ).length;
       return scansWithoutErrors.toString();
     } else {
