@@ -4,6 +4,7 @@ import { renderTime } from "../../../utils/renderTime";
 import CheckMarkIcon from "../../icons/CheckMarkIcon";
 import CrossMarkIcon from "../../icons/CrossMarkIcon";
 import WarningIcon from "../../icons/WarningIcon";
+
 import "./ScanContentStyle.scss";
 
 class ScanContent extends Component {
@@ -30,13 +31,11 @@ class ScanContent extends Component {
   renderMark(code) {
     if (code === "e000") {
       return <CheckMarkIcon />;
-    }
-
-    if (code === "e004") {
+    } else if (code === "e004") {
       return <WarningIcon />;
+    } else {
+      return <CrossMarkIcon />;
     }
-
-    return <CrossMarkIcon />;
   }
 
   render() {
