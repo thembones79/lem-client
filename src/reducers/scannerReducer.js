@@ -71,7 +71,7 @@ const compareOrderedQuantityWithValidScansQuantity = (existingOrder) => {
       return false;
     }
     const scansWithoutErrors = scans
-      .filter((scan) => scan.errorCode === "e000")
+      .filter((scan) => scan.errorCode === "e000" || scan.errorCode === "e004")
       .map((scan) => scan.scanContent);
     const orderedQuantity = existingOrder.quantity;
     const currentlyScannedQuantity = scansWithoutErrors.length;

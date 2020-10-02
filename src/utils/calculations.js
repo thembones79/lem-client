@@ -22,7 +22,9 @@ export const getBreaksTime = ({ _line, existingOrder }) => {
     }
 
     const scansWithoutErrorsOnThisLine = scans.filter(
-      (scan) => scan.errorCode === "e000" && scan._line === _line
+      (scan) =>
+        (scan.errorCode === "e000" || scan.errorCode === "e004") &&
+        scan._line === _line
     );
 
     if (scansWithoutErrorsOnThisLine.length === 0) {
@@ -96,7 +98,7 @@ export const getGrossDuration = ({ _line, existingOrder }) => {
       return 0;
     }
     const scansWithoutErrors = scans.filter(
-      (scan) => scan.errorCode === "e000"
+      (scan) => scan.errorCode === "e000" || scan.errorCode === "e004"
     );
 
     if (scansWithoutErrors.length === 0) {
@@ -110,7 +112,9 @@ export const getGrossDuration = ({ _line, existingOrder }) => {
       return grossDurationInMilliseconds;
     } else {
       const scansWithoutErrorsOnThisLine = scans.filter(
-        (scan) => scan.errorCode === "e000" && scan._line === _line
+        (scan) =>
+          (scan.errorCode === "e000" || scan.errorCode === "e004") &&
+          scan._line === _line
       );
 
       // now we know that there are scans but no on this line, so...
@@ -143,7 +147,7 @@ export const getNetDuration = ({ _line, existingOrder }) => {
       return 0;
     }
     const scansWithoutErrors = scans.filter(
-      (scan) => scan.errorCode === "e000"
+      (scan) => scan.errorCode === "e000" || scan.errorCode === "e004"
     );
 
     if (scansWithoutErrors.length === 0) {
@@ -153,7 +157,9 @@ export const getNetDuration = ({ _line, existingOrder }) => {
       return getGrossDuration(_line);
     } else {
       const scansWithoutErrorsOnThisLine = scans.filter(
-        (scan) => scan.errorCode === "e000" && scan._line === _line
+        (scan) =>
+          (scan.errorCode === "e000" || scan.errorCode === "e004") &&
+          scan._line === _line
       );
 
       // now we know that there are scans but no on this line, so...
@@ -181,7 +187,7 @@ export const getMeanCycleTime = ({ _line, existingOrder }) => {
       return 0;
     }
     const scansWithoutErrors = scans.filter(
-      (scan) => scan.errorCode === "e000"
+      (scan) => scan.errorCode === "e000" || scan.errorCode === "e004"
     );
 
     if (scansWithoutErrors.length === 0) {
@@ -191,7 +197,9 @@ export const getMeanCycleTime = ({ _line, existingOrder }) => {
       return Math.floor(getNetDuration({ _line, existingOrder }) / 1000);
     } else {
       const scansWithoutErrorsOnThisLine = scans.filter(
-        (scan) => scan.errorCode === "e000" && scan._line === _line
+        (scan) =>
+          (scan.errorCode === "e000" || scan.errorCode === "e004") &&
+          scan._line === _line
       );
 
       // now we know that there are scans but no on this line, so...
@@ -220,7 +228,7 @@ export const getLastCycleTime = ({ _line, existingOrder }) => {
       return 0;
     }
     const scansWithoutErrors = scans.filter(
-      (scan) => scan.errorCode === "e000"
+      (scan) => scan.errorCode === "e000" || scan.errorCode === "e004"
     );
 
     if (scansWithoutErrors.length === 0) {
@@ -230,7 +238,9 @@ export const getLastCycleTime = ({ _line, existingOrder }) => {
       return getNetDuration({ _line, existingOrder });
     } else {
       const scansWithoutErrorsOnThisLine = scans.filter(
-        (scan) => scan.errorCode === "e000" && scan._line === _line
+        (scan) =>
+          (scan.errorCode === "e000" || scan.errorCode === "e004") &&
+          scan._line === _line
       );
 
       // now we know that there are scans but no on this line, so...

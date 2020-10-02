@@ -10,7 +10,9 @@ class DoneTodoCard extends Component {
       const { scans } = this.props.existingOrder;
       const { _line } = this.props;
       const scansWithoutErrorsOnThisLine = scans.filter(
-        (scan) => scan.errorCode === "e000" && scan._line === _line
+        (scan) =>
+          (scan.errorCode === "e000" || scan.errorCode === "e004") &&
+          scan._line === _line
       ).length;
       return scansWithoutErrorsOnThisLine.toString();
     } else {
@@ -25,7 +27,7 @@ class DoneTodoCard extends Component {
         return 0;
       }
       const scansWithoutErrors = scans.filter(
-        (scan) => scan.errorCode === "e000"
+        (scan) => scan.errorCode === "e000" || scan.errorCode === "e004"
       ).length;
       return (quantity - scansWithoutErrors).toString();
     } else {
