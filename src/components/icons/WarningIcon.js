@@ -10,8 +10,8 @@ const WarningIcon = () => (
         y2="1"
         gradientUnits="objectBoundingBox"
       >
-        <stop offset="0" stop-color="#f9db49" />
-        <stop offset="1" stop-color="#ff7600" />
+        <stop offset="0" stopColor="#f9db49" />
+        <stop offset="1" stopColor="#ff7600" />
       </linearGradient>
     </defs>
     <path
