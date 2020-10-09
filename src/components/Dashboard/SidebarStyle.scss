@@ -1,0 +1,101 @@
+@import "../base";
+
+.sidebar {
+  height: $page-height;
+  background-color: $primary-color;
+  width: $sidebar-width;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .user-icon,
+  .line-icon,
+  .order-icon {
+    margin: 0;
+  }
+
+  &__group {
+    color: $background-color;
+    fill: $background-color;
+    stroke: $background-color;
+    text-transform: uppercase;
+    height: 50px;
+    width: $sidebar-width - 30px;
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+    margin-top: 40px;
+    font-weight: 800;
+    font-size: 1.1em;
+    letter-spacing: 0.1em;
+  }
+
+  &__tab {
+    color: $background-color;
+    fill: $background-color;
+    stroke: $background-color;
+    height: 50px;
+    width: $sidebar-width - 80px;
+    border-radius: 40px 0 0 40px;
+    display: flex;
+    align-items: center;
+    margin-left: 80px;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f5f6f840;
+    }
+
+    &--active,
+    &--active:hover {
+      background-color: $background-color;
+      color: $primary-color;
+      fill: $primary-color;
+      stroke: $primary-color;
+    }
+
+    &__icon {
+      width: 70px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &__text {
+      width: 170px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      color: inherit;
+      fill: inherit;
+      stroke: inherit;
+    }
+  }
+}
+
+.times-icon {
+  fill: inherit;
+  width: 22px;
+}
+
+.management-icon {
+  fill: inherit;
+  width: 28px;
+}
+
+.liveview-icon {
+  fill: inherit;
+  width: 22px;
+}
+
+.analytics-icon {
+  fill: inherit;
+  width: 24px;
+}
+
+.customer-icon {
+  fill: inherit;
+  width: 16px;
+}

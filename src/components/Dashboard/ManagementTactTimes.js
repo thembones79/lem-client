@@ -2,17 +2,17 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
-import requireManager from "../requireManager";
-import MainPage from "./Main";
-import Sidebar from "./Sidebar";
-import "./DashboardStyle.scss";
+import "./MainStyle.scss";
 
-class Dashboard extends Component {
+class ManagementTactTimes extends Component {
+  handleAddUserClick = () => {};
+
   render() {
     return (
-      <div className="dashboard-page">
-        <Sidebar />
-        <MainPage />
+      <div className="main-page">
+        <button className="btn btn--accent" onClick={this.handleAddUserClick}>
+          ManagementTactTimes
+        </button>
       </div>
     );
   }
@@ -27,4 +27,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   actions
-)(requireAuth(requireManager(Dashboard)));
+)(requireAuth(ManagementTactTimes));

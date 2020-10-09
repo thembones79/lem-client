@@ -7,7 +7,6 @@ const LineIcon = () => (
         id="Rectangle_53"
         transform="translate(854.631 269.078)"
         fill="none"
-        stroke="#656588"
         strokeWidth="2"
       >
         <rect width="36" height="14" rx="7" stroke="none" />
@@ -17,7 +16,6 @@ const LineIcon = () => (
         id="Ellipse_25"
         transform="translate(858.631 272.078)"
         fill="none"
-        stroke="#656588"
         strokeWidth="2"
       >
         <circle cx="4" cy="4" r="4" stroke="none" />
@@ -27,7 +25,6 @@ const LineIcon = () => (
         id="Ellipse_26"
         transform="translate(868.631 272.078)"
         fill="none"
-        stroke="#656588"
         strokeWidth="2"
       >
         <circle cx="4" cy="4" r="4" stroke="none" />
@@ -37,7 +34,6 @@ const LineIcon = () => (
         id="Ellipse_27"
         transform="translate(878.631 272.078)"
         fill="none"
-        stroke="#656588"
         strokeWidth="2"
       >
         <circle cx="4" cy="4" r="4" stroke="none" />

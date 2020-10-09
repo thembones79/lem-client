@@ -1,9 +1,10 @@
 @import "../base";
 
-.dashboard-page {
+.main-page {
   height: $page-height;
-  width: 100vw;
+  width: calc(100vw - 350px);
+
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 }
