@@ -34,6 +34,7 @@ import {
   CLOSE_DELETE_MODAL,
 } from "./types";
 import { ROOT_URL } from "../config";
+import { playProperSound } from "../utils/audioPlayer";
 
 export const fetchMessage = () => {
   return function (dispatch) {
@@ -70,6 +71,7 @@ export const insertScan = (
 
     //update state
     dispatch({ type: INSERT_SCAN, payload: response.data });
+    playProperSound(response.data.existingOrder, _line);
     compareScanQuantitiesAndClose();
   } catch (e) {
     dispatch({

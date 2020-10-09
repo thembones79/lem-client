@@ -58,7 +58,7 @@ const INITIAL_STATE = {
         _id: "waiting...",
         timeStamp: "",
         errorCode: "",
-        scanContent: "waiting...",
+        scanContent: "",
       },
     ],
   },

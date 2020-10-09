@@ -4,7 +4,6 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
-import requireManager from "../requireManager";
 import "./AddUserStyle.scss";
 
 class AddUser extends Component {
@@ -147,4 +146,4 @@ function mapStateToProps(state) {
 export default compose(
   connect(mapStateToProps, actions),
   reduxForm({ form: "addUser", validate: validate })
-)(requireAuth(requireManager(AddUser)));
+)(requireAuth(AddUser));

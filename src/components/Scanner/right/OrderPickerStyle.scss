@@ -11,6 +11,7 @@
     padding-left: 10px;
     font-weight: 500;
     display: flex;
+    stroke: $primary-color;
     justify-content: flex-start;
     align-items: center;
 
@@ -44,6 +45,8 @@
 
 .order-icon {
   width: 18px;
+  fill: inherit;
+  stroke: inherit;
   margin-bottom: 0;
   margin-right: 8px;
 }

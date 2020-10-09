@@ -27,6 +27,7 @@ $accent-font: "Oswald", sans-serif;
 /* sizes */
 $header-height: 70px;
 $page-height: calc(100vh - 70px);
+$sidebar-width: 350px;
 
 /* shadows */
 $normal-shadow: 0px 10px 30px 0px rgba(0, 72, 155, 0.09);
@@ -141,6 +142,7 @@ html {
 body {
   line-height: 1;
   color: $primary-color;
+  fill: $primary-color;
   background: $background-color;
   font-family: $primary-font;
   -webkit-font-smoothing: antialiased;
