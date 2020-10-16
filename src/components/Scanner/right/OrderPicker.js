@@ -14,8 +14,10 @@ class OrderPicker extends Component {
 
   handleOrderChange = (formProps) => {
     const orderNumber = formProps.target.value;
+    const { line } = this.props;
     this.props.pickOrder(orderNumber);
     this.props.getOrder(orderNumber);
+    this.props.occupyLineWithOrder(line, orderNumber);
   };
 
   renderAlert() {

@@ -49,12 +49,12 @@ class ScanContent extends Component {
             <div className="scan-item__timestamp">
               {renderTime(this.props.timeStamp)}
             </div>
+            {this.renderError(this.props.errorCode, "en")}
             <div className="scan-item__partnumber">
               {this.props.scanContent}{" "}
             </div>
           </div>
         </div>
-        {this.renderError(this.props.errorCode, "en")}
       </div>
     );
   }

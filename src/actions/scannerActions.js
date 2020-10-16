@@ -32,6 +32,8 @@ import {
   CLOSE_FINISH_MODAL,
   OPEN_DELETE_MODAL,
   CLOSE_DELETE_MODAL,
+  OCCUPY_LINE_WITH_ORDER,
+  OCCUPY_LINE_WITH_ORDER_ERROR,
 } from "./types";
 import { ROOT_URL } from "../config";
 import { playProperSound } from "../utils/audioPlayer";
@@ -168,6 +170,28 @@ export const freeLine = (lineId) => async (dispatch) => {
     dispatch({ type: PICK_LINE, payload: "" });
   } catch (e) {
     dispatch({ type: PICK_LINE_ERROR, payload: e.message });
+  }
+};
+
+export const occupyLineWithOrder = (lineId, orderNumber) => async (
+  dispatch
+) => {
+  try {
+    await axios.put(
+      `${ROOT_URL}/api/line/occupiedwith`,
+      {
+        lineId,
+        orderNumber,
+      },
+      {
+        headers: { authorization: localStorage.getItem("token") },
+      }
+    );
+
+    //update state
+    dispatch({ type: OCCUPY_LINE_WITH_ORDER });
+  } catch (e) {
+    dispatch({ type: OCCUPY_LINE_WITH_ORDER_ERROR, payload: e.message });
   }
 };
 
