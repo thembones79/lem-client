@@ -8,7 +8,6 @@
     width: 100%;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
   }
 }
 
@@ -21,7 +20,8 @@
   margin: 20px 15px;
   border: 0;
   height: 46px;
-  min-width: 140px;
+  min-width: 40px;
+  width: 140px;
   letter-spacing: 1px;
   display: flex;
   transition: 0.3s;
