@@ -14,6 +14,7 @@ class AnalyticsLiveView extends Component {
   componentDidMount() {
     socket = io(ROOT_URL, {
       query: { authorization: localStorage.getItem("token") },
+      transports: ["websocket"],
     });
     socket.on("FromAPI", (data) => {
       console.log({ fromapi: data });
