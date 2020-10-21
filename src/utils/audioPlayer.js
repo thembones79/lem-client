@@ -1,6 +1,6 @@
 import warningSound from "../components/sounds/warning_louder2.wav";
 import okSound from "../components/sounds/ok_louder.wav";
-import errorSound from "../components/sounds/error_silenter2.wav";
+import errorSound from "../components/sounds/error.wav";
 
 const warningSfx = new Audio(warningSound);
 const errorSfx = new Audio(errorSound);
