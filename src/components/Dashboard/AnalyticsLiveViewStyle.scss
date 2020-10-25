@@ -1,0 +1,11 @@
+@import "../base";
+
+.liveview-page {
+  height: $page-height;
+  width: calc(100vw - 350px);
+  display: flex;
+  overflow: auto;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
