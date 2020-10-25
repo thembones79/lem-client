@@ -1,0 +1,87 @@
+@import "../base";
+
+.line-stats-card {
+  background-color: $foreground-color;
+  margin-top: 30px;
+  border-radius: $normal-radius;
+  max-width: 800px;
+  min-width: 300px;
+  min-height: 110px;
+  max-height: 295px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1.2em;
+  font-weight: 400;
+  box-shadow: $normal-shadow;
+  padding: 0px 0px 10px 0px;
+  margin: 1vh;
+
+  &__header {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    color: white;
+    padding: 6px;
+    margin-bottom: 2px;
+    background-color: $primary-color;
+    border-radius: $normal-radius $normal-radius 0 0;
+  }
+
+  &__row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    &--accent {
+      background-color: $background-color;
+      font-weight: 700;
+    }
+
+    &--smaller {
+      font-size: 0.7em;
+    }
+  }
+
+  &__item {
+    padding: 10px 20px;
+
+    &--bold {
+      font-weight: 700;
+    }
+
+    &--thin {
+      font-weight: 400;
+    }
+
+    &--bad {
+      color: $danger-color;
+      font-weight: 700;
+    }
+
+    &--good {
+      color: $success-color;
+      font-weight: 700;
+    }
+
+    &--accent {
+      color: $accent-color;
+      font-weight: 500;
+      font-size: 0.8em;
+    }
+
+    &--faded {
+      color: $faded-color;
+      font-weight: 700;
+    }
+
+    &--pretty {
+      @include riverdi-gradient;
+      font-weight: 700;
+    }
+  }
+}

@@ -39,3 +39,6 @@ export const CLOSE_DELETE_MODAL = "close_delete_modal";
 export const CHOOSE_SIDEBAR_TAB = "choose_sidebar_tab";
 export const OCCUPY_LINE_WITH_ORDER = "occupy_line_with_order";
 export const OCCUPY_LINE_WITH_ORDER_ERROR = "occupy_line_with_order_error";
+export const INIT_LIVEDATA = "init_live_data";
+export const INIT_LIVEDATA_ERROR = "init_live_data_error";
+export const REFRESH_LIVEDATA = "refresh_live_data";
