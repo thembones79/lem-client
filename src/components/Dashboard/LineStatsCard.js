@@ -22,7 +22,7 @@ class LineStatsCard extends Component {
         <div className="line-stats-card__row line-stats-card__row--smaller">
           <span className="line-stats-card__item">{this.props.partNumber}</span>
           <span className="line-stats-card__item line-stats-card__item--bold">
-            8 / 250
+            {this.props.validScans} / {this.props.quantity}
           </span>
         </div>
 
