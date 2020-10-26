@@ -46,6 +46,8 @@ class AnalyticsLiveView extends Component {
           meanCycleTime={item.meanCycleTime}
           lastCycleTime={item.lastCycleTime}
           efficiency={item.efficiency}
+          quantity={item.quantity}
+          validScans={item.validScans}
         />
       ));
     }
