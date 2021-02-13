@@ -12,6 +12,8 @@ import ManagementIcon from "../icons/ManagementIcon";
 import CustomerIcon from "../icons/CustomerIcon";
 import AnalyticsIcon from "../icons/AnalyticsIcon";
 import LiveViewIcon from "../icons/LiveViewIcon";
+import ProductIcon from "../icons/ProductIcon";
+import RedirectionIcon from "../icons/RedirectionIcon";
 
 class Sidebar extends Component {
   state = { activeSidebarTab: "ordersiki" };
@@ -41,6 +43,12 @@ class Sidebar extends Component {
             </SidebarTab>
             <SidebarTab tab="ManagementCustomers" text="customers">
               <CustomerIcon />
+            </SidebarTab>
+            <SidebarTab tab="ManagementProducts" text="products">
+              <ProductIcon />
+            </SidebarTab>
+            <SidebarTab tab="ManagementRedirections" text="redirections">
+              <RedirectionIcon />
             </SidebarTab>
           </div>
         </div>
