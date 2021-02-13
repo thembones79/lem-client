@@ -11,6 +11,8 @@ import ManagementLines from "./ManagementLines";
 import ManagementOrders from "./ManagementOrders";
 import ManagementTactTimes from "./ManagementTactTimes";
 import ManagementUsers from "./ManagementUsers";
+import ManagementProducts from "./ManagementProducts";
+import ManagementRedirections from "./ManagementRedirections";
 
 class Main extends Component {
   renderChildComponent(tab) {
@@ -31,6 +33,10 @@ class Main extends Component {
         return <ManagementTactTimes />;
       case "ManagementUsers":
         return <ManagementUsers />;
+      case "ManagementProducts":
+        return <ManagementProducts />;
+      case "ManagementRedirections":
+        return <ManagementRedirections />;
       default:
         return <div>Please pick a tab from the sidebar!</div>;
     }
