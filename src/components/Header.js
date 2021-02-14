@@ -6,6 +6,7 @@ import ScannerIcon from "../components/icons/ScannerIcon";
 import DashboardIcon from "../components/icons/DashboardIcon";
 import UserIcon from "../components/icons/UserIcon";
 import LogOutIcon from "../components/icons/LogOutIcon";
+import InstructionIcon from "../components/icons/InstructionIcon";
 import "./HeaderStyle.scss";
 
 class Header extends Component {
@@ -31,6 +32,13 @@ class Header extends Component {
     if (this.props.authenticated) {
       return (
         <div className="nav">
+          <NavLink
+            className="nav__link"
+            activeClassName="nav__link--selected"
+            to="/instructions"
+          >
+            <InstructionIcon /> Instructions
+          </NavLink>
           {this.renderManagerLinks()}
           <NavLink
             className="nav__link"
