@@ -6,7 +6,7 @@
   background-color: $foreground-color;
   width: 100vw;
   height: $header-height;
-  transition: 1.3s;
+  // transition: 1.3s;
   box-shadow: $normal-shadow;
 }
 
@@ -14,7 +14,7 @@
   display: flex;
   justify-content: space-between;
   background-color: $foreground-color;
-  transition: 1.3s;
+  // transition: 1.3s;
   height: $header-height;
 
   &__link {
@@ -28,7 +28,7 @@
     height: $header-height;
     border-bottom: 2px solid $foreground-color;
     text-decoration: none;
-    transition: 1.3s;
+    // transition: 1.3s;
     text-transform: lowercase;
     fill: $primary-color;
     stroke: $primary-color;

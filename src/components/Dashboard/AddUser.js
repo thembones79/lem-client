@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
 import "./AddUserStyle.scss";
 
 class AddUser extends Component {
   onSubmit = (formProps) => {
-    this.props.addUser(formProps, () => {
-      this.props.history.push("/scanner");
+    const { history, addUser } = this.props;
+    addUser(formProps, () => {
+      history.push("/scanner");
     });
   };
 
@@ -146,4 +148,4 @@ function mapStateToProps(state) {
 export default compose(
   connect(mapStateToProps, actions),
   reduxForm({ form: "addUser", validate: validate })
-)(requireAuth(AddUser));
+)(requireAuth(withRouter(AddUser)));

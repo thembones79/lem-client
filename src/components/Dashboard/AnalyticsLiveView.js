@@ -18,10 +18,6 @@ class AnalyticsLiveView extends Component {
       transports: ["websocket"],
     });
 
-    //  socket.on("FromAPI", (data) => {
-    //    console.log({ fromapi: data });
-    //  });
-
     socket.on("LiveView", (data) => {
       this.props.refreshLiveData(data);
     });
