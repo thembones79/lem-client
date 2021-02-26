@@ -6,10 +6,6 @@ import AddUser from "./AddUser";
 import "./MainStyle.scss";
 
 class ManagementUsers extends Component {
-  handleAddUserClick = () => {
-    this.props.history.push("/adduser");
-  };
-
   render() {
     return (
       <div className="main-page">

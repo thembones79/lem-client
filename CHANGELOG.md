@@ -5,11 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12.0] - 2021-02-26
+
+### 🔥 Added
+
+- (WIDS) created RedirectionsList component
+- (WIDS) created NewRedirection component
+- simplified and refactored the **modal logic** to another files
+- (WIDS) created EditRedirection component
+- (WIDS) created RedirectionItem component
+- (WIDS) created RedirectionRouter component
+- (WIDS) implemented: create, read, update and delete functionalities for redirections (integration with the backend)
+
 ## [1.11.0] - 2021-02-13
 
 ### 🔥 Added
 
-- products and redirection tabs
+- instruction, products and redirection tabs for **Workplace Instructions Distribution System** (WIDS)
 
 ## [1.10.0] - 2020-10-25
 

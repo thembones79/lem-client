@@ -21,6 +21,21 @@ $disabled-color: #eaeaea;
   -moz-text-fill-color: transparent;
 }
 
+@mixin placeholder {
+  ::-webkit-input-placeholder {
+    @content;
+  }
+  :-moz-placeholder {
+    @content;
+  }
+  ::-moz-placeholder {
+    @content;
+  }
+  :-ms-input-placeholder {
+    @content;
+  }
+}
+
 /* fonts */
 $primary-font: "Montserrat", sans-serif;
 $accent-font: "Oswald", sans-serif;

@@ -16,6 +16,10 @@ class Modal extends Component {
         this.handleDeleteClick();
         break;
 
+      case "delete redirection":
+        this.handleDeleteRedirectionClick();
+        break;
+
       default:
         return;
     }
@@ -24,17 +28,23 @@ class Modal extends Component {
   handleFinishClick = () => {
     const { orderNumber } = this.props;
     this.props.closeOrder({ orderNumber });
-    this.props.closeFinishModal();
+    this.props.closeModal();
   };
 
   handleDeleteClick = () => {
     const { orderNumber } = this.props;
     this.props.deleteOrder({ orderNumber });
-    this.props.closeFinishModal();
+    this.props.closeModal();
+  };
+
+  handleDeleteRedirectionClick = () => {
+    const { redirectionId } = this.props;
+    this.props.deleteRedirection(redirectionId);
+    this.props.closeModal();
   };
 
   handleCancelClick = () => {
-    this.props.closeFinishModal();
+    this.props.closeModal();
   };
 
   render() {
@@ -54,10 +64,12 @@ class Modal extends Component {
           <div className="modal__card__content">{modalContent}</div>
           <div className="modal__card__buttons">
             <button
-              className={`btn ${modalAction ? "btn--" + modalAction : ""}`}
+              className={`btn ${
+                modalAction === "finish" ? "btn--" + modalAction : "btn--delete"
+              }`}
               onClick={this.handleActionClick}
             >
-              YES, {modalAction} it
+              YES, {modalAction}
             </button>
             <button
               className={`btn btn--cancel`}
@@ -75,10 +87,11 @@ class Modal extends Component {
 function mapStateToProps(state) {
   return {
     orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
-    isModalOpened: state.scanner.isModalOpened,
-    modalHeader: state.scanner.modalHeader,
-    modalContent: state.scanner.modalContent,
-    modalAction: state.scanner.modalAction,
+    isModalOpened: state.modal.isModalOpened,
+    modalHeader: state.modal.modalHeader,
+    modalContent: state.modal.modalContent,
+    modalAction: state.modal.modalAction,
+    redirectionId: state.wids.redirectionId,
   };
 }
 export default connect(mapStateToProps, actions)(Modal);

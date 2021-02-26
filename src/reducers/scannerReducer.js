@@ -27,10 +27,6 @@ import {
   SET_ORDER_PAUSE_STATUS,
   PAUSE_ORDER,
   RESUME_ORDER,
-  OPEN_FINISH_MODAL,
-  CLOSE_FINISH_MODAL,
-  OPEN_DELETE_MODAL,
-  CLOSE_DELETE_MODAL,
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -227,47 +223,6 @@ export default function (state = INITIAL_STATE, action) {
       return {
         ...state,
         isRunning: action.payload.isRunning,
-      };
-
-    case OPEN_FINISH_MODAL:
-      return {
-        ...state,
-        isModalOpened: true,
-        modalHeader: "Are you sure you want to finish/close this order?",
-        modalContent: `finished/closed orders cannot be re-opened!
-
-        if you want to add some scans into this order - use “PAUSE”
-        instead
-        of “finish”`,
-        modalAction: "finish",
-      };
-
-    case CLOSE_FINISH_MODAL:
-      return {
-        ...state,
-        isModalOpened: false,
-        modalHeader: "",
-        modalContent: "",
-        modalAction: "",
-      };
-
-    case OPEN_DELETE_MODAL:
-      return {
-        ...state,
-        isModalOpened: true,
-        modalHeader: "Are you sure you want to delete this order?",
-        modalContent: `It can't be undone! So, if you are really 100% sure,
-           smash the “YES…” button`,
-        modalAction: "delete",
-      };
-
-    case CLOSE_DELETE_MODAL:
-      return {
-        ...state,
-        isModalOpened: false,
-        modalHeader: "",
-        modalContent: "",
-        modalAction: "",
       };
 
     default:

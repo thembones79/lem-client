@@ -12,8 +12,10 @@ export default (ChildComponent) => {
     }
 
     shouldNavigateAway() {
-      if (this.props.userType !== "manager") {
-        this.props.history.push("/");
+      if (this.props.userType) {
+        if (this.props.userType !== "manager") {
+          this.props.history.push("/");
+        }
       }
     }
 
