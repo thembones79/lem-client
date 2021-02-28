@@ -1,0 +1,86 @@
+@import "../../base";
+
+.product-page {
+  height: $page-height;
+  width: calc(100vw - 350px);
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-left: 60px;
+  margin-right: 60px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 170px;
+    width: 100%;
+  }
+}
+
+.products-list {
+  width: 100%;
+  padding: 10px;
+  overflow: auto;
+  background-color: $foreground-color;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: $small-radius;
+  box-shadow: $normal-shadow;
+
+  &__header {
+    display: flex;
+    width: 80%;
+    justify-content: flex-start;
+    font-weight: 600;
+    padding-left: 10px;
+
+    &__item {
+      width: 30%;
+
+      &--first {
+        width: 40%;
+      }
+    }
+  }
+
+  &__filter {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+
+    &__label {
+      font-weight: 600;
+      padding-left: 10px;
+    }
+
+    &__input {
+      max-width: 400px;
+      width: 90%;
+      min-width: 100px;
+      margin: 35px 20px;
+      height: 39px;
+      background-color: $foreground-color;
+      border-radius: $big-radius;
+      border: 0;
+      box-shadow: $normal-shadow;
+      font-family: $primary-font;
+      caret-color: $accent-color;
+      color: $accent-color;
+      fill: $accent-color;
+      padding: 10px 20px 10px 40px;
+
+      &:disabled {
+        background-color: $disabled-color;
+        box-shadow: $disabled-shadow;
+        fill: $disabled-color;
+      }
+
+      &:focus {
+        border: 1px solid $accent-color;
+      }
+    }
+  }
+}

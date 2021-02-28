@@ -3,6 +3,7 @@ import {
   CLOSE_MODAL,
   OPEN_DELETE_MODAL,
   OPEN_DELETE_REDIRECTION_MODAL,
+  OPEN_DELETE_PRODUCT_MODAL,
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -55,6 +56,17 @@ export default function (state = INITIAL_STATE, action) {
                smash the “YES…” button`,
         modalAction: "delete redirection",
         redirectionId: action.payload,
+      };
+
+    case OPEN_DELETE_PRODUCT_MODAL:
+      return {
+        ...state,
+        isModalOpened: true,
+        modalHeader: "Are you sure you want to delete this product?",
+        modalContent: `It can't be undone! So, if you are really 100% sure,
+                 smash the “YES…” button`,
+        modalAction: "delete product",
+        productId: action.payload,
       };
 
     default:

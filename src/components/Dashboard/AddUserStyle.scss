@@ -48,11 +48,13 @@
     color: $primary-color;
     padding: 10px;
     font-size: 0.9em;
-    cursor: pointer;
 
     &:disabled {
       background-color: $disabled-color;
       box-shadow: $disabled-shadow;
+    }
+    &:focus {
+      border: 1px solid $accent-color;
     }
   }
 }

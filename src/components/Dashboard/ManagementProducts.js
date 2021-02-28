@@ -2,17 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
+import ProductsRouter from "./Products/ProductRouter";
 import "./MainStyle.scss";
 
 class ManagementProducts extends Component {
-  handleAddUserClick = () => {};
-
   render() {
     return (
       <div className="main-page">
-        <button className="btn btn--accent" onClick={this.handleAddUserClick}>
-          ManagementProducts
-        </button>
+        <ProductsRouter />
       </div>
     );
   }

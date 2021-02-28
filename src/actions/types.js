@@ -57,6 +57,22 @@ export const DELETE_REDIRECTION = "delete_redirection";
 export const DELETE_REDIRECTION_ERROR = "delete_redirection_error";
 export const OPEN_DELETE_REDIRECTION_MODAL = "open_delete_redirection_modal";
 export const BACK_TO_REDIRECTIONS_LIST = "back_to_redirections_list";
+
+export const GET_PRODUCTS = "get_products";
+export const GET_PRODUCTS_ERROR = "get_products_error";
+export const ADD_PRODUCT = "add_product";
+export const ADD_PRODUCT_ERROR = "add_product_error";
+export const SAVE_PRODUCT = "save_product";
+export const SAVE_PRODUCT_ERROR = "save_product_error";
+export const TOGGLE_PRODUCT_EDIT = "toggle_product_edit";
+export const START_EDITING_PRODUCT = "start_editing_product";
+export const START_ADDING_PRODUCT = "start_adding_product";
+export const DELETE_PRODUCT = "delete_product";
+export const DELETE_PRODUCT_ERROR = "delete_product_error";
+export const OPEN_DELETE_PRODUCT_MODAL = "open_delete_product_modal";
+export const BACK_TO_PRODUCTS_LIST = "back_to__products_list";
+export const UPDATE_PRODUCTS_LIST = "update_products_list";
+
 export const NEW = "NEW";
 export const EDIT = "EDIT";
 export const LIST = "LIST";

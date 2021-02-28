@@ -19,7 +19,7 @@ class RedirectionItem extends Component {
 
         <div className="redirection-row__buttons">
           <button
-            className="btn btn--finish"
+            className="btn btn--finish btn--thin"
             onClick={() => {
               this.props.startEditingRedirection({
                 _id,
@@ -32,7 +32,7 @@ class RedirectionItem extends Component {
             EDIT
           </button>
           <button
-            className="btn btn--delete"
+            className="btn btn--delete btn--thin"
             onClick={() => {
               this.props.openDeleteReditectionModal(_id);
             }}

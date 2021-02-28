@@ -3,6 +3,7 @@ import {
   CLOSE_MODAL,
   OPEN_DELETE_MODAL,
   OPEN_DELETE_REDIRECTION_MODAL,
+  OPEN_DELETE_PRODUCT_MODAL,
 } from "./types";
 
 export const openFinishModal = () => {
@@ -19,4 +20,8 @@ export const openDeleteModal = () => {
 
 export const openDeleteReditectionModal = (_id) => {
   return { type: OPEN_DELETE_REDIRECTION_MODAL, payload: _id };
+};
+
+export const openDeleteProductModal = (_id) => {
+  return { type: OPEN_DELETE_PRODUCT_MODAL, payload: _id };
 };
