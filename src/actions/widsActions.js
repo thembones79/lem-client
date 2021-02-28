@@ -209,3 +209,24 @@ export const addProduct = ({ partNumber }) => async (dispatch) => {
     dispatch({ type: ADD_PRODUCT_ERROR, payload: e.response.data.error });
   }
 };
+
+export const saveProduct = ({ partNumber }, id) => async (dispatch) => {
+  try {
+    const response = await axios.put(
+      `${ROOT_URL}/api/redirection/`,
+      {
+        _id: id,
+        partNumber: partNumber.trim(),
+        linksToDocs: [],
+        linksToRedirs: [],
+      },
+      {
+        headers: { authorization: localStorage.getItem("token") },
+      }
+    );
+
+    dispatch({ type: SAVE_PRODUCT, payload: response.data });
+  } catch (e) {
+    dispatch({ type: SAVE_PRODUCT_ERROR, payload: e.response.data.error });
+  }
+};
