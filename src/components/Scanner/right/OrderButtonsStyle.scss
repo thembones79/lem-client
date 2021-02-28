@@ -20,7 +20,7 @@
   margin: 20px 15px;
   border: 0;
   height: 46px;
-  min-width: 40px;
+  min-width: 60px;
   width: 140px;
   letter-spacing: 1px;
   display: flex;
@@ -83,6 +83,10 @@
     &:hover {
       box-shadow: $primary-btn-shadow-hover;
     }
+  }
+
+  &--thin {
+    margin: 8px 4px;
   }
 }
 

@@ -1,7 +1,6 @@
 import {
   GET_REDIRECTIONS,
   GET_REDIRECTIONS_ERROR,
-  TOGGLE_REDIRECTION_EDIT,
   ADD_REDIRECTION,
   ADD_REDIRECTION_ERROR,
   SAVE_REDIRECTION,
@@ -11,6 +10,18 @@ import {
   DELETE_REDIRECTION,
   DELETE_REDIRECTION_ERROR,
   BACK_TO_REDIRECTIONS_LIST,
+  GET_PRODUCTS,
+  GET_PRODUCTS_ERROR,
+  ADD_PRODUCT,
+  ADD_PRODUCT_ERROR,
+  SAVE_PRODUCT,
+  SAVE_PRODUCT_ERROR,
+  START_ADDING_PRODUCT,
+  START_EDITING_PRODUCT,
+  BACK_TO_PRODUCTS_LIST,
+  DELETE_PRODUCT,
+  DELETE_PRODUCT_ERROR,
+  UPDATE_PRODUCTS_LIST,
   NEW,
   EDIT,
   LIST,
@@ -18,12 +29,16 @@ import {
 
 const INITIAL_STATE = {
   redirections: [],
+  products: [],
+  filteredProducts: [],
   errorMessage: "",
   message: "",
-  isEditingRedirection: false,
   activeRedirectionComponent: LIST,
+  activeProductComponent: LIST,
   redirectionId: "",
   initRedirection: {},
+  productId: "",
+  initProduct: {},
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -35,9 +50,6 @@ export default function (state = INITIAL_STATE, action) {
       };
     case GET_REDIRECTIONS_ERROR:
       return { ...state, errorMessage: action.payload };
-
-    case TOGGLE_REDIRECTION_EDIT:
-      return { ...state, isEditingRedirection: !state.isEditingRedirection };
 
     case ADD_REDIRECTION:
       return {
@@ -87,6 +99,74 @@ export default function (state = INITIAL_STATE, action) {
       };
 
     case DELETE_REDIRECTION_ERROR:
+      return { ...state, errorMessage: action.payload };
+
+    case GET_PRODUCTS:
+      return {
+        ...state,
+        products: action.payload,
+      };
+    case GET_PRODUCTS_ERROR:
+      return { ...state, errorMessage: action.payload };
+
+    case ADD_PRODUCT:
+      return {
+        ...state,
+        activeProductComponent: EDIT,
+        productId: action.payload._id,
+        partNumber: action.payload.partNumber,
+        initProduct: action.payload,
+      };
+
+    case ADD_PRODUCT_ERROR:
+      return { ...state, errorMessage: action.payload };
+
+    case SAVE_PRODUCT:
+      return {
+        ...state,
+        activeProductComponent: LIST,
+      };
+
+    case BACK_TO_PRODUCTS_LIST:
+      return {
+        ...state,
+        activeProductComponent: LIST,
+      };
+
+    case SAVE_PRODUCT_ERROR:
+      return { ...state, errorMessage: action.payload };
+
+    case START_ADDING_PRODUCT:
+      return {
+        ...state,
+        activeProductComponent: NEW,
+      };
+
+    case START_EDITING_PRODUCT:
+      return {
+        ...state,
+        activeProductComponent: EDIT,
+        productId: action.payload._id,
+        initProduct: action.payload,
+      };
+
+    case UPDATE_PRODUCTS_LIST:
+      return {
+        ...state,
+        filteredProducts: action.payload,
+      };
+
+    case DELETE_PRODUCT:
+      return {
+        ...state,
+        message: action.payload,
+        products: state.products.filter((p) => p._id !== action.payload),
+        filteredProducts: state.filteredProducts.filter(
+          (p) => p._id !== action.payload
+        ),
+      };
+
+    case DELETE_PRODUCT_ERROR:
       return { ...state, errorMessage: action.payload };
 
     default:

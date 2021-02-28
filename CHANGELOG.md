@@ -5,17 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.13.0] - 2021-02-28
+
+### 🔥 Added
+
+- (WIDS) created ProductsList component
+- (WIDS) implement product filtering logic in ProductList component
+- (WIDS) created ProductItem component
+- (WIDS) created ProductRouter component
+- (WIDS) created NewProduct component
+
+### 💪 Changed
+
+- updated input styling
+
 ## [1.12.0] - 2021-02-26
 
 ### 🔥 Added
 
 - (WIDS) created RedirectionsList component
 - (WIDS) created NewRedirection component
-- simplified and refactored the **modal logic** to another files
 - (WIDS) created EditRedirection component
 - (WIDS) created RedirectionItem component
 - (WIDS) created RedirectionRouter component
 - (WIDS) implemented: create, read, update and delete functionalities for redirections (integration with the backend)
+
+### 💪 Changed
+
+- simplified and refactored the **modal logic** to another files
 
 ## [1.11.0] - 2021-02-13
 

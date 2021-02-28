@@ -6,8 +6,6 @@ import RedirectionsRouter from "./Redirections/RedirectionRouter";
 import "./MainStyle.scss";
 
 class ManagementRedirections extends Component {
-  handleAddUserClick = () => {};
-
   render() {
     return (
       <div className="main-page">

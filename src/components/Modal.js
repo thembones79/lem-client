@@ -20,6 +20,10 @@ class Modal extends Component {
         this.handleDeleteRedirectionClick();
         break;
 
+      case "delete product":
+        this.handleDeleteProductClick();
+        break;
+
       default:
         return;
     }
@@ -40,6 +44,12 @@ class Modal extends Component {
   handleDeleteRedirectionClick = () => {
     const { redirectionId } = this.props;
     this.props.deleteRedirection(redirectionId);
+    this.props.closeModal();
+  };
+
+  handleDeleteProductClick = () => {
+    const { productId } = this.props;
+    this.props.deleteProduct(productId);
     this.props.closeModal();
   };
 
@@ -91,7 +101,8 @@ function mapStateToProps(state) {
     modalHeader: state.modal.modalHeader,
     modalContent: state.modal.modalContent,
     modalAction: state.modal.modalAction,
-    redirectionId: state.wids.redirectionId,
+    redirectionId: state.modal.redirectionId,
+    productId: state.modal.productId,
   };
 }
 export default connect(mapStateToProps, actions)(Modal);
