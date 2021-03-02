@@ -50,6 +50,24 @@
     }
   }
 
+  &--alt-delete {
+    background-color: white;
+    box-shadow: none;
+    align-self: center;
+    padding: 0;
+    transition: 0.9s;
+    width: 46px;
+    min-width: 46px;
+
+    &:hover {
+      box-shadow: $danger-btn-alt-shadow;
+      &:disabled {
+        background-color: $disabled-color;
+        box-shadow: $disabled-shadow;
+      }
+    }
+  }
+
   &--accent {
     font-size: 1.05em;
     height: 52px;
@@ -87,6 +105,7 @@
 
   &--thin {
     margin: 8px 4px;
+    stroke: white;
   }
 }
 

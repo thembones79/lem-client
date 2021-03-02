@@ -1,0 +1,70 @@
+@import "../../base";
+
+.adder-form {
+  width: calc(100vw - 350px);
+  //height: 100%;
+  display: flex;
+  //flex-direction: column;
+  justify-content: center;
+  //align-items: center;
+  //padding-left: 60px;
+  padding-right: 120px;
+  @include placeholder {
+    font-style: italic;
+    color: rgb(187, 185, 185);
+  }
+
+  &__label {
+    font-size: 1.1em;
+    padding-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  &__select {
+    min-width: 100px;
+    width: calc((100vw - 350px) / 3.5);
+    height: 42px;
+    background-color: $foreground-color;
+    border-radius: $small-radius;
+    border: 0;
+    box-shadow: $normal-shadow;
+    font-family: $primary-font;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 20px;
+    color: $primary-color;
+    padding: 10px;
+    font-size: 0.9em;
+
+    &--wide {
+      width: calc(((100vw - 350px) / 1.75) + 20px);
+    }
+
+    &--medium {
+      width: calc((100vw - 350px) / 4);
+      margin: 5px;
+      max-width: 332px;
+    }
+
+    &:disabled {
+      background-color: $disabled-color;
+      box-shadow: $disabled-shadow;
+    }
+    &:focus {
+      border: 1px solid $accent-color;
+    }
+  }
+}
+
+.btn--accent--flex {
+  font-size: 1.05em;
+  height: 52px;
+  margin: 5px;
+  max-width: 332px;
+  width: calc((100vw - 350px) / 4);
+}

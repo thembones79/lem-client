@@ -60,6 +60,8 @@ export const BACK_TO_REDIRECTIONS_LIST = "back_to_redirections_list";
 
 export const GET_PRODUCTS = "get_products";
 export const GET_PRODUCTS_ERROR = "get_products_error";
+export const GET_PRODUCT = "get_product";
+export const GET_PRODUCT_ERROR = "get_product_error";
 export const ADD_PRODUCT = "add_product";
 export const ADD_PRODUCT_ERROR = "add_product_error";
 export const SAVE_PRODUCT = "save_product";
@@ -72,6 +74,18 @@ export const DELETE_PRODUCT_ERROR = "delete_product_error";
 export const OPEN_DELETE_PRODUCT_MODAL = "open_delete_product_modal";
 export const BACK_TO_PRODUCTS_LIST = "back_to__products_list";
 export const UPDATE_PRODUCTS_LIST = "update_products_list";
+export const ADD_LINK_IN_PRODUCT = "add_link_in_product";
+export const ADD_LINK_IN_PRODUCT_ERROR = "add_link_in_product_error";
+export const ADD_REDIRECTION_IN_PRODUCT = "add_redirection_in_product";
+export const ADD_REDIRECTION_IN_PRODUCT_ERROR =
+  "add_redirection_in_product_error";
+export const DELETE_CONNECTED_LINK_ITEM = "delete_connected_link_item";
+export const DELETE_CONNECTED_LINK_ITEM_ERROR =
+  "delete_connected_link_item_error";
+export const DELETE_CONNECTED_REDIRECTION_ITEM =
+  "delete_connected_redirection_item";
+export const DELETE_CONNECTED_REDIRECTION_ITEM_ERROR =
+  "delete_connected_redirection_item_error";
 
 export const NEW = "NEW";
 export const EDIT = "EDIT";

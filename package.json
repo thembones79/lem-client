@@ -1,6 +1,6 @@
 {
   "name": "lem-api-client",
-  "version": "1.13.0",
+  "version": "1.14.0",
   "description": "GUI in ReactJS for LEM (Line Efficiency Monitoring) System",
   "main": "index.js",
   "keywords": [

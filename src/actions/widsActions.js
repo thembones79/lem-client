@@ -13,6 +13,8 @@ import {
   DELETE_REDIRECTION_ERROR,
   GET_PRODUCTS,
   GET_PRODUCTS_ERROR,
+  GET_PRODUCT,
+  GET_PRODUCT_ERROR,
   ADD_PRODUCT,
   ADD_PRODUCT_ERROR,
   SAVE_PRODUCT,
@@ -23,6 +25,14 @@ import {
   DELETE_PRODUCT,
   DELETE_PRODUCT_ERROR,
   UPDATE_PRODUCTS_LIST,
+  ADD_LINK_IN_PRODUCT,
+  ADD_LINK_IN_PRODUCT_ERROR,
+  ADD_REDIRECTION_IN_PRODUCT,
+  ADD_REDIRECTION_IN_PRODUCT_ERROR,
+  DELETE_CONNECTED_LINK_ITEM,
+  DELETE_CONNECTED_LINK_ITEM_ERROR,
+  DELETE_CONNECTED_REDIRECTION_ITEM,
+  DELETE_CONNECTED_REDIRECTION_ITEM_ERROR,
 } from "./types";
 import { ROOT_URL } from "../config";
 
@@ -228,5 +238,144 @@ export const saveProduct = ({ partNumber }, id) => async (dispatch) => {
     dispatch({ type: SAVE_PRODUCT, payload: response.data });
   } catch (e) {
     dispatch({ type: SAVE_PRODUCT_ERROR, payload: e.response.data.error });
+  }
+};
+
+export const getProduct = (productId) => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      `${ROOT_URL}/api/product/${productId}`,
+
+      {
+        headers: { authorization: localStorage.getItem("token") },
+      }
+    );
+
+    //update state
+    dispatch({ type: GET_PRODUCT, payload: response.data.existingProduct });
+  } catch (e) {
+    dispatch({ type: GET_PRODUCT_ERROR, payload: e.response.data.error });
+  }
+};
+
+export const addLinkInProduct = (
+  { fileName, description },
+  partNumber
+) => async (dispatch) => {
+  try {
+    const response = await axios.post(
+      `${ROOT_URL}/api/product/link`,
+      {
+        partNumber: partNumber.trim(),
+        description: description.trim(),
+        fileName: fileName.trim(),
+      },
+      {
+        headers: { authorization: localStorage.getItem("token") },
+      }
+    );
+
+    dispatch({
+      type: ADD_LINK_IN_PRODUCT,
+      payload: response.data.existingProduct,
+    });
+  } catch (e) {
+    dispatch({
+      type: ADD_LINK_IN_PRODUCT_ERROR,
+      payload: e.response.data.error,
+    });
+  }
+};
+
+export const addRedirectionInProduct = ({ _redirection }, partNumber) => async (
+  dispatch
+) => {
+  try {
+    const response = await axios.post(
+      `${ROOT_URL}/api/product/redirection`,
+      {
+        partNumber: partNumber.trim(),
+        _redirection,
+      },
+      {
+        headers: { authorization: localStorage.getItem("token") },
+      }
+    );
+
+    dispatch({
+      type: ADD_REDIRECTION_IN_PRODUCT,
+      payload: response.data.existingProduct,
+    });
+  } catch (e) {
+    dispatch({
+      type: ADD_REDIRECTION_IN_PRODUCT_ERROR,
+      payload: e.response.data.error,
+    });
+  }
+};
+
+export const deleteConnectedLinkItem = (_id, { details }) => async (
+  dispatch
+) => {
+  try {
+    const { partNumber, linksToDocs, linksToRedirs } = details;
+
+    const filteredLinksToDocs = linksToDocs.filter((link) => link._id !== _id);
+
+    const response = await axios.put(
+      `${ROOT_URL}/api/product`,
+      {
+        partNumber,
+        linksToDocs: filteredLinksToDocs,
+        linksToRedirs,
+      },
+      {
+        headers: { authorization: localStorage.getItem("token") },
+      }
+    );
+
+    dispatch({
+      type: DELETE_CONNECTED_LINK_ITEM,
+      payload: response.data.existingProduct,
+    });
+  } catch (e) {
+    dispatch({
+      type: DELETE_CONNECTED_LINK_ITEM_ERROR,
+      payload: e.response.data.error,
+    });
+  }
+};
+
+export const deleteConnectedRedirectionItem = (_id, { details }) => async (
+  dispatch
+) => {
+  try {
+    const { partNumber, linksToDocs, linksToRedirs } = details;
+
+    const filteredLinksToRedirs = linksToRedirs.filter(
+      (redir) => redir._id !== _id
+    );
+
+    const response = await axios.put(
+      `${ROOT_URL}/api/product`,
+      {
+        partNumber,
+        linksToDocs,
+        linksToRedirs: filteredLinksToRedirs,
+      },
+      {
+        headers: { authorization: localStorage.getItem("token") },
+      }
+    );
+
+    dispatch({
+      type: DELETE_CONNECTED_REDIRECTION_ITEM,
+      payload: response.data.existingProduct,
+    });
+  } catch (e) {
+    dispatch({
+      type: DELETE_CONNECTED_REDIRECTION_ITEM_ERROR,
+      payload: e.response.data.error,
+    });
   }
 };

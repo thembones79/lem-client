@@ -6,7 +6,7 @@ import {
 } from "../actions/types";
 
 const INITIAL_STATE = {
-  activeSidebarTab: "ManagementOrders",
+  activeSidebarTab: "ManagementProducts",
   liveView: [],
   errorMessage: "",
 };

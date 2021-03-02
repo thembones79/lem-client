@@ -1,15 +1,17 @@
 import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
-import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
-import requireAuth from "../../requireAuth";
+import ConnectedLinks from "./ConnectedLinks";
+import ConnectedRedirections from "./ConnectedRedirections";
+import LinkAdder from "./LinkAdder";
+import RedirectionAdder from "./RedirectionAdder";
+import "./EditProductStyle.scss";
 
 class EditProduct extends Component {
-  onSubmit = (formProps) => {
-    const { saveProduct, productId } = this.props;
-    saveProduct(formProps, productId);
-  };
+  async componentDidMount() {
+    const { productId } = this.props;
+    await this.props.getProduct(productId);
+  }
 
   renderAlert() {
     if (this.props.errorMessage) {
@@ -18,69 +20,44 @@ class EditProduct extends Component {
   }
 
   render() {
-    const { handleSubmit, submitting } = this.props;
+    const {
+      productDetails: { partNumber },
+    } = this.props;
 
     return (
-      <div className="add-user-page">
-        <form className="add-user-form " onSubmit={handleSubmit(this.onSubmit)}>
-          <h1 className="main-page__title">Edit Product</h1>
-          <fieldset>
-            <label className="add-user-form__label" htmlFor="partNumber">
-              partNumber
-            </label>
-            <Field
-              className="add-user-form__select"
-              name="partNumber"
-              type="text"
-              placeholder="Part Number"
-              component="input"
-              required
-            />
-          </fieldset>
-
-          <div className="alert">{this.renderAlert()}</div>
-
-          <div className="order-buttons">
-            <div className="order-buttons__row">
-              <button
-                className="btn btn--finish btn--accent "
-                onClick={() => {
-                  this.props.backToProductsList();
-                }}
-              >
-                {"<< back"}
-              </button>
-              <button className="btn btn--accent " disabled={submitting}>
-                SAVE
-              </button>
-            </div>
-          </div>
-        </form>
+      <div className="edit-product">
+        <div className="edit-product__header">
+          <h1 className="main-page__title">{partNumber ? partNumber : " "}</h1>
+          <button
+            className="btn btn--finish btn--accent adder-form__select--medium"
+            onClick={() => {
+              this.props.backToProductsList();
+            }}
+          >
+            {"<< products list"}
+          </button>
+        </div>
+        <LinkAdder />
+        <RedirectionAdder />
+        <div className="connected-lists">
+          <ConnectedLinks />
+          <ConnectedRedirections />
+        </div>
+        <div className="alert">{this.renderAlert()}</div>
       </div>
     );
   }
 }
 
-const validate = (values) => {
-  const errors = {};
-  if (!values.partNumber) {
-    errors.partNumber = "Required";
-  }
-
-  return errors;
-};
-
 function mapStateToProps(state) {
-  const { errorMessage, productId, initProduct } = state.wids;
+  const { errorMessage, productId, productDetails } = state.wids;
   return {
     errorMessage,
     productId,
+    productDetails,
     enableReinitialize: true,
-    initialValues: initProduct,
+    initialValues: productDetails,
   };
 }
 
-export default compose(
-  connect(mapStateToProps, actions),
-  reduxForm({ form: "editProduct", validate: validate })
-)(requireAuth(EditProduct));
+export default connect(mapStateToProps, actions)(EditProduct);
