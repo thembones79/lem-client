@@ -12,6 +12,8 @@ import {
   BACK_TO_REDIRECTIONS_LIST,
   GET_PRODUCTS,
   GET_PRODUCTS_ERROR,
+  GET_PRODUCT,
+  GET_PRODUCT_ERROR,
   ADD_PRODUCT,
   ADD_PRODUCT_ERROR,
   SAVE_PRODUCT,
@@ -22,6 +24,14 @@ import {
   DELETE_PRODUCT,
   DELETE_PRODUCT_ERROR,
   UPDATE_PRODUCTS_LIST,
+  ADD_LINK_IN_PRODUCT,
+  ADD_LINK_IN_PRODUCT_ERROR,
+  ADD_REDIRECTION_IN_PRODUCT,
+  ADD_REDIRECTION_IN_PRODUCT_ERROR,
+  DELETE_CONNECTED_LINK_ITEM,
+  DELETE_CONNECTED_LINK_ITEM_ERROR,
+  DELETE_CONNECTED_REDIRECTION_ITEM,
+  DELETE_CONNECTED_REDIRECTION_ITEM_ERROR,
   NEW,
   EDIT,
   LIST,
@@ -31,6 +41,7 @@ const INITIAL_STATE = {
   redirections: [],
   products: [],
   filteredProducts: [],
+  productDetails: {},
   errorMessage: "",
   message: "",
   activeRedirectionComponent: LIST,
@@ -109,6 +120,14 @@ export default function (state = INITIAL_STATE, action) {
     case GET_PRODUCTS_ERROR:
       return { ...state, errorMessage: action.payload };
 
+    case GET_PRODUCT:
+      return {
+        ...state,
+        productDetails: action.payload,
+      };
+    case GET_PRODUCT_ERROR:
+      return { ...state, errorMessage: action.payload };
+
     case ADD_PRODUCT:
       return {
         ...state,
@@ -167,6 +186,38 @@ export default function (state = INITIAL_STATE, action) {
       };
 
     case DELETE_PRODUCT_ERROR:
+      return { ...state, errorMessage: action.payload };
+
+    case ADD_LINK_IN_PRODUCT:
+      return {
+        ...state,
+        productDetails: action.payload,
+      };
+    case ADD_LINK_IN_PRODUCT_ERROR:
+      return { ...state, errorMessage: action.payload };
+
+    case ADD_REDIRECTION_IN_PRODUCT:
+      return {
+        ...state,
+        productDetails: action.payload,
+      };
+    case ADD_REDIRECTION_IN_PRODUCT_ERROR:
+      return { ...state, errorMessage: action.payload };
+
+    case DELETE_CONNECTED_LINK_ITEM:
+      return {
+        ...state,
+        productDetails: action.payload,
+      };
+    case DELETE_CONNECTED_LINK_ITEM_ERROR:
+      return { ...state, errorMessage: action.payload };
+
+    case DELETE_CONNECTED_REDIRECTION_ITEM:
+      return {
+        ...state,
+        productDetails: action.payload,
+      };
+    case DELETE_CONNECTED_REDIRECTION_ITEM_ERROR:
       return { ...state, errorMessage: action.payload };
 
     default:

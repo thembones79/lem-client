@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.14.0] - 2021-03-02
+
+### 🔥 Added
+
+- (WIDS) created EditProduct component
+- (WIDS) created ConnectedLinks component
+- (WIDS) created ConnectedRedirections component
+- (WIDS) created LinkAdder component
+- (WIDS) created RedirectionAdder component
+- (WIDS) implemented: create, read, update delete (and connect with links and redirections) functionalities for products (integration with backend)
+
 ## [1.13.0] - 2021-02-28
 
 ### 🔥 Added
