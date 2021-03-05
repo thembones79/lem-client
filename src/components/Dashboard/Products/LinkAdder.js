@@ -57,10 +57,7 @@ class LinkAdder extends Component {
 
           <div className="order-buttons">
             <div className="order-buttons__row">
-              <button
-                className="btn btn--accent btn--accent--flex "
-                disabled={submitting}
-              >
+              <button className="btn btn--accent " disabled={submitting}>
                 ATTACH FILE
               </button>
             </div>

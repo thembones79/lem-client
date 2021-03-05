@@ -13,11 +13,9 @@
   align-items: center;
   box-shadow: $normal-shadow;
   color: $primary-color;
-  // transition: 1.3s;
 
   &--inprogress {
     color: $accent-color;
-    // transition: 1.3s;
   }
 
   &__row {

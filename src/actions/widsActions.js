@@ -13,7 +13,8 @@ import {
   DELETE_REDIRECTION_ERROR,
   GET_PRODUCTS,
   GET_PRODUCTS_ERROR,
-  GET_PRODUCT,
+  GET_PRODUCT_BEGIN,
+  GET_PRODUCT_SUCCESS,
   GET_PRODUCT_ERROR,
   ADD_PRODUCT,
   ADD_PRODUCT_ERROR,
@@ -29,6 +30,7 @@ import {
   ADD_LINK_IN_PRODUCT_ERROR,
   ADD_REDIRECTION_IN_PRODUCT,
   ADD_REDIRECTION_IN_PRODUCT_ERROR,
+  SET_MESSAGE,
   DELETE_CONNECTED_LINK_ITEM,
   DELETE_CONNECTED_LINK_ITEM_ERROR,
   DELETE_CONNECTED_REDIRECTION_ITEM,
@@ -150,10 +152,12 @@ export const getProducts = () => async (dispatch) => {
       }
     );
 
-    //update state
     dispatch({ type: GET_PRODUCTS, payload: response.data.products });
   } catch (e) {
-    dispatch({ type: GET_PRODUCTS_ERROR, payload: e.response.data.error });
+    dispatch({
+      type: GET_PRODUCTS_ERROR,
+      payload: e.response ? e.response.data.error : "server is not responding",
+    });
   }
 };
 
@@ -242,6 +246,7 @@ export const saveProduct = ({ partNumber }, id) => async (dispatch) => {
 };
 
 export const getProduct = (productId) => async (dispatch) => {
+  dispatch({ type: GET_PRODUCT_BEGIN });
   try {
     const response = await axios.get(
       `${ROOT_URL}/api/product/${productId}`,
@@ -251,10 +256,15 @@ export const getProduct = (productId) => async (dispatch) => {
       }
     );
 
-    //update state
-    dispatch({ type: GET_PRODUCT, payload: response.data.existingProduct });
+    dispatch({
+      type: GET_PRODUCT_SUCCESS,
+      payload: response.data.existingProduct,
+    });
   } catch (e) {
-    dispatch({ type: GET_PRODUCT_ERROR, payload: e.response.data.error });
+    dispatch({
+      type: GET_PRODUCT_ERROR,
+      payload: e.response ? e.response.data.error : "server is not responding",
+    });
   }
 };
 
@@ -378,4 +388,11 @@ export const deleteConnectedRedirectionItem = (_id, { details }) => async (
       payload: e.response.data.error,
     });
   }
+};
+
+export const setMessage = (message) => {
+  return {
+    type: SET_MESSAGE,
+    payload: message,
+  };
 };

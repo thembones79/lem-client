@@ -21,7 +21,6 @@ export const initLiveData = () => async (dispatch) => {
       }
     );
 
-    //update state
     dispatch({ type: INIT_LIVEDATA, payload: response.data.liveView });
   } catch (e) {
     dispatch({
