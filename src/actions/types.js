@@ -60,7 +60,8 @@ export const BACK_TO_REDIRECTIONS_LIST = "back_to_redirections_list";
 
 export const GET_PRODUCTS = "get_products";
 export const GET_PRODUCTS_ERROR = "get_products_error";
-export const GET_PRODUCT = "get_product";
+export const GET_PRODUCT_BEGIN = "get_product_begin";
+export const GET_PRODUCT_SUCCESS = "get_product_success";
 export const GET_PRODUCT_ERROR = "get_product_error";
 export const ADD_PRODUCT = "add_product";
 export const ADD_PRODUCT_ERROR = "add_product_error";
@@ -77,6 +78,7 @@ export const UPDATE_PRODUCTS_LIST = "update_products_list";
 export const ADD_LINK_IN_PRODUCT = "add_link_in_product";
 export const ADD_LINK_IN_PRODUCT_ERROR = "add_link_in_product_error";
 export const ADD_REDIRECTION_IN_PRODUCT = "add_redirection_in_product";
+export const SET_MESSAGE = "set_message";
 export const ADD_REDIRECTION_IN_PRODUCT_ERROR =
   "add_redirection_in_product_error";
 export const DELETE_CONNECTED_LINK_ITEM = "delete_connected_link_item";

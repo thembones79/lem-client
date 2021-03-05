@@ -67,7 +67,6 @@ export const insertScan = (
       }
     );
 
-    //update state
     dispatch({ type: INSERT_SCAN, payload: response.data });
     playProperSound(response.data.existingOrder, _line);
     compareScanQuantitiesAndClose();
@@ -90,7 +89,6 @@ export const getOrder = (orderNumber) => async (dispatch) => {
       }
     );
 
-    //update state
     dispatch({ type: GET_ORDER, payload: response.data });
     localStorage.setItem("order", orderNumber);
   } catch (e) {
@@ -108,7 +106,6 @@ export const getLines = () => async (dispatch) => {
       }
     );
 
-    //update state
     dispatch({ type: GET_LINES, payload: response.data.lines });
   } catch (e) {
     dispatch({ type: GET_LINES_ERROR, payload: e.message });
@@ -141,7 +138,6 @@ export const pickLine = (currentLineId, newLineId, userName) => async (
       }
     );
 
-    //update state
     dispatch({ type: PICK_LINE, payload: newLineId });
     localStorage.setItem("line", newLineId);
   } catch (e) {
@@ -162,7 +158,6 @@ export const freeLine = (lineId) => async (dispatch) => {
       }
     );
 
-    //update state
     dispatch({ type: PICK_LINE, payload: "" });
   } catch (e) {
     dispatch({ type: PICK_LINE_ERROR, payload: e.message });
@@ -184,7 +179,6 @@ export const occupyLineWithOrder = (lineId, orderNumber) => async (
       }
     );
 
-    //update state
     dispatch({ type: OCCUPY_LINE_WITH_ORDER });
   } catch (e) {
     dispatch({ type: OCCUPY_LINE_WITH_ORDER_ERROR, payload: e.message });
@@ -201,7 +195,6 @@ export const getMenu = () => async (dispatch) => {
       }
     );
 
-    //update state
     dispatch({ type: GET_MENU, payload: response.data });
   } catch (e) {
     dispatch({ type: GET_MENU_ERROR, payload: e.message });
@@ -219,7 +212,6 @@ export const pickOrder = (orderNumber) => async (dispatch) => {
       }
     );
 
-    //update state
     dispatch({
       type: PICK_ORDER,
       payload: {
@@ -278,7 +270,6 @@ export const closeOrder = ({ orderNumber }) => async (dispatch) => {
       }
     );
 
-    //update state
     dispatch({ type: CLOSE_ORDER, payload: "closed" });
   } catch (e) {
     dispatch({ type: CLOSE_ORDER_ERROR, payload: e.response.data.error });
@@ -332,7 +323,6 @@ export const addBreakStart = ({ orderNumber, _line }) => async (dispatch) => {
       }
     );
 
-    //update state
     dispatch({ type: ADD_BREAK_START, payload: response.data });
   } catch (e) {
     dispatch({ type: ADD_BREAK_START_ERROR, payload: e.response.data.error });
@@ -352,7 +342,6 @@ export const addBreakEnd = ({ orderNumber, _line }) => async (dispatch) => {
       }
     );
 
-    //update state
     dispatch({ type: ADD_BREAK_END, payload: response.data });
   } catch (e) {
     dispatch({ type: ADD_BREAK_END_ERROR, payload: e.message });

@@ -2,12 +2,8 @@
 
 .adder-form {
   width: calc(100vw - 350px);
-  //height: 100%;
   display: flex;
-  //flex-direction: column;
   justify-content: center;
-  //align-items: center;
-  //padding-left: 60px;
   padding-right: 120px;
   @include placeholder {
     font-style: italic;
@@ -59,12 +55,4 @@
       border: 1px solid $accent-color;
     }
   }
-}
-
-.btn--accent--flex {
-  font-size: 1.05em;
-  height: 52px;
-  margin: 5px;
-  max-width: 332px;
-  width: calc((100vw - 350px) / 4);
 }

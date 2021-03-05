@@ -12,7 +12,8 @@ import {
   BACK_TO_REDIRECTIONS_LIST,
   GET_PRODUCTS,
   GET_PRODUCTS_ERROR,
-  GET_PRODUCT,
+  GET_PRODUCT_BEGIN,
+  GET_PRODUCT_SUCCESS,
   GET_PRODUCT_ERROR,
   ADD_PRODUCT,
   ADD_PRODUCT_ERROR,
@@ -32,6 +33,7 @@ import {
   DELETE_CONNECTED_LINK_ITEM_ERROR,
   DELETE_CONNECTED_REDIRECTION_ITEM,
   DELETE_CONNECTED_REDIRECTION_ITEM_ERROR,
+  SET_MESSAGE,
   NEW,
   EDIT,
   LIST,
@@ -44,6 +46,7 @@ const INITIAL_STATE = {
   productDetails: {},
   errorMessage: "",
   message: "",
+  isLoading: false,
   activeRedirectionComponent: LIST,
   activeProductComponent: LIST,
   redirectionId: "",
@@ -120,13 +123,22 @@ export default function (state = INITIAL_STATE, action) {
     case GET_PRODUCTS_ERROR:
       return { ...state, errorMessage: action.payload };
 
-    case GET_PRODUCT:
+    case GET_PRODUCT_BEGIN:
       return {
         ...state,
+        isLoading: true,
+        errorMessage: null,
+      };
+
+    case GET_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
         productDetails: action.payload,
+        errorMessage: null,
       };
     case GET_PRODUCT_ERROR:
-      return { ...state, errorMessage: action.payload };
+      return { ...state, isLoading: false, errorMessage: action.payload };
 
     case ADD_PRODUCT:
       return {
@@ -219,6 +231,13 @@ export default function (state = INITIAL_STATE, action) {
       };
     case DELETE_CONNECTED_REDIRECTION_ITEM_ERROR:
       return { ...state, errorMessage: action.payload };
+
+    case SET_MESSAGE:
+      return {
+        ...state,
+        message: action.payload,
+        productDetails: {},
+      };
 
     default:
       return state;

@@ -71,7 +71,9 @@
   &--accent {
     font-size: 1.05em;
     height: 52px;
-    width: 332px;
+    margin: 5px;
+    max-width: 332px;
+    width: calc((100vw - 350px) / 4);
 
     &:hover {
       box-shadow: $accent-btn-shadow-hover;
