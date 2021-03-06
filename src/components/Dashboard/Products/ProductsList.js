@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import { by } from "../../../utils/by";
 import ProductItem from "./ProductItem";
 import "./ProductsListStyle.scss";
 
@@ -26,13 +27,15 @@ class ProductsList extends Component {
     const { filteredProducts } = this.props;
 
     if (filteredProducts) {
-      return filteredProducts.map((product) => (
-        <ProductItem
-          key={product._id}
-          _id={product._id}
-          partNumber={product.partNumber}
-        />
-      ));
+      return filteredProducts
+        .sort(by("partNumber"))
+        .map((product) => (
+          <ProductItem
+            key={product._id}
+            _id={product._id}
+            partNumber={product.partNumber}
+          />
+        ));
     }
   }
 

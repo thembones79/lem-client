@@ -38,12 +38,6 @@
     position: absolute;
     font-size: 0.8em;
 
-    &:disabled {
-      background-color: $disabled-color;
-      box-shadow: $disabled-shadow;
-      fill: $disabled-color;
-    }
-
     &:focus {
       border: 1px solid $accent-color;
     }

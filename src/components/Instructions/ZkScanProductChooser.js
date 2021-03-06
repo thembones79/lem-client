@@ -50,9 +50,7 @@ class ZkScanProductChooser extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
-    const isDisabled = false;
-
+    const { handleSubmit, isLoading } = this.props;
     return (
       <div>
         <form className="sticker-scan" onSubmit={handleSubmit(this.onSubmit)}>
@@ -62,7 +60,7 @@ class ZkScanProductChooser extends Component {
             </label>
             <label
               className={`sticker-scan__label ${
-                isDisabled ? "sticker-scan__label--disabled" : ""
+                isLoading ? "sticker-scan__label--disabled" : ""
               }`}
               htmlFor="scanZk"
             >
@@ -75,7 +73,7 @@ class ZkScanProductChooser extends Component {
               component="input"
               autoComplete="none"
               required
-              disabled={isDisabled}
+              disabled={isLoading}
               className="sticker-scan__input"
             />
           </fieldset>
@@ -91,6 +89,7 @@ function mapStateToProps(state) {
     errorMessage,
     productId,
     productDetails,
+    isLoading,
     products,
     message,
   } = state.wids;
@@ -100,6 +99,7 @@ function mapStateToProps(state) {
     productId,
     products,
     message,
+    isLoading,
     menu,
     productDetails,
     enableReinitialize: true,

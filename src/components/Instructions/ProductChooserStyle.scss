@@ -52,10 +52,6 @@
         max-width: 332px;
       }
 
-      &:disabled {
-        background-color: $disabled-color;
-        box-shadow: $disabled-shadow;
-      }
       &:focus {
         border: 1px solid $accent-color;
       }
