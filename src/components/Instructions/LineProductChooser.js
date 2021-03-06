@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { by } from "../../utils/by";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
 
@@ -58,7 +59,7 @@ class LineProductChooser extends Component {
     if (lines) {
       return (
         <>
-          {lines.map((line) => {
+          {lines.sort(by("lineDescription")).map((line) => {
             const { lineDescription, _id } = line;
             return (
               <option
@@ -74,7 +75,7 @@ class LineProductChooser extends Component {
   }
 
   render() {
-    const { submitting } = this.props;
+    const { isLoading } = this.props;
     return (
       <div className="">
         <form className="">
@@ -91,7 +92,7 @@ class LineProductChooser extends Component {
               component="select"
               className="product-chooser-form__select "
               value=""
-              disabled={submitting}
+              disabled={isLoading}
               onChange={this.handleChange}
               required
             >
@@ -116,13 +117,20 @@ const validate = (values) => {
 };
 
 function mapStateToProps(state) {
-  const { errorMessage, productId, productDetails, products } = state.wids;
+  const {
+    errorMessage,
+    productId,
+    productDetails,
+    products,
+    isLoading,
+  } = state.wids;
   const { lines, menu } = state.scanner;
   return {
     errorMessage,
     productId,
     products,
     lines,
+    isLoading,
     menu,
     productDetails,
     enableReinitialize: true,

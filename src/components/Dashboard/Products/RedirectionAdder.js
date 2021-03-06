@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { by } from "../../../utils/by";
 import * as actions from "../../../actions";
 import requireAuth from "../../requireAuth";
 
@@ -47,12 +48,12 @@ class RedirectionAdder extends Component {
       const { linksToRedirs } = productDetails;
       return (
         <>
-          {this.filteredRedirections(redirections, linksToRedirs).map(
-            (redirection) => {
+          {this.filteredRedirections(redirections, linksToRedirs)
+            .sort(by("description"))
+            .map((redirection) => {
               const { _id, description } = redirection;
               return <option key={_id} value={_id} children={description} />;
-            }
-          )}
+            })}
         </>
       );
     }

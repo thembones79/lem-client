@@ -1,23 +1,26 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import { by } from "../../../utils/by";
 import ConnectedRedirectionItem from "./ConnectedRedirectionItem";
 
 class ConnectedRedirections extends Component {
   renderRedirsList() {
     const { productDetails } = this.props;
     if (productDetails && productDetails.linksToRedirs) {
-      return productDetails.linksToRedirs.map((redir) => (
-        <ConnectedRedirectionItem
-          key={redir._id}
-          _id={redir._id}
-          description={redir.description}
-          redirRoute={redir.redirRoute}
-          targetUrl={redir.targetUrl}
-          fileName={redir.fileName}
-          details={productDetails}
-        />
-      ));
+      return productDetails.linksToRedirs
+        .sort(by("description"))
+        .map((redir) => (
+          <ConnectedRedirectionItem
+            key={redir._id}
+            _id={redir._id}
+            description={redir.description}
+            redirRoute={redir.redirRoute}
+            targetUrl={redir.targetUrl}
+            fileName={redir.fileName}
+            details={productDetails}
+          />
+        ));
     }
   }
 

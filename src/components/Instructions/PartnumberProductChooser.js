@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { by } from "../../utils/by";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
 
@@ -25,7 +26,7 @@ class PartnumberProductChooser extends Component {
     if (products) {
       return (
         <>
-          {products.map((product) => {
+          {products.sort(by("partNumber")).map((product) => {
             const { _id, partNumber } = product;
             return <option key={_id} value={_id} children={partNumber} />;
           })}
@@ -35,7 +36,7 @@ class PartnumberProductChooser extends Component {
   }
 
   render() {
-    const { submitting } = this.props;
+    const { isLoading } = this.props;
     return (
       <div className="">
         <form className="">
@@ -49,7 +50,7 @@ class PartnumberProductChooser extends Component {
               component="select"
               className="product-chooser-form__select "
               value=""
-              disabled={submitting}
+              disabled={isLoading}
               onChange={this.handleChange}
               required
             >
@@ -74,11 +75,18 @@ const validate = (values) => {
 };
 
 function mapStateToProps(state) {
-  const { errorMessage, productId, productDetails, products } = state.wids;
+  const {
+    errorMessage,
+    productId,
+    productDetails,
+    products,
+    isLoading,
+  } = state.wids;
   return {
     errorMessage,
     productId,
     products,
+    isLoading,
     productDetails,
     enableReinitialize: true,
   };

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { by } from "../../../utils/by";
 import * as actions from "../../../actions";
 import LineIcon from "../../icons/LineIcon";
 import "./LinePickerStyle.scss";
@@ -9,26 +10,6 @@ import "./LinePickerStyle.scss";
 class LinePicker extends Component {
   componentDidMount() {
     this.props.getLines();
-  }
-
-  compareValues(key, order = "asc") {
-    return function innerSort(a, b) {
-      if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
-        // property doesn't exist on either object
-        return 0;
-      }
-
-      const varA = typeof a[key] === "string" ? a[key].toUpperCase() : a[key];
-      const varB = typeof b[key] === "string" ? b[key].toUpperCase() : b[key];
-
-      let comparison = 0;
-      if (varA > varB) {
-        comparison = 1;
-      } else if (varA < varB) {
-        comparison = -1;
-      }
-      return order === "desc" ? comparison * -1 : comparison;
-    };
   }
 
   handleLineChange = (formProps) => {
@@ -51,11 +32,10 @@ class LinePicker extends Component {
       const filteredLines = this.props.lines.filter(
         (line) => line.lineStatus === "free" || line.lineStatus === userName
       );
-      filteredLines.sort(this.compareValues("lineDescription"));
 
       return (
         <>
-          {filteredLines.map((line) => (
+          {filteredLines.sort(by("lineDescription")).map((line) => (
             <option
               key={line._id}
               value={line._id}

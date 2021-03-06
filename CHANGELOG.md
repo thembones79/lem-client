@@ -5,40 +5,50 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.16.0] - 2021-03-06
+
+### 🔥 Added
+
+- multi purpose sorting logic
+
+### 💪 Changed
+
+- updated some styling
+
 ## [1.15.0] - 2021-03-05
 
 ### 🔥 Added
 
-- (WIDS) created full Instructions component / page
-- (WIDS) created ProductChooser component
-- (WIDS) created InstructionsViewer component
-- (WIDS) created LineProductChooser component
-- (WIDS) created PartNumberProductChooser component
-- (WIDS) created StickerScanProductChooser component
-- (WIDS) created ZkScanProductChooser component
-- (WIDS) created LinkBlock component
-- created Loader component
+- (WIDS) full Instructions component / page
+- (WIDS) ProductChooser component
+- (WIDS) InstructionsViewer component
+- (WIDS) LineProductChooser component
+- (WIDS) PartNumberProductChooser component
+- (WIDS) StickerScanProductChooser component
+- (WIDS) ZkScanProductChooser component
+- (WIDS) LinkBlock component
+- Loader component
 
 ## [1.14.0] - 2021-03-02
 
 ### 🔥 Added
 
-- (WIDS) created EditProduct component
-- (WIDS) created ConnectedLinks component
-- (WIDS) created ConnectedRedirections component
-- (WIDS) created LinkAdder component
-- (WIDS) created RedirectionAdder component
-- (WIDS) implemented: create, read, update delete (and connect with links and redirections) functionalities for products (integration with backend)
+- (WIDS) EditProduct component
+- (WIDS) ConnectedLinks component
+- (WIDS) ConnectedRedirections component
+- (WIDS) LinkAdder component
+- (WIDS) RedirectionAdder component
+- (WIDS) create, read, update delete (and connect with links and redirections) functionalities for products (integration with backend)
 
 ## [1.13.0] - 2021-02-28
 
 ### 🔥 Added
 
-- (WIDS) created ProductsList component
+- (WIDS) ProductsList component
 - (WIDS) implement product filtering logic in ProductList component
-- (WIDS) created ProductItem component
-- (WIDS) created ProductRouter component
-- (WIDS) created NewProduct component
+- (WIDS) ProductItem component
+- (WIDS) ProductRouter component
+- (WIDS) NewProduct component
 
 ### 💪 Changed
 
@@ -48,12 +58,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 🔥 Added
 
-- (WIDS) created RedirectionsList component
-- (WIDS) created NewRedirection component
-- (WIDS) created EditRedirection component
-- (WIDS) created RedirectionItem component
-- (WIDS) created RedirectionRouter component
-- (WIDS) implemented: create, read, update and delete functionalities for redirections (integration with the backend)
+- (WIDS) RedirectionsList component
+- (WIDS) NewRedirection component
+- (WIDS) EditRedirection component
+- (WIDS) RedirectionItem component
+- (WIDS) RedirectionRouter component
+- (WIDS) create, read, update and delete functionalities for redirections (integration with the backend)
 
 ### 💪 Changed
 

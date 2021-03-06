@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import { by } from "../../../utils/by";
 import RedirectionItem from "./RedirectionItem";
 import "./RedirectionsListStyle.scss";
 
@@ -12,15 +13,17 @@ class RedirectionsList extends Component {
   renderRedirectionsList() {
     const { redirections } = this.props;
     if (redirections) {
-      return redirections.map((redirection) => (
-        <RedirectionItem
-          key={redirection._id}
-          _id={redirection._id}
-          description={redirection.description}
-          redirRoute={redirection.redirRoute}
-          fileName={redirection.fileName}
-        />
-      ));
+      return redirections
+        .sort(by("description"))
+        .map((redirection) => (
+          <RedirectionItem
+            key={redirection._id}
+            _id={redirection._id}
+            description={redirection.description}
+            redirRoute={redirection.redirRoute}
+            fileName={redirection.fileName}
+          />
+        ));
     }
   }
 
