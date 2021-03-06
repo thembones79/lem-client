@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import * as actions from "../../../actions";
 import requireAuth from "../../requireAuth";
 
-class EditRedirection extends Component {
+class RedirectionWithProducts extends Component {
   onSubmit = (formProps) => {
     const { saveRedirection, redirectionId } = this.props;
     saveRedirection(formProps, redirectionId);
@@ -23,7 +23,7 @@ class EditRedirection extends Component {
     return (
       <div className="add-user-page">
         <form className="add-user-form " onSubmit={handleSubmit(this.onSubmit)}>
-          <h1 className="main-page__title">Edit Redirection</h1>
+          <h1 className="main-page__title">RedirectionWithProducts</h1>
           <fieldset>
             <label className="add-user-form__label" htmlFor="description">
               description
@@ -79,16 +79,6 @@ class EditRedirection extends Component {
                 SAVE
               </button>
             </div>
-            <div className="order-buttons__row">
-              <button
-                className="btn btn--warning "
-                onClick={() => {
-                  this.props.addProductsToRedirection(this.props.initialValues);
-                }}
-              >
-                {"attach to MANY products"}
-              </button>
-            </div>
           </div>
         </form>
       </div>
@@ -122,5 +112,5 @@ function mapStateToProps(state) {
 
 export default compose(
   connect(mapStateToProps, actions),
-  reduxForm({ form: "editRedirection", validate: validate })
-)(requireAuth(EditRedirection));
+  reduxForm({ form: "redirectionWithProducts", validate: validate })
+)(requireAuth(RedirectionWithProducts));

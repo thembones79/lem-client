@@ -79,6 +79,8 @@ export const ADD_LINK_IN_PRODUCT = "add_link_in_product";
 export const ADD_LINK_IN_PRODUCT_ERROR = "add_link_in_product_error";
 export const ADD_REDIRECTION_IN_PRODUCT = "add_redirection_in_product";
 export const SET_MESSAGE = "set_message";
+export const REDIRECTION_WITH_PRODUCTS = "redirection_with_products";
+export const ADD_PRODUCTS_TO_REDIRECTION = "add_products_to_tedirection";
 export const ADD_REDIRECTION_IN_PRODUCT_ERROR =
   "add_redirection_in_product_error";
 export const DELETE_CONNECTED_LINK_ITEM = "delete_connected_link_item";

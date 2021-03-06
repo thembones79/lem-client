@@ -58,12 +58,7 @@ class ZkScanProductChooser extends Component {
             <label className="product-chooser-form__label" htmlFor="scanZk">
               scan a big ZK sheet
             </label>
-            <label
-              className={`sticker-scan__label ${
-                isLoading ? "sticker-scan__label--disabled" : ""
-              }`}
-              htmlFor="scanZk"
-            >
+            <label className={`sticker-scan__label`} htmlFor="scanZk">
               <ScannerIcon />
             </label>
             <Field

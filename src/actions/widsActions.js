@@ -30,6 +30,7 @@ import {
   ADD_LINK_IN_PRODUCT_ERROR,
   ADD_REDIRECTION_IN_PRODUCT,
   ADD_REDIRECTION_IN_PRODUCT_ERROR,
+  ADD_PRODUCTS_TO_REDIRECTION,
   SET_MESSAGE,
   DELETE_CONNECTED_LINK_ITEM,
   DELETE_CONNECTED_LINK_ITEM_ERROR,
@@ -57,6 +58,13 @@ export const getRedirections = () => async (dispatch) => {
 export const startEditingRedirection = (initialData) => {
   return {
     type: START_EDITING_REDIRECTION,
+    payload: initialData,
+  };
+};
+
+export const addProductsToRedirection = (initialData) => {
+  return {
+    type: ADD_PRODUCTS_TO_REDIRECTION,
     payload: initialData,
   };
 };

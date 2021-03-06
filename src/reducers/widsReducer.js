@@ -33,10 +33,12 @@ import {
   DELETE_CONNECTED_LINK_ITEM_ERROR,
   DELETE_CONNECTED_REDIRECTION_ITEM,
   DELETE_CONNECTED_REDIRECTION_ITEM_ERROR,
+  ADD_PRODUCTS_TO_REDIRECTION,
   SET_MESSAGE,
   NEW,
   EDIT,
   LIST,
+  REDIRECTION_WITH_PRODUCTS,
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -99,6 +101,14 @@ export default function (state = INITIAL_STATE, action) {
       return {
         ...state,
         activeRedirectionComponent: EDIT,
+        redirectionId: action.payload._id,
+        initRedirection: action.payload,
+      };
+
+    case ADD_PRODUCTS_TO_REDIRECTION:
+      return {
+        ...state,
+        activeRedirectionComponent: REDIRECTION_WITH_PRODUCTS,
         redirectionId: action.payload._id,
         initRedirection: action.payload,
       };
