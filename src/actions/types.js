@@ -81,6 +81,10 @@ export const ADD_REDIRECTION_IN_PRODUCT = "add_redirection_in_product";
 export const SET_MESSAGE = "set_message";
 export const REDIRECTION_WITH_PRODUCTS = "redirection_with_products";
 export const ADD_PRODUCTS_TO_REDIRECTION = "add_products_to_tedirection";
+export const START_ADDING_PRODUCTS_TO_REDIRECTION =
+  "start_adding_products_to_redirection";
+export const START_ADDING_PRODUCTS_TO_REDIRECTION_ERROR =
+  "start_adding_products_to_redirection_error";
 export const ADD_REDIRECTION_IN_PRODUCT_ERROR =
   "add_redirection_in_product_error";
 export const DELETE_CONNECTED_LINK_ITEM = "delete_connected_link_item";
@@ -90,6 +94,11 @@ export const DELETE_CONNECTED_REDIRECTION_ITEM =
   "delete_connected_redirection_item";
 export const DELETE_CONNECTED_REDIRECTION_ITEM_ERROR =
   "delete_connected_redirection_item_error";
+export const UPDATE_MANY_PRODS_WITH_ONE_REDIR =
+  "update_many_prods_with_one_redir";
+export const UPDATE_MANY_PRODS_WITH_ONE_REDIR_ERROR =
+  "update_many_prods_with_one_redir_error";
+export const SEND_PRODUCTS = "send_produts";
 
 export const NEW = "NEW";
 export const EDIT = "EDIT";

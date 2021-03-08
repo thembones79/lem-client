@@ -47,6 +47,7 @@ class ProductsList extends Component {
             <label className="products-list__filter__label">filter</label>
             <input
               className="products-list__filter__input"
+              placeholder="search..."
               onChange={(e) => {
                 this.filterProducts(e);
               }}

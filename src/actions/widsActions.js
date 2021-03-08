@@ -31,11 +31,16 @@ import {
   ADD_REDIRECTION_IN_PRODUCT,
   ADD_REDIRECTION_IN_PRODUCT_ERROR,
   ADD_PRODUCTS_TO_REDIRECTION,
+  START_ADDING_PRODUCTS_TO_REDIRECTION,
+  START_ADDING_PRODUCTS_TO_REDIRECTION_ERROR,
   SET_MESSAGE,
   DELETE_CONNECTED_LINK_ITEM,
   DELETE_CONNECTED_LINK_ITEM_ERROR,
   DELETE_CONNECTED_REDIRECTION_ITEM,
   DELETE_CONNECTED_REDIRECTION_ITEM_ERROR,
+  SEND_PRODUCTS,
+  UPDATE_MANY_PRODS_WITH_ONE_REDIR,
+  UPDATE_MANY_PRODS_WITH_ONE_REDIR_ERROR,
 } from "./types";
 import { ROOT_URL } from "../config";
 
@@ -67,6 +72,28 @@ export const addProductsToRedirection = (initialData) => {
     type: ADD_PRODUCTS_TO_REDIRECTION,
     payload: initialData,
   };
+};
+
+export const startAddingProductsToRedirection = (_id) => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      `${ROOT_URL}/api/redirwithprods/${_id}`,
+
+      {
+        headers: { authorization: localStorage.getItem("token") },
+      }
+    );
+
+    dispatch({
+      type: START_ADDING_PRODUCTS_TO_REDIRECTION,
+      payload: response.data,
+    });
+  } catch (e) {
+    dispatch({
+      type: START_ADDING_PRODUCTS_TO_REDIRECTION_ERROR,
+      payload: e.response.data.error,
+    });
+  }
 };
 
 export const startAddingRedirection = () => {
@@ -403,4 +430,37 @@ export const setMessage = (message) => {
     type: SET_MESSAGE,
     payload: message,
   };
+};
+
+export const sendProducts = (productList) => {
+  return {
+    type: SEND_PRODUCTS,
+    payload: productList,
+  };
+};
+
+export const updateManyProdsWithOneRedir = (
+  redirectionId,
+  productList
+) => async (dispatch) => {
+  try {
+    await axios.put(
+      `${ROOT_URL}/api/product/redirection/${redirectionId}`,
+      {
+        productList,
+      },
+      {
+        headers: { authorization: localStorage.getItem("token") },
+      }
+    );
+
+    dispatch({
+      type: UPDATE_MANY_PRODS_WITH_ONE_REDIR,
+    });
+  } catch (e) {
+    dispatch({
+      type: UPDATE_MANY_PRODS_WITH_ONE_REDIR_ERROR,
+      payload: e.response.data.error,
+    });
+  }
 };
