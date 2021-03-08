@@ -79,6 +79,16 @@ class EditRedirection extends Component {
                 SAVE
               </button>
             </div>
+            <div className="order-buttons__row">
+              <button
+                className="btn btn--warning "
+                onClick={() => {
+                  this.props.addProductsToRedirection(this.props.initialValues);
+                }}
+              >
+                {"attach to MANY products"}
+              </button>
+            </div>
           </div>
         </form>
       </div>

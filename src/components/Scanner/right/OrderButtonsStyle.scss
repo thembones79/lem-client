@@ -8,6 +8,10 @@
     width: 100%;
     justify-content: center;
     align-items: center;
+
+    &--wide {
+      justify-content: space-between;
+    }
   }
 }
 
@@ -47,6 +51,23 @@
         background-color: $disabled-color;
         box-shadow: $disabled-shadow;
       }
+    }
+  }
+
+  &--warning {
+    background-color: $background-color;
+    font-size: 1.05em;
+    font-weight: 600;
+    color: $primary-color;
+    height: 52px;
+    margin: 5px;
+    margin-top: 40px;
+    box-shadow: $normal-shadow;
+    max-width: 442px;
+    width: calc((100vw - 350px) / 1.5);
+
+    &:hover {
+      box-shadow: $big-shadow;
     }
   }
 

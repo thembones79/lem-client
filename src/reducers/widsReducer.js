@@ -33,15 +33,23 @@ import {
   DELETE_CONNECTED_LINK_ITEM_ERROR,
   DELETE_CONNECTED_REDIRECTION_ITEM,
   DELETE_CONNECTED_REDIRECTION_ITEM_ERROR,
+  ADD_PRODUCTS_TO_REDIRECTION,
+  START_ADDING_PRODUCTS_TO_REDIRECTION,
+  START_ADDING_PRODUCTS_TO_REDIRECTION_ERROR,
   SET_MESSAGE,
   NEW,
   EDIT,
   LIST,
+  SEND_PRODUCTS,
+  REDIRECTION_WITH_PRODUCTS,
+  UPDATE_MANY_PRODS_WITH_ONE_REDIR,
+  UPDATE_MANY_PRODS_WITH_ONE_REDIR_ERROR,
 } from "../actions/types";
 
 const INITIAL_STATE = {
   redirections: [],
   products: [],
+  prodsWithThisRedir: [],
   filteredProducts: [],
   productDetails: {},
   errorMessage: "",
@@ -102,6 +110,41 @@ export default function (state = INITIAL_STATE, action) {
         redirectionId: action.payload._id,
         initRedirection: action.payload,
       };
+
+    case ADD_PRODUCTS_TO_REDIRECTION:
+      return {
+        ...state,
+        activeRedirectionComponent: REDIRECTION_WITH_PRODUCTS,
+        redirectionId: action.payload._id,
+        initRedirection: action.payload,
+      };
+
+    case START_ADDING_PRODUCTS_TO_REDIRECTION:
+      return {
+        ...state,
+        activeRedirectionComponent: REDIRECTION_WITH_PRODUCTS,
+        redirectionId: action.payload.existingRedirection._id,
+        initRedirection: action.payload.existingRedirection,
+        prodsWithThisRedir: action.payload.prodsWithThisRedir,
+      };
+
+    case SEND_PRODUCTS:
+      return {
+        ...state,
+        prodsWithThisRedir: action.payload,
+      };
+
+    case START_ADDING_PRODUCTS_TO_REDIRECTION_ERROR:
+      return { ...state, errorMessage: action.payload };
+
+    case UPDATE_MANY_PRODS_WITH_ONE_REDIR:
+      return {
+        ...state,
+        activeRedirectionComponent: LIST,
+      };
+
+    case UPDATE_MANY_PRODS_WITH_ONE_REDIR_ERROR:
+      return { ...state, errorMessage: action.payload };
 
     case DELETE_REDIRECTION:
       return {

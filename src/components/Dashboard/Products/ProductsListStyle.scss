@@ -23,6 +23,7 @@
   width: 100%;
   padding: 10px;
   overflow: auto;
+  max-height: calc(100vh - 350px);
   background-color: $foreground-color;
   margin-top: 10px;
   margin-bottom: 20px;
@@ -50,6 +51,10 @@
     justify-content: flex-start;
     align-items: center;
     width: 100%;
+    @include placeholder {
+      font-style: italic;
+      color: rgb(187, 185, 185);
+    }
 
     &__label {
       font-weight: 600;
@@ -70,7 +75,7 @@
       caret-color: $accent-color;
       color: $accent-color;
       fill: $accent-color;
-      padding: 10px 20px 10px 40px;
+      padding: 10px 20px 10px 25px;
 
       &:disabled {
         background-color: $disabled-color;

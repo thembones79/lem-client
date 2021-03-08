@@ -53,9 +53,7 @@ class StickerScanProductChooser extends Component {
               scan a little sticker
             </label>
             <label
-              className={`sticker-scan__label ${
-                isLoading ? "sticker-scan__label--disabled" : ""
-              }`}
+              className={`sticker-scan__label`}
               htmlFor="scanLittleSticker"
             >
               <ScannerIcon />
