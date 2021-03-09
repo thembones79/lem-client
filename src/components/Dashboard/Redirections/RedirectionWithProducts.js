@@ -21,36 +21,47 @@ class RedirectionWithProducts extends Component {
   }
 
   getFilteredProductsForText(text) {
-    return this.props.products.filter((product) =>
-      product.partNumber.toLowerCase().includes(text.toLowerCase())
-    );
+    return this.props.products.filter((product) => {
+      if (product && product.partNumber) {
+        return product.partNumber.toLowerCase().includes(text.toLowerCase());
+      } else {
+        return false;
+      }
+    });
   }
 
   renderProductsList() {
     const { filteredProducts } = this.props;
     if (filteredProducts) {
-      return filteredProducts.sort(by("partNumber")).map((product) => (
-        <div className="checkbox" key={product.partNumber}>
-          <label className="switch  switch__flex">
-            <Field
-              type="checkbox"
-              name={product.partNumber}
-              id={product.partNumber}
-              component="input"
-              value={product.partNumber}
-            />
-            <span></span>
-            {product.partNumber}
-          </label>
-        </div>
-      ));
+      return filteredProducts.sort(by("partNumber")).map((product) => {
+        const { partNumber } = product;
+        const partNumberWithCommas = partNumber.replace(".", ",");
+        return (
+          <div className="checkbox" key={partNumberWithCommas}>
+            <label className="switch  switch__flex">
+              <Field
+                type="checkbox"
+                name={partNumberWithCommas}
+                id={partNumberWithCommas}
+                component="input"
+                value={partNumberWithCommas}
+              />
+              <span></span>
+              {partNumber}
+            </label>
+          </div>
+        );
+      });
     }
   }
 
   onSubmit = (formProps) => {
     const { redirectionId, updateManyProdsWithOneRedir } = this.props;
-    const productList = this.keysIntoArray(formProps);
-    updateManyProdsWithOneRedir(redirectionId, productList);
+    const productListWithCommas = this.keysIntoArray(formProps);
+    const productListWithDots = productListWithCommas.map((x) =>
+      x.replace(",", ".")
+    );
+    updateManyProdsWithOneRedir(redirectionId, productListWithDots);
   };
 
   handleToggleVisible = (e) => {
@@ -117,13 +128,18 @@ class RedirectionWithProducts extends Component {
             <div className="order-buttons__row order-buttons__row--wide">
               <button
                 className="btn btn--finish btn--accent "
+                type="button"
                 onClick={() => {
                   this.props.backToRedirectionsList();
                 }}
               >
                 {"<< back"}
               </button>
-              <button className="btn btn--accent " disabled={submitting}>
+              <button
+                className="btn btn--accent "
+                type="submit"
+                disabled={submitting}
+              >
                 SAVE
               </button>
             </div>
@@ -139,12 +155,15 @@ const validate = (values) => {
   return errors;
 };
 
-const keyValuesIntoKeys = ({ arr, keyToFind, valueToSet }) => {
+const keyValuesIntoKeysWithCommas = ({ arr, keyToFind, valueToSet }) => {
   let newObj = {};
   arr
     .map((element) => element[keyToFind])
-    .forEach((element) => {
-      newObj[element] = valueToSet;
+    .forEach((keyWithDots) => {
+      if (keyWithDots) {
+        const keyWithCommas = keyWithDots.replace(".", ",");
+        return (newObj[keyWithCommas] = valueToSet);
+      }
     });
   return newObj;
 };
@@ -167,7 +186,7 @@ function mapStateToProps(state) {
     prodsWithThisRedir,
     enableReinitialize: true,
     keepDirtyOnReinitialize: true,
-    initialValues: keyValuesIntoKeys({
+    initialValues: keyValuesIntoKeysWithCommas({
       arr: prodsWithThisRedir,
       keyToFind: "partNumber",
       valueToSet: true,

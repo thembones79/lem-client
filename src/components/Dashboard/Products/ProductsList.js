@@ -18,9 +18,13 @@ class ProductsList extends Component {
   }
 
   getFilteredProductsForText(text) {
-    return this.props.products.filter((product) =>
-      product.partNumber.toLowerCase().includes(text.toLowerCase())
-    );
+    return this.props.products.filter((product) => {
+      if (product && product.partNumber) {
+        return product.partNumber.toLowerCase().includes(text.toLowerCase());
+      } else {
+        return false;
+      }
+    });
   }
 
   renderProductsList() {
