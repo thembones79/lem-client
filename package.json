@@ -29,6 +29,13 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "@types/jest": "26.0.20",
+    "@types/node": "14.14.35",
+    "@types/react": "17.0.3",
+    "@types/react-dom": "17.0.2",
+    "@types/react-redux": "7.1.16",
+    "@types/react-router-dom": "5.1.7",
+    "@types/redux-form": "8.3.1",
     "axios": "0.19.2",
     "node-sass": "4.14.1",
     "react": "^16.13.1",
@@ -39,7 +46,8 @@
     "redux": "4.0.5",
     "redux-form": "8.3.6",
     "redux-thunk": "2.3.0",
-    "socket.io-client": "2.3.1"
+    "socket.io-client": "2.3.1",
+    "typescript": "4.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
