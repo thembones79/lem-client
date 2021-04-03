@@ -1,11 +1,11 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { ActionTypes, IRedirectionID } from "../../actions";
+import { ActionTypes } from "../../actions";
 import { ROOT_URL } from "../../config";
 
 export type DeleteRedirectionAction = {
   type: ActionTypes.DELETE_REDIRECTION;
-  payload: IRedirectionID;
+  payload: string;
 };
 
 export type DeleteRedirectionActionError = {
@@ -13,7 +13,7 @@ export type DeleteRedirectionActionError = {
   payload: string;
 };
 
-export const deleteRedirection = (_id: IRedirectionID) => async (
+export const deleteRedirection = (_id: string) => async (
   dispatch: Dispatch
 ) => {
   try {

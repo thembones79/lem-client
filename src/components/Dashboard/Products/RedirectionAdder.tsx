@@ -1,17 +1,42 @@
 import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { RouteComponentProps } from "react-router-dom";
 import { by } from "../../../utils/by";
 import * as actions from "../../../actions";
+import {
+  ProductType,
+  RedirectionType,
+  IAddRedirectionInProduct,
+} from "../../../actions";
+import { StoreState } from "../../../reducers";
 import requireAuth from "../../requireAuth";
 
-class RedirectionAdder extends Component {
+interface IRedirectionAdderFormProps {
+  _redirection: string;
+}
+interface IRedirectionAdderProps extends RouteComponentProps {
+  errorMessage: string;
+  productId: string;
+  redirections: RedirectionType[];
+  productDetails: ProductType;
+  addRedirectionInProduct: ({
+    _redirection,
+    partNumber,
+  }: IAddRedirectionInProduct) => void;
+  getRedirections: () => void;
+  getProduct: (productId?: string) => void;
+}
+
+class RedirectionAdder extends Component<
+  InjectedFormProps<IRedirectionAdderFormProps> & IRedirectionAdderProps
+> {
   componentDidMount() {
     this.props.getRedirections();
   }
 
-  onSubmit = async (formProps) => {
+  onSubmit = async (formProps: IRedirectionAdderFormProps) => {
     const { addRedirectionInProduct, productDetails, productId } = this.props;
     const { partNumber } = productDetails;
     const { _redirection } = formProps;
@@ -26,32 +51,36 @@ class RedirectionAdder extends Component {
     }
   }
 
-  filteredRedirections(redirections, linksToRedirs) {
+  // becouse context menu should show only redirs that not attached to the product yet
+  filteredRedirections(
+    redirections: RedirectionType[],
+    linksToRedirs: RedirectionType[]
+  ) {
     if (!linksToRedirs || linksToRedirs.length === 0) {
       return redirections;
     } else {
       return redirections.filter((redirection) => {
-        let foundedRoutes = 0;
+        let foundRoutes = 0;
         linksToRedirs.forEach((redirectionInProduct) => {
           if (redirectionInProduct.redirRoute === redirection.redirRoute) {
-            foundedRoutes++;
+            foundRoutes++;
           }
         });
-        return foundedRoutes === 0;
+        return foundRoutes === 0;
       });
     }
   }
 
   renderOptions() {
-    const { redirections } = this.props;
+    const { redirections } = this.props; // all redirs
     if (redirections) {
       const { productDetails } = this.props;
-      const { linksToRedirs } = productDetails;
+      const { linksToRedirs } = productDetails; // redirs attached to current product
       return (
         <>
           {this.filteredRedirections(redirections, linksToRedirs)
             .sort(by("description"))
-            .map((redirection) => {
+            .map((redirection: RedirectionType) => {
               const { _id, description } = redirection;
               return <option key={_id} value={_id} children={description} />;
             })}
@@ -97,8 +126,12 @@ class RedirectionAdder extends Component {
   }
 }
 
-const validate = (values) => {
-  const errors = {};
+interface IValidate {
+  _redirection?: string;
+}
+
+const validate: (values: IValidate) => IValidate = (values) => {
+  const errors: IValidate = {};
 
   if (!values._redirection) {
     errors._redirection = "Required";
@@ -107,7 +140,7 @@ const validate = (values) => {
   return errors;
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   const { errorMessage, productId, productDetails, redirections } = state.wids;
   return {
     errorMessage,
@@ -121,4 +154,4 @@ function mapStateToProps(state) {
 export default compose(
   connect(mapStateToProps, actions),
   reduxForm({ form: "redirectionAdder", validate: validate })
-)(requireAuth(RedirectionAdder));
+)(requireAuth(RedirectionAdder)) as Component;

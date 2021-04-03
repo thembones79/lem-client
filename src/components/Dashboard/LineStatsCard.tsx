@@ -2,9 +2,24 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
+import { StoreState } from "../../reducers";
 import "./LineStatsCardStyle.scss";
 
-class LineStatsCard extends Component {
+interface ILineStatsCardProps {
+  authenticated: string | null;
+  lineDescription: string;
+  orderNumber: string;
+  orderStatus: string;
+  partNumber: string;
+  validScans: number;
+  quantity: number;
+  tactTime: number;
+  meanCycleTime: number;
+  lastCycleTime: number;
+  efficiency: number;
+}
+
+class LineStatsCard extends Component<ILineStatsCardProps> {
   render() {
     return (
       <div className="line-stats-card">
@@ -61,7 +76,7 @@ class LineStatsCard extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     authenticated: state.auth.authenticated,
   };

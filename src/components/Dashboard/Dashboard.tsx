@@ -5,6 +5,7 @@ import requireAuth from "../requireAuth";
 import requireManager from "../requireManager";
 import MainPage from "./Main";
 import Sidebar from "./Sidebar";
+import { StoreState } from "../../reducers";
 import "./DashboardStyle.scss";
 
 class Dashboard extends Component {
@@ -18,7 +19,7 @@ class Dashboard extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     authenticated: state.auth.authenticated,
   };

@@ -1,12 +1,27 @@
 import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { RouteComponentProps } from "react-router-dom";
 import * as actions from "../../../actions";
+import { IRedirection } from "../../../actions";
+import { StoreState } from "../../../reducers";
 import requireAuth from "../../requireAuth";
 
-class NewRedirection extends Component {
-  onSubmit = (formProps) => {
+interface INewRedirectionProps extends RouteComponentProps {
+  errorMessage: string;
+  addRedirection: ({
+    redirectFrom,
+    redirectTo,
+    description,
+  }: IRedirection) => void;
+  backToRedirectionsList: () => {};
+}
+
+class NewRedirection extends Component<
+  InjectedFormProps<IRedirection> & INewRedirectionProps
+> {
+  onSubmit = (formProps: IRedirection) => {
     const { addRedirection } = this.props;
     addRedirection(formProps);
   };
@@ -87,8 +102,13 @@ class NewRedirection extends Component {
   }
 }
 
-const validate = (values) => {
-  const errors = {};
+interface IValidate {
+  redirectFrom?: string;
+  redirectTo?: string;
+}
+
+const validate: (values: IValidate) => IValidate = (values) => {
+  const errors: IValidate = {};
 
   if (!values.redirectFrom) {
     errors.redirectFrom = "Required";
@@ -101,7 +121,7 @@ const validate = (values) => {
   return errors;
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return { errorMessage: state.wids.errorMessage };
 }
 

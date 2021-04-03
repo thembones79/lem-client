@@ -1,15 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import io from "socket.io-client";
+import io, { Socket } from "socket.io-client";
 import * as actions from "../../actions";
+import {
+  OrderStatsType,
+  IRefreshLiveData,
+  initLiveData,
+  refreshLiveData,
+} from "../../actions";
 import requireAuth from "../requireAuth";
 import { ROOT_URL } from "../../config";
 import LineStatsCard from "./LineStatsCard";
 import "./AnalyticsLiveViewStyle.scss";
+import { StoreState } from "../../reducers";
 
-let socket;
+let socket: typeof Socket;
 
-class AnalyticsLiveView extends Component {
+interface IAnalyticsLiveViewProps {
+  authenticated: string | null;
+  liveView: OrderStatsType[];
+  initLiveData: typeof initLiveData;
+  refreshLiveData: typeof refreshLiveData;
+}
+
+class AnalyticsLiveView extends Component<IAnalyticsLiveViewProps> {
   componentDidMount() {
     this.props.initLiveData();
 
@@ -18,7 +32,7 @@ class AnalyticsLiveView extends Component {
       transports: ["websocket"],
     });
 
-    socket.on("LiveView", (data) => {
+    socket.on("LiveView", (data: IRefreshLiveData) => {
       this.props.refreshLiveData(data);
     });
   }
@@ -31,21 +45,11 @@ class AnalyticsLiveView extends Component {
     if (this.props.liveView) {
       const { liveView } = this.props;
 
-      return liveView.map((item) => (
-        <LineStatsCard
-          key={item._id}
-          lineDescription={item.lineDescription}
-          orderNumber={item.orderNumber}
-          orderStatus={item.orderStatus}
-          partNumber={item.partNumber}
-          tactTime={item.tactTime}
-          meanCycleTime={item.meanCycleTime}
-          lastCycleTime={item.lastCycleTime}
-          efficiency={item.efficiency}
-          quantity={item.quantity}
-          validScans={item.validScans}
-        />
-      ));
+      return liveView.map((item) => {
+        const key = item._id;
+        const lineStatsCardProps = { ...item, key };
+        return <LineStatsCard {...lineStatsCardProps} />;
+      });
     }
   }
 
@@ -54,7 +58,7 @@ class AnalyticsLiveView extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     authenticated: state.auth.authenticated,
     liveView: state.dashboard.liveView,

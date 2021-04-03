@@ -3,17 +3,18 @@ import { ScannerAction, ActionTypes, OrderType } from "../actions";
 export interface IScannerState {
   message: string;
   lines: string[];
-  userType: "";
-  userName: "";
-  userId: "";
-  userEmail: "";
-  pickedOrder: "";
-  deleteMessage: "";
-  isPaused: false;
-  isRunning: false;
-  isOrderedQuantityMatchesValidScansQuantity: false;
-  orderDetails: {};
-  errorMessage: "";
+  userType: string;
+  userName: string;
+  userId: string;
+  userEmail: string;
+  pickedOrder: string;
+  pickedLine: string;
+  deleteMessage: string;
+  isPaused: boolean;
+  isRunning: boolean;
+  isOrderedQuantityMatchesValidScansQuantity: boolean;
+  orderDetails?: OrderType;
+  errorMessage: string;
   readerInputState: { isDisabled: boolean };
   existingOrder?: OrderType;
 }
@@ -26,6 +27,7 @@ const SCANNER_INITIAL_STATE: IScannerState = {
   userId: "",
   userEmail: "",
   pickedOrder: "",
+  pickedLine: "",
   deleteMessage: "",
   isPaused: false,
   isRunning: false,

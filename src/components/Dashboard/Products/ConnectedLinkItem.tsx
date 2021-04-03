@@ -1,11 +1,26 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import { IDeleteConnectedItem, ProductType } from "../../../actions";
 import CrossMarkIcon from "../../icons/CrossMarkIcon";
 
-class ConnectedLinkItem extends Component {
+interface IConnectedLinkItemProps {
+  deleteConnectedLinkItem: ({
+    _id,
+    partNumber,
+    linksToDocs,
+    linksToRedirs,
+  }: IDeleteConnectedItem) => void;
+  description: string;
+  _id: string;
+  details: ProductType;
+  url: string;
+  fileName: string;
+}
+
+class ConnectedLinkItem extends Component<IConnectedLinkItemProps> {
   render() {
-    const { description, _id, details } = this.props;
+    const { description, _id, details, deleteConnectedLinkItem } = this.props;
     const { partNumber, linksToDocs, linksToRedirs } = details;
     return (
       <div className="product-row">
@@ -17,7 +32,7 @@ class ConnectedLinkItem extends Component {
           <button
             className="btn btn--alt-delete btn--thin"
             onClick={() => {
-              this.props.deleteConnectedLinkItem({
+              deleteConnectedLinkItem({
                 _id,
                 partNumber,
                 linksToDocs,

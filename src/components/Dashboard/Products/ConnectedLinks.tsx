@@ -2,9 +2,17 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
 import { by } from "../../../utils/by";
+import { ProductType } from "../../../actions";
+import { StoreState } from "../../../reducers";
 import ConnectedLinkItem from "./ConnectedLinkItem";
 
-class ConnectedLinks extends Component {
+interface IConnectedLinksProps {
+  errorMessage?: string;
+  productId?: string;
+  productDetails?: ProductType;
+}
+
+class ConnectedLinks extends Component<IConnectedLinksProps> {
   renderLinksList() {
     const { productDetails } = this.props;
     if (productDetails && productDetails.linksToDocs) {
@@ -37,7 +45,7 @@ class ConnectedLinks extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   const { errorMessage, productId, productDetails } = state.wids;
   return {
     errorMessage,

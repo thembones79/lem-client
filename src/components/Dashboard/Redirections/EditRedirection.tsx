@@ -1,12 +1,36 @@
 import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { RouteComponentProps } from "react-router-dom";
 import * as actions from "../../../actions";
+import {
+  AddProductsToRedirectionAction,
+  RedirectionType,
+  IRedirection,
+  IAddProductsToRedirection,
+} from "../../../actions";
+import { StoreState } from "../../../reducers";
 import requireAuth from "../../requireAuth";
 
-class EditRedirection extends Component {
-  onSubmit = (formProps) => {
+interface IEditRedirectionProps extends RouteComponentProps {
+  errorMessage: string;
+  redirectionId: string;
+  initialValues: RedirectionType;
+  saveRedirection: (
+    { redirectFrom, redirectTo, description }: IRedirection,
+    id: string
+  ) => void;
+  backToRedirectionsList: () => void;
+  addProductsToRedirection: (
+    initialData: IAddProductsToRedirection
+  ) => AddProductsToRedirectionAction;
+}
+
+class EditRedirection extends Component<
+  InjectedFormProps<IRedirection> & IEditRedirectionProps
+> {
+  onSubmit = (formProps: IRedirection) => {
     const { saveRedirection, redirectionId } = this.props;
     saveRedirection(formProps, redirectionId);
   };
@@ -19,7 +43,6 @@ class EditRedirection extends Component {
 
   render() {
     const { handleSubmit, submitting } = this.props;
-
     return (
       <div className="add-user-page">
         <form className="add-user-form " onSubmit={handleSubmit(this.onSubmit)}>
@@ -96,8 +119,13 @@ class EditRedirection extends Component {
   }
 }
 
-const validate = (values) => {
-  const errors = {};
+interface IValidate {
+  redirectFrom?: string;
+  redirectTo?: string;
+}
+
+const validate: (values: IValidate) => IValidate = (values) => {
+  const errors: IValidate = {};
 
   if (!values.redirectFrom) {
     errors.redirectFrom = "Required";
@@ -110,7 +138,7 @@ const validate = (values) => {
   return errors;
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   const { errorMessage, redirectionId, initRedirection } = state.wids;
   return {
     errorMessage,

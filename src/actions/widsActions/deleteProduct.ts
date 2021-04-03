@@ -3,13 +3,9 @@ import { Dispatch } from "redux";
 import { ActionTypes } from "../../actions";
 import { ROOT_URL } from "../../config";
 
-export interface IProductID {
-  _id: string;
-}
-
 export type DeleteProductAction = {
   type: ActionTypes.DELETE_PRODUCT;
-  payload: IProductID;
+  payload: string;
 };
 
 export type DeleteProductActionError = {
@@ -17,9 +13,7 @@ export type DeleteProductActionError = {
   payload: string;
 };
 
-export const deleteProduct = (_id: IProductID) => async (
-  dispatch: Dispatch
-) => {
+export const deleteProduct = (_id: string) => async (dispatch: Dispatch) => {
   try {
     await axios.delete(`${ROOT_URL}/api/product/${_id}`, {
       headers: { authorization: localStorage.getItem("token") },

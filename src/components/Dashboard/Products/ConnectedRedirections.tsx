@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import { ProductType } from "../../../actions";
+import { StoreState } from "../../../reducers";
 import { by } from "../../../utils/by";
 import ConnectedRedirectionItem from "./ConnectedRedirectionItem";
 
-class ConnectedRedirections extends Component {
+interface IConnectedRedirectionsProps {
+  productDetails?: ProductType;
+}
+
+class ConnectedRedirections extends Component<IConnectedRedirectionsProps, {}> {
   renderRedirsList() {
     const { productDetails } = this.props;
     if (productDetails && productDetails.linksToRedirs) {
@@ -38,11 +44,9 @@ class ConnectedRedirections extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { errorMessage, productId, productDetails } = state.wids;
+function mapStateToProps(state: StoreState) {
+  const { productDetails } = state.wids;
   return {
-    errorMessage,
-    productId,
     productDetails,
     enableReinitialize: true,
   };

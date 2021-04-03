@@ -1,13 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import { ProductType } from "../../../actions";
+import { StoreState } from "../../../reducers";
 import ConnectedLinks from "./ConnectedLinks";
 import ConnectedRedirections from "./ConnectedRedirections";
 import LinkAdder from "./LinkAdder";
 import RedirectionAdder from "./RedirectionAdder";
 import "./EditProductStyle.scss";
 
-class EditProduct extends Component {
+interface IEditProductProps {
+  errorMessage?: string;
+  productId?: string;
+  productDetails?: ProductType;
+  enableReinitialize: boolean;
+  initialValues?: ProductType;
+  getProduct: (productId?: string | undefined) => void;
+  backToProductsList: () => void;
+  LinkAdder: Component;
+  RedirectionAdder: Component;
+}
+
+class EditProduct extends Component<IEditProductProps> {
   async componentDidMount() {
     const { productId } = this.props;
     await this.props.getProduct(productId);
@@ -20,14 +34,15 @@ class EditProduct extends Component {
   }
 
   render() {
-    const {
-      productDetails: { partNumber },
-    } = this.props;
-
+    const { LinkAdder, RedirectionAdder } = this.props;
     return (
       <div className="edit-product">
         <div className="edit-product__header">
-          <h1 className="main-page__title">{partNumber ? partNumber : " "}</h1>
+          <h1 className="main-page__title">
+            {this.props.productDetails
+              ? this.props.productDetails.partNumber
+              : " "}
+          </h1>
           <button
             className="btn btn--finish btn--accent adder-form__select--medium"
             onClick={() => {
@@ -37,8 +52,8 @@ class EditProduct extends Component {
             {"<< products list"}
           </button>
         </div>
-        <LinkAdder />
-        <RedirectionAdder />
+        {LinkAdder}
+        {RedirectionAdder}
         <div className="connected-lists">
           <ConnectedLinks />
           <ConnectedRedirections />
@@ -49,7 +64,7 @@ class EditProduct extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   const { errorMessage, productId, productDetails } = state.wids;
   return {
     errorMessage,
@@ -57,6 +72,8 @@ function mapStateToProps(state) {
     productDetails,
     enableReinitialize: true,
     initialValues: productDetails,
+    LinkAdder,
+    RedirectionAdder,
   };
 }
 

@@ -10,7 +10,7 @@ export interface IWidsState {
   products?: ProductType[];
   prodsWithThisRedir?: ProductType[];
   filteredProducts?: ProductType[];
-  productDetails?: ProductType | {};
+  productDetails?: ProductType;
   errorMessage?: string;
   message?: string;
   isLoading?: boolean;
@@ -27,7 +27,7 @@ const WIDS_INITIAL_STATE: IWidsState = {
   products: [],
   prodsWithThisRedir: [],
   filteredProducts: [],
-  productDetails: {},
+  productDetails: undefined,
   errorMessage: "",
   message: "",
   isLoading: false,

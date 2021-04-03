@@ -2,19 +2,26 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
 import requireAuth from "../../requireAuth";
-import { NEW, EDIT, LIST } from "../../../actions/types";
+import { ActionTypes } from "../../../actions/types";
+import { StoreState } from "../../../reducers";
 import ProductsList from "./ProductsList";
 import NewProduct from "./NewProduct";
 import EditProduct from "./EditProduct";
 
-class ProductRouter extends Component {
-  renderProductComponent(activeComponent) {
+interface IProductRouterProps {
+  activeProductComponent: ActionTypes;
+  NewProduct: Component;
+}
+
+class ProductRouter extends Component<IProductRouterProps> {
+  renderProductComponent(activeComponent: ActionTypes) {
+    const { NewProduct } = this.props;
     switch (activeComponent) {
-      case NEW:
-        return <NewProduct />;
-      case EDIT:
+      case ActionTypes.NEW:
+        return { NewProduct };
+      case ActionTypes.EDIT:
         return <EditProduct />;
-      case LIST:
+      case ActionTypes.LIST:
         return <ProductsList />;
 
       default:
@@ -29,9 +36,10 @@ class ProductRouter extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     activeProductComponent: state.wids.activeProductComponent,
+    NewProduct,
   };
 }
 

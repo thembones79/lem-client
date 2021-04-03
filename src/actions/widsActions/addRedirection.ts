@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { ActionTypes, IRedirectionID } from "../../actions";
+import { ActionTypes } from "../../actions";
 import { ROOT_URL } from "../../config";
 
 export interface IRedirection {
@@ -10,7 +10,7 @@ export interface IRedirection {
 }
 
 export type RedirectionType = {
-  _id: IRedirectionID;
+  _id: string;
   description: string;
   redirRoute: string;
   targetUrl: string;

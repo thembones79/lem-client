@@ -7,7 +7,7 @@ import { SignoutAction, IFreeLine } from "../../actions";
 import "./SignoutStyle.scss";
 
 interface ISignoutProps extends RouteComponentProps {
-  lineId: string;
+  lineId: string | null;
   signout: () => SignoutAction;
   freeLine: ({ lineId }: IFreeLine) => void;
 }

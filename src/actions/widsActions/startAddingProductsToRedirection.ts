@@ -3,10 +3,6 @@ import { Dispatch } from "redux";
 import { ActionTypes, RedirectionType, ProductType } from "../../actions";
 import { ROOT_URL } from "../../config";
 
-export interface IRedirectionID {
-  _id: string;
-}
-
 export interface RedirectionWithProducts {
   existingRedirection: RedirectionType;
   prodsWithThisRedir: ProductType[];
@@ -22,7 +18,7 @@ export type StartAddingProductsToRedirectionActionError = {
   payload: string;
 };
 
-export const startAddingProductsToRedirection = (_id: IRedirectionID) => async (
+export const startAddingProductsToRedirection = (_id: string) => async (
   dispatch: Dispatch
 ) => {
   try {

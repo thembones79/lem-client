@@ -1,33 +1,29 @@
 import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import * as actions from "../../actions";
+import { IAddUser, AddUserAction, AddUserActionError } from "../../actions";
 import requireAuth from "../requireAuth";
+import { StoreState } from "../../reducers";
 import "./AddUserStyle.scss";
 
-class AddUser extends Component {
-  onSubmit = (formProps) => {
+interface IAddUserProps extends RouteComponentProps {
+  errorMessage: string;
+  addUser: (
+    formProps: IAddUser,
+    callback: () => void
+  ) => AddUserAction | AddUserActionError;
+}
+
+class AddUser extends Component<InjectedFormProps<IAddUser> & IAddUserProps> {
+  onSubmit = (formProps: IAddUser) => {
     const { history, addUser } = this.props;
     addUser(formProps, () => {
       history.push("/scanner");
     });
   };
-
-  renderField = ({ input, label, type, meta: { touched, error } }) => (
-    <div>
-      <div>
-        <input
-          className="add-user-form__select"
-          {...input}
-          placeholder={label}
-          type={type}
-        />
-        {touched && error && <span>{error}</span>}
-      </div>
-    </div>
-  );
 
   render() {
     const { handleSubmit, submitting } = this.props;
@@ -66,7 +62,7 @@ class AddUser extends Component {
               className="add-user-form__select"
               name="email"
               type="email"
-              component={this.renderField}
+              component="input"
               autoComplete="none"
               required
             />
@@ -79,7 +75,7 @@ class AddUser extends Component {
               className="add-user-form__select"
               name="password"
               type="password"
-              component={this.renderField}
+              component="input"
               label="Password"
               required
               autoComplete="none"
@@ -125,15 +121,20 @@ class AddUser extends Component {
   }
 }
 
-const validate = (values) => {
-  const errors = {};
+interface IValidate {
+  passwordConfirm?: string;
+  password?: string;
+  email?: string;
+}
+
+const validate: (values: IValidate) => IValidate = (values) => {
+  const errors: IValidate = {};
 
   if (!values.email) {
     errors.email = "Required";
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = "Invalid email address";
   }
-
   if (values.password !== values.passwordConfirm) {
     errors.password = "Passwords must match";
   }
@@ -141,7 +142,7 @@ const validate = (values) => {
   return errors;
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return { errorMessage: state.auth.errorMessage };
 }
 

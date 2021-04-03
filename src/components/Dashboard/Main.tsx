@@ -14,8 +14,14 @@ import ManagementTactTimes from "./ManagementTactTimes";
 import ManagementUsers from "./ManagementUsers";
 import ManagementProducts from "./ManagementProducts";
 import ManagementRedirections from "./ManagementRedirections";
+import { StoreState } from "../../reducers";
 
-class Main extends Component {
+interface IMainPageProps {
+  authenticated: string | null;
+  activeSidebarTab: Tab;
+}
+
+class Main extends Component<IMainPageProps> {
   renderChildComponent(tab: Tab) {
     switch (tab) {
       case Tab.AnalyticsLines:
@@ -48,7 +54,7 @@ class Main extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     authenticated: state.auth.authenticated,
     activeSidebarTab: state.dashboard.activeSidebarTab,

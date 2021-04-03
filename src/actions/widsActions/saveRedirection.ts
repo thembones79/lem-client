@@ -1,11 +1,6 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import {
-  ActionTypes,
-  IRedirection,
-  IRedirectionID,
-  RedirectionType,
-} from "../../actions";
+import { ActionTypes, IRedirection, RedirectionType } from "../../actions";
 import { ROOT_URL } from "../../config";
 
 export type SaveRedirectionAction = {
@@ -20,7 +15,7 @@ export type SaveRedirectionActionError = {
 
 export const saveRedirection = (
   { redirectFrom, redirectTo, description }: IRedirection,
-  id: IRedirectionID
+  id: string
 ) => async (dispatch: Dispatch) => {
   try {
     const response = await axios.put(

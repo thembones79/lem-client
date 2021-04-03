@@ -12,7 +12,6 @@ export interface IDeleteConnectedItem {
     url: string;
     fileName: string;
   }[];
-  tactTime: number;
   linksToRedirs: {
     _id: string;
   }[];

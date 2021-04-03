@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
 import ProductsRouter from "./Products/ProductRouter";
+import { StoreState } from "../../reducers";
 import "./MainStyle.scss";
 
 class ManagementProducts extends Component {
@@ -15,7 +16,7 @@ class ManagementProducts extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     authenticated: state.auth.authenticated,
   };

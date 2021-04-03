@@ -43,13 +43,10 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
             <div className="sidebar__tab__text">management </div>
           </div>
           <div>
-            <SidebarTab
-              text="orders"
-              tab={Tab.ManagementOrders}
-              children={OrderIcon}
-            />
-
-            <SidebarTab tab={Tab.ManagementLines} dupa="fff" text="lines">
+            <SidebarTab tab={Tab.ManagementOrders} text="orders">
+              <OrderIcon />
+            </SidebarTab>
+            <SidebarTab tab={Tab.ManagementLines} text="lines">
               <LineIcon />
             </SidebarTab>
             <SidebarTab tab={Tab.ManagementTactTimes} text="tact times">

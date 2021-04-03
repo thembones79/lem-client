@@ -1,18 +1,19 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { ActionTypes, IProductID } from "../../actions";
+import { ActionTypes, RedirectionType } from "../../actions";
 import { ROOT_URL } from "../../config";
 
 export type ProductType = {
-  _id: IProductID;
+  _id: string;
   partNumber: string;
   linksToDocs: {
+    _id: string;
     description: string;
     url: string;
     fileName: string;
   }[];
   tactTime: number;
-  linksToRedirs: string[];
+  linksToRedirs: RedirectionType[];
 };
 
 export interface IAddProduct {

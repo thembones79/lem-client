@@ -1,10 +1,18 @@
 import React, { Component } from "react";
+import { RouteComponentProps } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
+import { StoreState } from "../../reducers";
 import requireAuth from "../requireAuth";
 import "./UserStyle.scss";
 
-class User extends Component {
+interface IUserProps extends RouteComponentProps {
+  message: string;
+  userName: string;
+  fetchMessage: () => actions.FetchMessageAction;
+}
+
+class User extends Component<IUserProps> {
   componentDidMount() {
     this.props.fetchMessage();
   }
@@ -17,7 +25,7 @@ class User extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     message: state.scanner.message,
     userName: state.scanner.userName,

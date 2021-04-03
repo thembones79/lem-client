@@ -1,9 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import { IDeleteConnectedItem, ProductType } from "../../../actions";
 import CrossMarkIcon from "../../icons/CrossMarkIcon";
 
-class ConnectedRedirectionItem extends Component {
+interface IConnectedRedirectionItemProps {
+  deleteConnectedRedirectionItem: ({
+    _id,
+    partNumber,
+    linksToDocs,
+    linksToRedirs,
+  }: IDeleteConnectedItem) => void;
+  description?: string;
+  _id: string;
+  details: ProductType;
+  redirRoute: string;
+  targetUrl: string;
+  fileName: string;
+}
+
+class ConnectedRedirectionItem extends Component<IConnectedRedirectionItemProps> {
   render() {
     const { description, _id, details } = this.props;
     const { partNumber, linksToDocs, linksToRedirs } = details;

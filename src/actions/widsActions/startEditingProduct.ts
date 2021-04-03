@@ -1,12 +1,17 @@
-import { ActionTypes, ProductType } from "../../actions";
+import { ActionTypes } from "../../actions";
+
+export interface IStartEditingProduct {
+  partNumber: string;
+  _id: string;
+}
 
 export type StartEditingProductAction = {
   type: ActionTypes.START_EDITING_PRODUCT;
-  payload: ProductType;
+  payload: IStartEditingProduct;
 };
 
 export const startEditingProduct = (
-  initialData: ProductType
+  initialData: IStartEditingProduct
 ): StartEditingProductAction => {
   return {
     type: ActionTypes.START_EDITING_PRODUCT,

@@ -1,13 +1,32 @@
 import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { RouteComponentProps } from "react-router-dom";
 import * as actions from "../../../actions";
+import { ProductType, IAddLinkInProduct } from "../../../actions";
+import { StoreState } from "../../../reducers";
 import requireAuth from "../../requireAuth";
 import "./LinkAdderStyle.scss";
 
-class LinkAdder extends Component {
-  onSubmit = (formProps) => {
+interface ILinkAdderFormProps {
+  fileName: string;
+  description: string;
+}
+interface ILinkAdderProps extends RouteComponentProps {
+  errorMessage: string;
+  productDetails: ProductType;
+  addLinkInProduct: ({
+    fileName,
+    description,
+    partNumber,
+  }: IAddLinkInProduct) => void;
+}
+
+class LinkAdder extends Component<
+  InjectedFormProps<ILinkAdderFormProps> & ILinkAdderProps
+> {
+  onSubmit = (formProps: ILinkAdderFormProps): void => {
     const { addLinkInProduct, productDetails } = this.props;
     const { partNumber } = productDetails;
     const { fileName, description } = formProps;
@@ -69,21 +88,7 @@ class LinkAdder extends Component {
   }
 }
 
-const validate = (values) => {
-  const errors = {};
-
-  if (!values.redirectFrom) {
-    errors.redirectFrom = "Required";
-  }
-
-  if (!values.redirectTo) {
-    errors.redirectTo = "Required";
-  }
-
-  return errors;
-};
-
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   const { errorMessage, productId, productDetails } = state.wids;
   return {
     errorMessage,
@@ -95,5 +100,5 @@ function mapStateToProps(state) {
 
 export default compose(
   connect(mapStateToProps, actions),
-  reduxForm({ form: "linkAdder", validate: validate })
-)(requireAuth(LinkAdder));
+  reduxForm({ form: "linkAdder" })
+)(requireAuth(LinkAdder)) as Component;

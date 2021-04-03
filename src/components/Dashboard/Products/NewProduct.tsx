@@ -1,12 +1,22 @@
 import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import { IAddProduct, addProduct } from "../../../actions";
+import { StoreState } from "../../../reducers";
 import requireAuth from "../../requireAuth";
 
-class NewProduct extends Component {
-  onSubmit = (formProps) => {
+interface ILinkAdderProps {
+  errorMessage: string;
+  addProduct: typeof addProduct;
+  backToProductsList: () => void;
+}
+
+class NewProduct extends Component<
+  InjectedFormProps<IAddProduct> & ILinkAdderProps
+> {
+  onSubmit = (formProps: IAddProduct) => {
     const { addProduct } = this.props;
     addProduct(formProps);
   };
@@ -65,8 +75,12 @@ class NewProduct extends Component {
   }
 }
 
-const validate = (values) => {
-  const errors = {};
+interface IValidate {
+  partNumber?: string;
+}
+
+const validate: (values: IValidate) => IValidate = (values) => {
+  const errors: IValidate = {};
 
   if (!values.partNumber) {
     errors.partNumber = "Required";
@@ -75,11 +89,11 @@ const validate = (values) => {
   return errors;
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return { errorMessage: state.wids.errorMessage };
 }
 
 export default compose(
   connect(mapStateToProps, actions),
   reduxForm({ form: "newProduct", validate: validate })
-)(requireAuth(NewProduct));
+)(requireAuth(NewProduct)) as Component;

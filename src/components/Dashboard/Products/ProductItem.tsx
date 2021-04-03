@@ -1,9 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import { IStartEditingProduct } from "../../../actions";
 import "./ProductItemStyle.scss";
 
-class ProductItem extends Component {
+interface IProductItemProps {
+  partNumber: string;
+  _id: string;
+  startEditingProduct: ({ _id, partNumber }: IStartEditingProduct) => void;
+  openDeleteProductModal: ({ _id }: { _id: string }) => void;
+}
+
+class ProductItem extends Component<IProductItemProps> {
   render() {
     const {
       partNumber,

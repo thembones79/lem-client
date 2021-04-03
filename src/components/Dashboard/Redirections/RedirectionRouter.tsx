@@ -2,12 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
 import requireAuth from "../../requireAuth";
-import {
-  NEW,
-  EDIT,
-  LIST,
-  REDIRECTION_WITH_PRODUCTS,
-} from "../../../actions/types";
+import { ActionTypes } from "../../../actions/types";
 import RedirectionsList from "./RedirectionsList";
 import NewRedirection from "./NewRedirection";
 import EditRedirection from "./EditRedirection";
@@ -16,13 +11,13 @@ import RedirectionWithProducts from "./RedirectionWithProducts";
 class RedirectionRouter extends Component {
   renderRedirectionComponent(activeComponent) {
     switch (activeComponent) {
-      case NEW:
+      case ActionTypes.NEW:
         return <NewRedirection />;
-      case EDIT:
+      case ActionTypes.EDIT:
         return <EditRedirection />;
-      case LIST:
+      case ActionTypes.LIST:
         return <RedirectionsList />;
-      case REDIRECTION_WITH_PRODUCTS:
+      case ActionTypes.REDIRECTION_WITH_PRODUCTS_PAGE:
         return <RedirectionWithProducts />;
 
       default:

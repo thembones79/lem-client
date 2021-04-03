@@ -3,21 +3,25 @@ import { connect } from "react-redux";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
 import AddUser from "./AddUser";
+import { StoreState } from "../../reducers";
 import "./MainStyle.scss";
 
-class ManagementUsers extends Component {
+interface IManagementUsersProps {
+  authenticated: string | null;
+  AddUser: Component;
+}
+
+class ManagementUsers extends Component<IManagementUsersProps> {
   render() {
-    return (
-      <div className="main-page">
-        <AddUser />
-      </div>
-    );
+    const { AddUser } = this.props;
+    return <div className="main-page">{AddUser}</div>;
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     authenticated: state.auth.authenticated,
+    AddUser,
   };
 }
 

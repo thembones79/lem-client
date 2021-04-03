@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
+import { StoreState } from "../../reducers";
 import requireAuth from "../requireAuth";
 import "./MainStyle.scss";
 
@@ -20,7 +21,7 @@ class AnalyticsLines extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     authenticated: state.auth.authenticated,
   };

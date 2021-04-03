@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { ActionTypes, ProductType, IProductID } from "../../actions";
+import { ActionTypes, ProductType } from "../../actions";
 import { ROOT_URL } from "../../config";
 
 export type GetProductBeginAction = {
@@ -17,7 +17,7 @@ export type GetProductActionError = {
   payload: string;
 };
 
-export const getProduct = (productId: IProductID) => async (
+export const getProduct = (productId?: string) => async (
   dispatch: Dispatch
 ) => {
   dispatch<GetProductBeginAction>({ type: ActionTypes.GET_PRODUCT_BEGIN });

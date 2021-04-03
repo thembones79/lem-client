@@ -1,30 +1,46 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import { ProductType } from "../../../actions";
+import { StoreState } from "../../../reducers";
 import { by } from "../../../utils/by";
 import ProductItem from "./ProductItem";
 import "./ProductsListStyle.scss";
 
-class ProductsList extends Component {
+interface IProductsListProps {
+  products?: ProductType[];
+  filteredProducts?: ProductType[];
+  getProducts: () => void;
+  updateProductsList: (filteredProducts: ProductType[]) => void;
+  startAddingProduct: () => void;
+}
+
+class ProductsList extends Component<IProductsListProps> {
   async componentDidMount() {
     await this.props.getProducts();
     await this.filterProducts();
   }
 
-  filterProducts(e) {
+  filterProducts(e?: React.FormEvent<HTMLInputElement>) {
     const text = e ? e.currentTarget.value : "";
-    const filteredProducts = this.getFilteredProductsForText(text);
+    const filteredProducts: ProductType[] = this.getFilteredProductsForText(
+      text
+    );
     this.props.updateProductsList(filteredProducts);
   }
 
-  getFilteredProductsForText(text) {
-    return this.props.products.filter((product) => {
-      if (product && product.partNumber) {
-        return product.partNumber.toLowerCase().includes(text.toLowerCase());
-      } else {
-        return false;
-      }
-    });
+  getFilteredProductsForText(text: string) {
+    if (this.props.products) {
+      return this.props.products.filter((product) => {
+        if (product && product.partNumber) {
+          return product.partNumber.toLowerCase().includes(text.toLowerCase());
+        } else {
+          return [];
+        }
+      });
+    } else {
+      return [];
+    }
   }
 
   renderProductsList() {
@@ -74,10 +90,9 @@ class ProductsList extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  const { errorMessage, products, filteredProducts } = state.wids;
+function mapStateToProps(state: StoreState) {
+  const { products, filteredProducts } = state.wids;
   return {
-    errorMessage,
     products,
     filteredProducts,
   };
