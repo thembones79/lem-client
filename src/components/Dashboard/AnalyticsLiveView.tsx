@@ -21,6 +21,7 @@ interface IAnalyticsLiveViewProps {
   liveView: OrderStatsType[];
   initLiveData: typeof initLiveData;
   refreshLiveData: typeof refreshLiveData;
+  LineStatsCard: React.ElementType;
 }
 
 class AnalyticsLiveView extends Component<IAnalyticsLiveViewProps> {
@@ -43,7 +44,7 @@ class AnalyticsLiveView extends Component<IAnalyticsLiveViewProps> {
 
   renderLineStatsCards() {
     if (this.props.liveView) {
-      const { liveView } = this.props;
+      const { liveView, LineStatsCard } = this.props;
 
       return liveView.map((item) => {
         const key = item._id;
@@ -62,6 +63,7 @@ function mapStateToProps(state: StoreState) {
   return {
     authenticated: state.auth.authenticated,
     liveView: state.dashboard.liveView,
+    LineStatsCard,
   };
 }
 

@@ -1,33 +1,71 @@
-import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import React, { Component, ElementType } from "react";
+import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import {
+  ProductType,
+  RedirectionType,
+  UpdateProductsListAction,
+  IUpdateManyProdsWithOneRedir,
+  SendProductsAction,
+} from "../../../actions";
+import { StoreState } from "../../../reducers";
 import { by } from "../../../utils/by";
 import requireAuth from "../../requireAuth";
 import "./RedirectionWithProductsStyle.scss";
 
-class RedirectionWithProducts extends Component {
+interface IFormProps {
+  [key: string]: boolean;
+}
+
+interface IRedirectionWithProductsProps {
+  errorMessage: string;
+  redirectionId: string;
+  initialValues: RedirectionType;
+  products: ProductType[];
+  filteredProducts: ProductType[];
+  initRedirection: IFormProps;
+  prodsWithThisRedir: ProductType[];
+  backToRedirectionsList: () => void;
+  startAddingProductsToRedirection: (_id: string) => void;
+  updateProductsList: (products: ProductType[]) => UpdateProductsListAction;
+  updateManyProdsWithOneRedir: ({
+    redirectionId,
+    productListWithDots,
+  }: IUpdateManyProdsWithOneRedir) => void;
+  sendProducts: (productList: ProductType[]) => SendProductsAction;
+}
+
+class RedirectionWithProducts extends Component<
+  InjectedFormProps<IFormProps> & IRedirectionWithProductsProps
+> {
   async componentDidMount() {
     const { startAddingProductsToRedirection, redirectionId } = this.props;
     await startAddingProductsToRedirection(redirectionId);
     await this.filterProducts();
   }
 
-  filterProducts(e) {
+  filterProducts(e?: React.FormEvent<HTMLInputElement>) {
     const text = e ? e.currentTarget.value : "";
-    const filteredProducts = this.getFilteredProductsForText(text);
+    const filteredProducts: ProductType[] = this.getFilteredProductsForText(
+      text
+    );
     this.props.updateProductsList(filteredProducts);
   }
 
-  getFilteredProductsForText(text) {
-    return this.props.products.filter((product) => {
-      if (product && product.partNumber) {
-        return product.partNumber.toLowerCase().includes(text.toLowerCase());
-      } else {
-        return false;
-      }
-    });
+  getFilteredProductsForText(text: string) {
+    if (this.props.products) {
+      return this.props.products.filter((product) => {
+        if (product && product.partNumber) {
+          return product.partNumber.toLowerCase().includes(text.toLowerCase());
+        } else {
+          return false;
+        }
+      });
+    } else {
+      return [];
+    }
   }
 
   renderProductsList() {
@@ -55,7 +93,7 @@ class RedirectionWithProducts extends Component {
     }
   }
 
-  onSubmit = (formProps) => {
+  onSubmit = (formProps: IFormProps) => {
     const { redirectionId, updateManyProdsWithOneRedir } = this.props;
     const productListWithCommas = this.keysIntoArray(formProps);
     const productListWithDots = productListWithCommas.map((x) =>
@@ -64,7 +102,7 @@ class RedirectionWithProducts extends Component {
     updateManyProdsWithOneRedir({ redirectionId, productListWithDots });
   };
 
-  handleToggleVisible = (e) => {
+  handleToggleVisible = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { sendProducts, filteredProducts } = this.props;
     if (e.target.checked) {
       sendProducts(filteredProducts);
@@ -73,7 +111,7 @@ class RedirectionWithProducts extends Component {
     }
   };
 
-  keysIntoArray(obj) {
+  keysIntoArray<T extends object>(obj: T) {
     let arr = [];
     for (const key in obj) {
       if (Object.hasOwnProperty.call(obj, key)) {
@@ -100,7 +138,7 @@ class RedirectionWithProducts extends Component {
         </h1>
         <div className="redir-with-prods-page__subheader">
           <label className="switch  switch__flex switch__flex__label">
-            <input type="checkbox" onClick={this.handleToggleVisible} />
+            <input type="checkbox" onChange={this.handleToggleVisible} />
             <span></span>select all visible
           </label>
           <div className="selectable-products-list__filter">
@@ -150,28 +188,37 @@ class RedirectionWithProducts extends Component {
   }
 }
 
-const validate = (values) => {
-  const errors = {};
-  return errors;
-};
-
 // changes shape of the data to fit nicely into form with multi selects
-// changes dots in key names into commas becouse redux form does not support dots in keys
-// commas are revert back into dots later in the logic flow
-const keyValuesIntoKeysWithCommas = ({ arr, keyToFind, valueToSet }) => {
-  let newObj = {};
-  arr
-    .map((element) => element[keyToFind])
-    .forEach((keyWithDots) => {
-      if (keyWithDots) {
-        const keyWithCommas = keyWithDots.replace(".", ",");
-        return (newObj[keyWithCommas] = valueToSet);
-      }
-    });
+// changes dots in key names into commas because redux form does not support dots in keys
+// (commas will be reverted back into dots later in the logic flow)
+const keyValuesIntoKeysWithCommas = <T extends object, U extends keyof T>({
+  arr,
+  keyToFind,
+  valueToSet,
+}: {
+  arr?: T[];
+  keyToFind: U;
+  valueToSet: boolean;
+}) => {
+  let newObj: IFormProps = {};
+  if (arr) {
+    arr
+      .map((element) => element[keyToFind])
+      .forEach((keyWithDots) => {
+        if (keyWithDots) {
+          // @ts-ignore
+          const keyWithCommas = keyWithDots.replace(".", ",");
+          //if (typeof keyWithDots === "string") {
+          //  console.log("string");
+          //}
+          return (newObj[keyWithCommas] = valueToSet);
+        }
+      });
+  }
   return newObj;
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   const {
     errorMessage,
     redirectionId,
@@ -199,5 +246,5 @@ function mapStateToProps(state) {
 
 export default compose(
   connect(mapStateToProps, actions),
-  reduxForm({ form: "redirectionWithProducts", validate: validate })
-)(requireAuth(RedirectionWithProducts));
+  reduxForm({ form: "redirectionWithProducts" })
+)(requireAuth(RedirectionWithProducts)) as ElementType;

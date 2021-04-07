@@ -4,7 +4,14 @@ export interface IModalState {
   isModalOpened?: boolean;
   modalHeader?: string;
   modalContent?: string;
-  modalAction?: string;
+  modalAction?:
+    | "finish"
+    | "delete"
+    | "delete redirection"
+    | "delete product"
+    | "";
+  redirectionId?: string;
+  productId?: string;
 }
 
 const MODAL_INITIAL_STATE: IModalState = {
@@ -12,6 +19,8 @@ const MODAL_INITIAL_STATE: IModalState = {
   modalHeader: "",
   modalContent: "",
   modalAction: "",
+  redirectionId: "",
+  productId: "",
 };
 
 export const modalReducer = (

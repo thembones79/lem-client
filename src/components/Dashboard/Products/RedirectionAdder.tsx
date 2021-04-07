@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, ElementType } from "react";
 import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
@@ -75,7 +75,7 @@ class RedirectionAdder extends Component<
     const { redirections } = this.props; // all redirs
     if (redirections) {
       const { productDetails } = this.props;
-      const { linksToRedirs } = productDetails; // redirs attached to current product
+      const linksToRedirs = productDetails?.linksToRedirs; // redirs attached to current product
       return (
         <>
           {this.filteredRedirections(redirections, linksToRedirs)
@@ -154,4 +154,4 @@ function mapStateToProps(state: StoreState) {
 export default compose(
   connect(mapStateToProps, actions),
   reduxForm({ form: "redirectionAdder", validate: validate })
-)(requireAuth(RedirectionAdder)) as Component;
+)(requireAuth(RedirectionAdder)) as ElementType;

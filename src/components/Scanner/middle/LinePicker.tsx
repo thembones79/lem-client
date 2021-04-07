@@ -1,18 +1,42 @@
-import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import React, { Component, ElementType } from "react";
+import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { by } from "../../../utils/by";
 import * as actions from "../../../actions";
+import { LineType, IPickLine } from "../../../actions";
+import { StoreState } from "../../../reducers";
 import LineIcon from "../../icons/LineIcon";
 import "./LinePickerStyle.scss";
 
-class LinePicker extends Component {
+interface ILinePickerProps {
+  errorMessage: string;
+  initialValues: {
+    line: string | null;
+  };
+  userName: string;
+  line: string | null;
+  isPaused: boolean;
+  lines: LineType[];
+  readerInputState: {
+    isDisabled: boolean;
+  };
+  getLines: () => void;
+  pickLine: ({ currentLineId, newLineId, userName }: IPickLine) => void;
+}
+
+interface IFormProps extends React.ChangeEvent<HTMLInputElement> {
+  line: string;
+}
+
+class LinePicker extends Component<
+  InjectedFormProps<IFormProps> & ILinePickerProps
+> {
   componentDidMount() {
     this.props.getLines();
   }
 
-  handleLineChange = (formProps) => {
+  handleLineChange = (formProps: IFormProps) => {
     const currentLineId = this.props.initialValues.line;
     const newLineId = formProps.target.value;
     const userName = this.props.userName;
@@ -92,7 +116,7 @@ class LinePicker extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     errorMessage: state.auth.errorMessage,
     initialValues: { line: localStorage.getItem("line") },
@@ -108,4 +132,4 @@ function mapStateToProps(state) {
 export default compose(
   connect(mapStateToProps, actions),
   reduxForm({ form: "linePicker" })
-)(LinePicker);
+)(LinePicker) as ElementType;

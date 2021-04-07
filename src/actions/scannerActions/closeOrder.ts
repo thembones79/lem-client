@@ -4,7 +4,7 @@ import { ActionTypes } from "../../actions";
 import { ROOT_URL } from "../../config";
 
 export interface ICloseOrder {
-  orderNumber: string;
+  orderNumber: string | null;
 }
 
 export type CloseOrderAction = {

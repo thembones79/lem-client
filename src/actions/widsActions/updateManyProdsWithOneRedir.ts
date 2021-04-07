@@ -1,11 +1,11 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { ActionTypes, ProductType } from "../../actions";
+import { ActionTypes } from "../../actions";
 import { ROOT_URL } from "../../config";
 
 export interface IUpdateManyProdsWithOneRedir {
   redirectionId: string;
-  productList: ProductType[];
+  productListWithDots: string[];
 }
 
 export type UpdateManyProdsWithOneRedirAction = {
@@ -19,13 +19,13 @@ export type UpdateManyProdsWithOneRedirActionError = {
 
 export const updateManyProdsWithOneRedir = ({
   redirectionId,
-  productList,
+  productListWithDots,
 }: IUpdateManyProdsWithOneRedir) => async (dispatch: Dispatch) => {
   try {
     await axios.put(
       `${ROOT_URL}/api/product/redirection/${redirectionId}`,
       {
-        productList,
+        productList: productListWithDots,
       },
       {
         headers: { authorization: localStorage.getItem("token") },

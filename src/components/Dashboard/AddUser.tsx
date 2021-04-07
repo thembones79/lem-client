@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, ElementType } from "react";
 import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
@@ -149,4 +149,4 @@ function mapStateToProps(state: StoreState) {
 export default compose(
   connect(mapStateToProps, actions),
   reduxForm({ form: "addUser", validate: validate })
-)(requireAuth(withRouter(AddUser)));
+)(requireAuth(withRouter(AddUser))) as ElementType;

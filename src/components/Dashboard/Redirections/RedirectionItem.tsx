@@ -1,9 +1,28 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import {
+  IStartEditingRedirection,
+  StartEditingRedirectionAction,
+  IOpenDeleteRedirectionModal,
+  OpenDeleteRedirectionModalAction,
+} from "../../../actions";
 import "./RedirectionItemStyle.scss";
 
-class RedirectionItem extends Component {
+interface IRedirectionItemProps {
+  description: string;
+  redirRoute: string;
+  fileName: string;
+  _id: string;
+  startEditingRedirection: (
+    initialData: IStartEditingRedirection
+  ) => StartEditingRedirectionAction;
+  openDeleteRedirectionModal: ({
+    _id,
+  }: IOpenDeleteRedirectionModal) => OpenDeleteRedirectionModalAction;
+}
+
+class RedirectionItem extends Component<IRedirectionItemProps> {
   render() {
     const {
       description,

@@ -2,9 +2,20 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import * as actions from "../actions";
+import { StoreState } from "../reducers";
+import { IModalState } from "../reducers/modalReducer";
 import "./ModalStyle.scss";
 
-class Modal extends Component {
+interface IModalProps extends IModalState {
+  orderNumber: string | null;
+  closeModal: () => actions.CloseModalAction;
+  closeOrder: ({ orderNumber }: actions.ICloseOrder) => void;
+  deleteOrder: ({ orderNumber }: actions.IDeleteOrder) => void;
+  deleteRedirection: (redirectionId?: string) => void;
+  deleteProduct: (productId?: string) => void;
+}
+
+class Modal extends Component<IModalProps> {
   handleActionClick = () => {
     const { modalAction } = this.props;
     switch (modalAction) {
@@ -94,7 +105,7 @@ class Modal extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
     isModalOpened: state.modal.isModalOpened,

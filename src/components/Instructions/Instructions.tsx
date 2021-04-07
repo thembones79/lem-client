@@ -1,13 +1,18 @@
-import React, { Component } from "react";
+import React, { Component, ElementType } from "react";
 import { connect } from "react-redux";
-import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
+import { StoreState } from "../../reducers";
 import InstructionsViewer from "./InstructionsViewer";
 import ProductChooser from "./ProductChooser";
 import "./InstructionsStyle.scss";
 
-class Instructions extends Component {
+interface IInstructionProps {
+  ProductChooser: ElementType;
+}
+
+class Instructions extends Component<IInstructionProps> {
   render() {
+    const { ProductChooser } = this.props;
     return (
       <div className="instructions-page">
         <ProductChooser />
@@ -17,12 +22,11 @@ class Instructions extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
-    userType: state.scanner.userType,
-    userName: state.scanner.userName,
-    userEmail: state.scanner.userEmail,
+    authenticated: state.auth.authenticated,
+    ProductChooser,
   };
 }
 
-export default connect(mapStateToProps, actions)(requireAuth(Instructions));
+export default connect(mapStateToProps)(requireAuth(Instructions));

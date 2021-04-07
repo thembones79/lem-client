@@ -4,8 +4,8 @@ import { ActionTypes, OrderType } from "../../actions";
 import { ROOT_URL } from "../../config";
 
 export interface IAddBreakEnd {
-  orderNumber: string;
-  _line: string;
+  orderNumber?: string | null;
+  _line?: string | null;
 }
 
 export type AddBreakEndAction = {

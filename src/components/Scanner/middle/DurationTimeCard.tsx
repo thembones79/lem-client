@@ -1,16 +1,26 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import { MenuDataType } from "../../../actions";
+import { StoreState } from "../../../reducers";
 import { secondsToHhMmSs } from "../../../utils/secondsToHhMmSs";
 import {
   getEstDuration,
   getEstCompletionTime,
   getRealDuration,
   getRealCompletionTime,
+  IOrder,
 } from "../../../utils/calculations";
 import "./DurationTimeCardStyle.scss";
 
-class DurationTimeCard extends Component {
+interface IDurationTimeCardProps {
+  orderNumber?: string | null;
+  _line?: string | null;
+  existingOrder: IOrder;
+  menu: MenuDataType;
+}
+
+class DurationTimeCard extends Component<IDurationTimeCardProps> {
   renderDuration() {
     if (this.props.menu && this.props.existingOrder) {
       const { orderNumber, existingOrder, _line } = this.props;
@@ -68,9 +78,9 @@ class DurationTimeCard extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
-    existingOrder: state.scanner.existingOrder,
+    existingOrder: state.scanner.existingOrder as IOrder,
     menu: state.scanner.menu,
     orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
     _line: state.scanner.pickedLine || localStorage.getItem("line"),

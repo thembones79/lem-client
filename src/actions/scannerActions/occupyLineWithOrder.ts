@@ -4,7 +4,7 @@ import { ActionTypes } from "../../actions";
 import { ROOT_URL } from "../../config";
 
 export interface IOccupyLineWithOrder {
-  _line: string;
+  _line: string | null;
   orderNumber: string;
 }
 

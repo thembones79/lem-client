@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import { OrderType } from "../../../actions";
+import { StoreState } from "../../../reducers";
 import MissingScansIcon from "../../icons/MissingScansIcon";
 import "./MissingScansStyle.scss";
 
-class MissingScans extends Component {
-  zeroAdder(number) {
+interface IMissingScansProps {
+  existingOrder?: OrderType;
+}
+
+class MissingScans extends Component<IMissingScansProps> {
+  zeroAdder(number: number) {
     if (number < 0) {
-      return;
+      return "";
     }
     if (number < 10) {
       return `0000${number}`;
@@ -22,11 +28,11 @@ class MissingScans extends Component {
       return `0${number}`;
     }
 
-    return number;
+    return `${number}`;
   }
 
   generateCompleteScanList() {
-    const { quantity } = this.props.existingOrder;
+    const quantity = this.props.existingOrder?.quantity || 1;
 
     let generatedScans = [];
     for (let i = 1; i <= quantity; i++) {
@@ -35,20 +41,42 @@ class MissingScans extends Component {
     return generatedScans;
   }
 
+  findMissingScans(
+    completeScanList: string[],
+    scansWithoutErrors: (string | undefined)[]
+  ) {
+    if (!scansWithoutErrors || scansWithoutErrors.length === 0) {
+      return completeScanList;
+    } else {
+      return completeScanList.filter((scan) => {
+        let foundScans = 0;
+        scansWithoutErrors.forEach((el) => {
+          if (el === scan) {
+            foundScans++;
+          }
+        });
+        return foundScans === 0;
+      });
+    }
+  }
+
   renderMissingScans() {
     if (this.props.existingOrder) {
       const { scans } = this.props.existingOrder;
       const scansWithoutErrors = scans
-        .filter(
-          (scan) => scan.errorCode === "e000" || scan.errorCode === "e004"
-        )
-        .map((scan) => scan.scanContent.substr(-5));
+        ? scans
+            .filter(
+              (scan) => scan.errorCode === "e000" || scan.errorCode === "e004"
+            )
+            .map((scan) => scan?.scanContent?.substr(-5))
+        : [];
 
       const completeScanList = this.generateCompleteScanList();
 
-      const missingScans = completeScanList.filter(function (scan) {
-        return this.indexOf(scan) < 0;
-      }, scansWithoutErrors);
+      const missingScans = this.findMissingScans(
+        completeScanList,
+        scansWithoutErrors
+      );
 
       return missingScans.map((scan) => (
         <div key={scan} className="missing-scans__item">
@@ -70,7 +98,7 @@ class MissingScans extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     existingOrder: state.scanner.existingOrder,
   };

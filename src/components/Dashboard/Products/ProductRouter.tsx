@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, ElementType } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
 import requireAuth from "../../requireAuth";
@@ -10,7 +10,7 @@ import EditProduct from "./EditProduct";
 
 interface IProductRouterProps {
   activeProductComponent: ActionTypes;
-  NewProduct: Component;
+  NewProduct: ElementType;
 }
 
 class ProductRouter extends Component<IProductRouterProps> {
@@ -18,7 +18,7 @@ class ProductRouter extends Component<IProductRouterProps> {
     const { NewProduct } = this.props;
     switch (activeComponent) {
       case ActionTypes.NEW:
-        return { NewProduct };
+        return <NewProduct />;
       case ActionTypes.EDIT:
         return <EditProduct />;
       case ActionTypes.LIST:

@@ -1,11 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
+import { ProductType } from "../../actions";
+import { StoreState } from "../../reducers";
 import LinkBlock from "./LinkBlock";
 import Loader from "../Loader";
 import { ROOT_URL } from "../../config";
 
-class InstructionsViewer extends Component {
+interface IInstructionsViewerProps {
+  errorMessage?: string;
+  productId?: string;
+  productDetails?: ProductType;
+  message?: string;
+  isLoading?: boolean;
+}
+
+class InstructionsViewer extends Component<IInstructionsViewerProps> {
   renderAlert() {
     if (this.props.errorMessage) {
       return <div className="alert__message">{this.props.errorMessage}</div>;
@@ -14,15 +24,12 @@ class InstructionsViewer extends Component {
 
   renderLinksList() {
     const { productDetails } = this.props;
-    if (productDetails && productDetails.linksToDocs) {
+    if (productDetails?.linksToDocs) {
       return productDetails.linksToDocs.map((link) => (
         <LinkBlock
           key={link._id}
-          _id={link._id}
           description={link.description}
           url={link.url}
-          fileName={link.fileName}
-          details={productDetails}
         />
       ));
     }
@@ -30,26 +37,19 @@ class InstructionsViewer extends Component {
 
   renderRedirsList() {
     const { productDetails } = this.props;
-    if (productDetails && productDetails.linksToRedirs) {
+    if (productDetails?.linksToRedirs) {
       return productDetails.linksToRedirs.map((redir) => (
         <LinkBlock
           key={redir._id}
-          _id={redir._id}
           description={redir.description}
           url={`${ROOT_URL}/api/redirection/${redir.redirRoute}`}
-          details={productDetails}
         />
       ));
     }
   }
 
   renderLists() {
-    const {
-      productDetails: { linksToDocs, linksToRedirs, partNumber },
-      message,
-      isLoading,
-      errorMessage,
-    } = this.props;
+    const { productDetails, message, isLoading, errorMessage } = this.props;
 
     if (errorMessage) {
       return <div className="alert">{this.renderAlert()}</div>;
@@ -63,7 +63,7 @@ class InstructionsViewer extends Component {
       return <strong>{message}</strong>;
     }
 
-    if (!partNumber) {
+    if (!productDetails?.partNumber) {
       return (
         <>
           <strong>choose part number</strong> <em>or</em>
@@ -73,12 +73,16 @@ class InstructionsViewer extends Component {
         </>
       );
     } else if (
-      linksToDocs &&
-      linksToRedirs &&
-      linksToDocs.length === 0 &&
-      linksToRedirs.length === 0
+      productDetails?.linksToDocs &&
+      productDetails?.linksToRedirs &&
+      productDetails?.linksToDocs?.length === 0 &&
+      productDetails?.linksToRedirs?.length === 0
     ) {
-      return <strong>there are no instructions for {partNumber}</strong>;
+      return (
+        <strong>
+          there are no instructions for {productDetails.partNumber}
+        </strong>
+      );
     } else {
       return (
         <>
@@ -90,12 +94,10 @@ class InstructionsViewer extends Component {
   }
 
   renderHeader() {
-    const {
-      productDetails: { partNumber },
-    } = this.props;
+    const { productDetails } = this.props;
 
-    if (partNumber) {
-      return `instructions for ${partNumber}`;
+    if (productDetails?.partNumber) {
+      return `instructions for ${productDetails.partNumber}`;
     }
   }
 
@@ -113,7 +115,7 @@ class InstructionsViewer extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   const {
     errorMessage,
     productId,

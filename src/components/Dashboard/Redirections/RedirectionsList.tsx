@@ -1,11 +1,22 @@
-import React, { Component } from "react";
+import React, { Component, ElementType } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import {
+  RedirectionType,
+  StartAddingRedirectionAction,
+} from "../../../actions";
+import { StoreState } from "../../../reducers";
 import { by } from "../../../utils/by";
 import RedirectionItem from "./RedirectionItem";
 import "./RedirectionsListStyle.scss";
 
-class RedirectionsList extends Component {
+interface IRedirectionsListProps {
+  redirections?: RedirectionType[];
+  startAddingRedirection: () => StartAddingRedirectionAction;
+  getRedirections: () => void;
+}
+
+class RedirectionsList extends Component<IRedirectionsListProps> {
   componentDidMount() {
     this.props.getRedirections();
   }
@@ -56,12 +67,14 @@ class RedirectionsList extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { errorMessage, redirections } = state.wids;
+function mapStateToProps(state: StoreState) {
+  const { redirections } = state.wids;
   return {
-    errorMessage,
     redirections,
   };
 }
 
-export default connect(mapStateToProps, actions)(RedirectionsList);
+export default connect(
+  mapStateToProps,
+  actions
+)(RedirectionsList) as ElementType;

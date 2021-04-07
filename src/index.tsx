@@ -31,10 +31,10 @@ ReactDOM.render(
           <Route path="/" exact component={Welcome} />
           <Route path="/scanner" component={Scanner} />
           <Route path="/signout" component={Signout} />
-          <Route path="/signin" component={Signin} />
           <Route path="/user" component={User} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/instructions" component={Instructions} />
+          <Route path="/signin" component={Signin} />
           <Route component={Welcome} />
         </Switch>
       </App>

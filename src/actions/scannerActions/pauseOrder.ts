@@ -5,7 +5,7 @@ export type PauseOrderAction = {
   payload: { isRunning: false };
 };
 
-export const pauseOrder = () => {
+export const pauseOrder = (): PauseOrderAction => {
   return {
     type: ActionTypes.PAUSE_ORDER,
     payload: { isRunning: false },

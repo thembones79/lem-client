@@ -4,11 +4,16 @@ import { renderTime } from "../../../utils/renderTime";
 import CheckMarkIcon from "../../icons/CheckMarkIcon";
 import CrossMarkIcon from "../../icons/CrossMarkIcon";
 import WarningIcon from "../../icons/WarningIcon";
-
 import "./ScanContentStyle.scss";
 
-class ScanContent extends Component {
-  renderError(code, language) {
+interface IScanContentProps {
+  timeStamp: string;
+  errorCode: keyof typeof errors;
+  scanContent: string;
+}
+
+class ScanContent extends Component<IScanContentProps> {
+  renderError(code: IScanContentProps["errorCode"], language: "pl" | "en") {
     const messageClassName = () => {
       if (code === "e000") {
         return "scan-item__message--good";
@@ -28,7 +33,7 @@ class ScanContent extends Component {
     );
   }
 
-  renderMark(code) {
+  renderMark(code: IScanContentProps["errorCode"]) {
     if (code === "e000") {
       return <CheckMarkIcon />;
     } else if (code === "e004") {
@@ -39,20 +44,16 @@ class ScanContent extends Component {
   }
 
   render() {
+    const { errorCode, timeStamp, scanContent } = this.props;
+    const { renderMark, renderError } = this;
     return (
       <div className="scan-item">
         <div className="scan-item__mark-content">
-          <div className="scan-item__mark">
-            {this.renderMark(this.props.errorCode)}
-          </div>
+          <div className="scan-item__mark">{renderMark(errorCode)}</div>
           <div className="scan-item__content">
-            <div className="scan-item__timestamp">
-              {renderTime(this.props.timeStamp)}
-            </div>
-            {this.renderError(this.props.errorCode, "en")}
-            <div className="scan-item__partnumber">
-              {this.props.scanContent}{" "}
-            </div>
+            <div className="scan-item__timestamp">{renderTime(timeStamp)}</div>
+            {renderError(errorCode, "en")}
+            <div className="scan-item__partnumber">{scanContent}</div>
           </div>
         </div>
       </div>

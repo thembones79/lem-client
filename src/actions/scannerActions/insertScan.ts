@@ -9,7 +9,6 @@ export interface IInsertScan {
   _line: string;
   _user: string;
   orderNumber: string;
-  compareScanQuantitiesAndClose: () => void;
 }
 
 export type InsertScanAction = {
@@ -27,7 +26,6 @@ export const insertScan = ({
   _line,
   _user,
   orderNumber,
-  compareScanQuantitiesAndClose,
 }: IInsertScan) => async (dispatch: Dispatch) => {
   try {
     const response = await axios.post(
@@ -47,11 +45,10 @@ export const insertScan = ({
       payload: response.data,
     });
     playProperSound(response.data.existingOrder, _line);
-    compareScanQuantitiesAndClose();
   } catch (e) {
     dispatch<InsertScanActionError>({
       type: ActionTypes.INSERT_SCAN_ERROR,
-      payload: "Please enter some value in the field.",
+      payload: "e.response.data.error",
     });
   }
 };

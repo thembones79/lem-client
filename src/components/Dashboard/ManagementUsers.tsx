@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, ElementType } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
@@ -8,13 +8,17 @@ import "./MainStyle.scss";
 
 interface IManagementUsersProps {
   authenticated: string | null;
-  AddUser: Component;
+  AddUser: ElementType;
 }
 
 class ManagementUsers extends Component<IManagementUsersProps> {
   render() {
     const { AddUser } = this.props;
-    return <div className="main-page">{AddUser}</div>;
+    return (
+      <div className="main-page">
+        <AddUser />
+      </div>
+    );
   }
 }
 

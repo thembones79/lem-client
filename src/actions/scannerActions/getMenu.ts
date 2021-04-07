@@ -5,6 +5,7 @@ import { ROOT_URL } from "../../config";
 
 export type MenuDataType = {
   menuContent: {
+    _id: string;
     orderNumber: string;
     quantity: number;
     customer: string;
@@ -12,7 +13,7 @@ export type MenuDataType = {
     partNumber: string;
     tactTime: number;
   }[];
-  timeStamp: Date;
+  timestamp: string;
   idCode: string;
 };
 

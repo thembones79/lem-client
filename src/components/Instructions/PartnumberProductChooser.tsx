@@ -1,17 +1,37 @@
 import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { by } from "../../utils/by";
 import * as actions from "../../actions";
+import { ProductType, MenuDataType, SetMessageAction } from "../../actions";
+import { StoreState } from "../../reducers";
 import requireAuth from "../requireAuth";
 
-class PartnumberProductChooser extends Component {
+interface IFormProps extends React.ChangeEvent<HTMLInputElement> {
+  _id: string;
+}
+
+interface IPartnumberProductChooserProps {
+  errorMessage: string;
+  products: ProductType[];
+  productId: string;
+  isLoading: boolean;
+  menu: MenuDataType;
+  productDetails: ProductType;
+  getProduct: (productId?: string) => void;
+  setMessage: (message: string) => SetMessageAction;
+  getProducts: () => void;
+}
+
+class PartnumberProductChooser extends Component<
+  InjectedFormProps<IFormProps> & IPartnumberProductChooserProps
+> {
   async componentDidMount() {
     await this.props.getProducts();
   }
 
-  handleChange = (formProps) => {
+  handleChange = (formProps: IFormProps) => {
     const { getProduct, setMessage, reset } = this.props;
     const id = formProps.target.value;
     if (id) {
@@ -64,17 +84,7 @@ class PartnumberProductChooser extends Component {
   }
 }
 
-const validate = (values) => {
-  const errors = {};
-
-  if (!values._id) {
-    errors._id = "Required";
-  }
-
-  return errors;
-};
-
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   const {
     errorMessage,
     productId,
@@ -94,5 +104,5 @@ function mapStateToProps(state) {
 
 export default compose(
   connect(mapStateToProps, actions),
-  reduxForm({ form: "partnumberProductChooser", validate: validate })
+  reduxForm({ form: "partnumberProductChooser" })
 )(requireAuth(PartnumberProductChooser));

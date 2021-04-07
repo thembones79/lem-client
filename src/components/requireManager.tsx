@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { RouteComponentProps } from "react-router-dom";
+import { StoreState } from "../reducers";
 
-export default (ChildComponent) => {
-  class ComposedComponent extends Component {
+interface IComposedComponentProps extends RouteComponentProps {
+  auth: string | null;
+  userType: string;
+}
+
+export default (ChildComponent: React.ElementType) => {
+  class ComposedComponent extends Component<IComposedComponentProps> {
     componentDidMount() {
       this.shouldNavigateAway();
     }
@@ -24,7 +31,7 @@ export default (ChildComponent) => {
     }
   }
 
-  function mapStateToProps(state) {
+  function mapStateToProps(state: StoreState) {
     return { auth: state.auth.authenticated, userType: state.scanner.userType };
   }
 

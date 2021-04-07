@@ -79,4 +79,4 @@ function mapStateToProps(state: StoreState) {
 export default compose(
   connect(mapStateToProps, actions),
   reduxForm({ form: "signin" })
-)(Signin);
+)(Signin) as React.ComponentType;

@@ -1,13 +1,20 @@
-import { ScannerAction, ActionTypes, OrderType } from "../actions";
+import {
+  ScannerAction,
+  ActionTypes,
+  OrderType,
+  LineType,
+  MenuDataType,
+} from "../actions";
 
 export interface IScannerState {
   message: string;
-  lines: string[];
+  lines: LineType[];
   userType: string;
   userName: string;
   userId: string;
   userEmail: string;
   pickedOrder: string;
+  menu: MenuDataType;
   pickedLine: string;
   deleteMessage: string;
   isPaused: boolean;
@@ -27,6 +34,21 @@ const SCANNER_INITIAL_STATE: IScannerState = {
   userId: "",
   userEmail: "",
   pickedOrder: "",
+  menu: {
+    menuContent: [
+      {
+        _id: "",
+        orderNumber: "",
+        quantity: 0,
+        customer: "",
+        qrCode: "",
+        partNumber: "",
+        tactTime: 0,
+      },
+    ],
+    timestamp: "",
+    idCode: "",
+  },
   pickedLine: "",
   deleteMessage: "",
   isPaused: false,
@@ -39,7 +61,7 @@ const SCANNER_INITIAL_STATE: IScannerState = {
     scans: [
       {
         _id: "waiting...",
-        timeStamp: new Date(),
+        timeStamp: "",
         errorCode: "",
         scanContent: "",
       },

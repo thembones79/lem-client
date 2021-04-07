@@ -8,8 +8,14 @@ import Sidebar from "./Sidebar";
 import { StoreState } from "../../reducers";
 import "./DashboardStyle.scss";
 
-class Dashboard extends Component {
+interface IDashboardProps {
+  Sidebar: React.ElementType;
+  MainPage: React.ElementType;
+}
+
+class Dashboard extends Component<IDashboardProps> {
   render() {
+    const { Sidebar, MainPage } = this.props;
     return (
       <div className="dashboard-page">
         <Sidebar />
@@ -22,6 +28,8 @@ class Dashboard extends Component {
 function mapStateToProps(state: StoreState) {
   return {
     authenticated: state.auth.authenticated,
+    Sidebar,
+    MainPage,
   };
 }
 

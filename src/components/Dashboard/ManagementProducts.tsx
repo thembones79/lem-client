@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, ElementType } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
@@ -6,8 +6,13 @@ import ProductsRouter from "./Products/ProductRouter";
 import { StoreState } from "../../reducers";
 import "./MainStyle.scss";
 
-class ManagementProducts extends Component {
+interface IManagementProductsProps {
+  ProductsRouter: React.ElementType;
+}
+
+class ManagementProducts extends Component<IManagementProductsProps> {
   render() {
+    const { ProductsRouter } = this.props;
     return (
       <div className="main-page">
         <ProductsRouter />
@@ -19,10 +24,11 @@ class ManagementProducts extends Component {
 function mapStateToProps(state: StoreState) {
   return {
     authenticated: state.auth.authenticated,
+    ProductsRouter,
   };
 }
 
 export default connect(
   mapStateToProps,
   actions
-)(requireAuth(ManagementProducts));
+)(requireAuth(ManagementProducts)) as ElementType;

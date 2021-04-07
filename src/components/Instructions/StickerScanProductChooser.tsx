@@ -1,24 +1,42 @@
 import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
+import { ProductType, SetMessageAction } from "../../actions";
+import { StoreState } from "../../reducers";
 import ScannerIcon from "../icons/ScannerIcon";
 import "./StickerScanProductChooserStyle.scss";
 
-class StickerScanProductChooser extends Component {
-  getPartNumberFromScanCode(code) {
+interface IStickerScanProductChooser {
+  errorMessage: string;
+  products: ProductType[];
+  productId: string;
+  isLoading: boolean;
+  productDetails: ProductType;
+  setMessage: (message: string) => SetMessageAction;
+  getProduct: (productId?: string) => void;
+}
+
+interface IFormProps {
+  scanLittleSticker: string;
+}
+
+class StickerScanProductChooser extends Component<
+  InjectedFormProps<IFormProps> & IStickerScanProductChooser
+> {
+  getPartNumberFromScanCode(code: string) {
     return code.substr(4).split("(")[0];
   }
 
-  getIdForPartNumber(partNumber) {
+  getIdForPartNumber(partNumber: string) {
     const filteredProducts = this.props.products.filter(
       (product) => product.partNumber === partNumber
     );
     return filteredProducts.length ? filteredProducts[0]._id : null;
   }
 
-  onSubmit = (formProps) => {
+  onSubmit = (formProps: IFormProps) => {
     const { getProduct, reset, setMessage } = this.props;
     const code = formProps.scanLittleSticker;
     const partNumber = this.getPartNumberFromScanCode(code);
@@ -76,21 +94,19 @@ class StickerScanProductChooser extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   const {
     errorMessage,
     productId,
     productDetails,
     products,
     isLoading,
-    message,
   } = state.wids;
   return {
     errorMessage,
     productId,
     products,
     isLoading,
-    message,
     productDetails,
     enableReinitialize: true,
   };

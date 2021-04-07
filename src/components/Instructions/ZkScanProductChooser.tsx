@@ -1,16 +1,36 @@
 import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
+import { ProductType, MenuDataType, SetMessageAction } from "../../actions";
+import { StoreState } from "../../reducers";
 import ScannerIcon from "../icons/ScannerIcon";
 
-class ZkScanProductChooser extends Component {
+interface IFormProps extends React.ChangeEvent<HTMLInputElement> {
+  scanZk: string;
+}
+
+interface IZkScanProductChooserProps {
+  errorMessage: string;
+  products: ProductType[];
+  productId: string;
+  isLoading: boolean;
+  menu: MenuDataType;
+  productDetails: ProductType;
+  getProduct: (productId?: string) => void;
+  setMessage: (message: string) => SetMessageAction;
+  getMenu: () => void;
+}
+
+class ZkScanProductChooser extends Component<
+  InjectedFormProps<IFormProps> & IZkScanProductChooserProps
+> {
   async componentDidMount() {
     await this.props.getMenu();
   }
 
-  getPartNumberFromZk(zk) {
+  getPartNumberFromZk(zk: string) {
     const {
       menu: { menuContent },
     } = this.props;
@@ -18,14 +38,14 @@ class ZkScanProductChooser extends Component {
     return orders.length ? orders[0].partNumber : null;
   }
 
-  getIdForPartNumber(partNumber) {
+  getIdForPartNumber(partNumber: string | null) {
     const filteredProducts = this.props.products.filter(
       (product) => product.partNumber === partNumber
     );
     return filteredProducts.length ? filteredProducts[0]._id : null;
   }
 
-  onSubmit = (formProps) => {
+  onSubmit = (formProps: IFormProps) => {
     const { getProduct, reset, setMessage } = this.props;
     const zk = formProps.scanZk;
     const partNumber = this.getPartNumberFromZk(zk);
@@ -79,21 +99,19 @@ class ZkScanProductChooser extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   const {
     errorMessage,
     productId,
     productDetails,
     isLoading,
     products,
-    message,
   } = state.wids;
   const { menu } = state.scanner;
   return {
     errorMessage,
     productId,
     products,
-    message,
     isLoading,
     menu,
     productDetails,

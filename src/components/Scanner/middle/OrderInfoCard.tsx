@@ -1,10 +1,18 @@
 import React, { Component } from "react";
-
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import { OrderType } from "../../../actions";
+import { StoreState } from "../../../reducers";
 import "./OrderInfoCardStyle.scss";
 
-class OrderInfoCard extends Component {
+interface IOrderInfoCardProps {
+  existingOrder?: OrderType;
+  readerInputState: {
+    isDisabled: boolean;
+  };
+}
+
+class OrderInfoCard extends Component<IOrderInfoCardProps> {
   renderOrderNumber() {
     if (this.props.existingOrder) {
       const { orderNumber } = this.props.existingOrder;
@@ -35,10 +43,10 @@ class OrderInfoCard extends Component {
   renderDoneOnAllLines() {
     if (this.props.existingOrder) {
       const { scans } = this.props.existingOrder;
-      const scansWithoutErrors = scans.filter(
+      const scansWithoutErrors = scans?.filter(
         (scan) => scan.errorCode === "e000" || scan.errorCode === "e004"
       ).length;
-      return scansWithoutErrors.toString();
+      return scansWithoutErrors?.toString();
     } else {
       return "--";
     }
@@ -86,7 +94,7 @@ class OrderInfoCard extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     existingOrder: state.scanner.existingOrder,
     readerInputState: state.scanner.readerInputState,

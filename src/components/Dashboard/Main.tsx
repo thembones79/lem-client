@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, ElementType } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import { Tab } from "../../actions";
@@ -19,10 +19,32 @@ import { StoreState } from "../../reducers";
 interface IMainPageProps {
   authenticated: string | null;
   activeSidebarTab: Tab;
+  AnalyticsLines: ElementType;
+  AnalyticsOrders: ElementType;
+  AnalyticsLiveView: ElementType;
+  ManagementCustomers: ElementType;
+  ManagementLines: ElementType;
+  ManagementOrders: ElementType;
+  ManagementTactTimes: ElementType;
+  ManagementUsers: ElementType;
+  ManagementProducts: ElementType;
+  ManagementRedirections: ElementType;
 }
 
 class Main extends Component<IMainPageProps> {
   renderChildComponent(tab: Tab) {
+    const {
+      AnalyticsLines,
+      AnalyticsOrders,
+      AnalyticsLiveView,
+      ManagementCustomers,
+      ManagementLines,
+      ManagementOrders,
+      ManagementTactTimes,
+      ManagementUsers,
+      ManagementProducts,
+      ManagementRedirections,
+    } = this.props;
     switch (tab) {
       case Tab.AnalyticsLines:
         return <AnalyticsLines />;
@@ -58,6 +80,16 @@ function mapStateToProps(state: StoreState) {
   return {
     authenticated: state.auth.authenticated,
     activeSidebarTab: state.dashboard.activeSidebarTab,
+    AnalyticsLines,
+    AnalyticsOrders,
+    AnalyticsLiveView,
+    ManagementCustomers,
+    ManagementLines,
+    ManagementOrders,
+    ManagementTactTimes,
+    ManagementUsers,
+    ManagementProducts,
+    ManagementRedirections,
   };
 }
 

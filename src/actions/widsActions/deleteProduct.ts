@@ -5,7 +5,7 @@ import { ROOT_URL } from "../../config";
 
 export type DeleteProductAction = {
   type: ActionTypes.DELETE_PRODUCT;
-  payload: string;
+  payload?: string;
 };
 
 export type DeleteProductActionError = {
@@ -13,14 +13,16 @@ export type DeleteProductActionError = {
   payload: string;
 };
 
-export const deleteProduct = (_id: string) => async (dispatch: Dispatch) => {
+export const deleteProduct = (productId?: string) => async (
+  dispatch: Dispatch
+) => {
   try {
-    await axios.delete(`${ROOT_URL}/api/product/${_id}`, {
+    await axios.delete(`${ROOT_URL}/api/product/${productId}`, {
       headers: { authorization: localStorage.getItem("token") },
     });
     dispatch<DeleteProductAction>({
       type: ActionTypes.DELETE_PRODUCT,
-      payload: _id,
+      payload: productId,
     });
   } catch (e) {
     dispatch<DeleteProductActionError>({

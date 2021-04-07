@@ -50,7 +50,6 @@ class Welcome extends Component {
             Changelog: GUI{" "}
             <a
               href="https://github.com/thembones79/lem-client/blob/master/CHANGELOG.md#changelog"
-              alt="GUI version"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -59,7 +58,6 @@ class Welcome extends Component {
             , API{" "}
             <a
               href="https://github.com/thembones79/lem-server/blob/master/CHANGELOG.md#changelog"
-              alt="API version"
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -1,10 +1,10 @@
-export const concatenateZeroIfLessThanTen = (number) => {
+export const concatenateZeroIfLessThanTen = (number: number) => {
   return number < 10 ? "0" + number : number;
 };
 
-export const renderTime = (timeUTC) => {
+export const renderTime = (timeUTC: string | number) => {
   if (!timeUTC) {
-    return;
+    return "";
   }
   const localTime = new Date(timeUTC);
   const year = concatenateZeroIfLessThanTen(localTime.getFullYear());

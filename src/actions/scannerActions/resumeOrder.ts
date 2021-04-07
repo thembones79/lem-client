@@ -5,7 +5,7 @@ export type ResumeOrderAction = {
   payload: { isRunning: true };
 };
 
-export const resumeOrder = () => {
+export const resumeOrder = (): ResumeOrderAction => {
   return {
     type: ActionTypes.RESUME_ORDER,
     payload: { isRunning: true },

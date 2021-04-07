@@ -1,30 +1,55 @@
-import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import React, { Component, ElementType } from "react";
+import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import {
+  MenuDataType,
+  IPickOrder,
+  IGetOrder,
+  IOccupyLineWithOrder,
+} from "../../../actions";
+import { StoreState } from "../../../reducers";
 import { renderTime } from "../../../utils/renderTime";
 import OrderIcon from "../../icons/OrderIcon";
 import "./OrderPickerStyle.scss";
 
-class OrderPicker extends Component {
+interface IOrderPickerProps {
+  initialValues: {
+    order: string | null;
+  };
+  userName: string;
+  _line: string | null;
+  orderNumber: string | null;
+  isPaused: boolean;
+  menu: MenuDataType;
+  readerInputState: {
+    isDisabled: boolean;
+  };
+  getMenu: () => void;
+  pickOrder: ({ orderNumber }: IPickOrder) => void;
+  getOrder: ({ orderNumber }: IGetOrder) => void;
+  occupyLineWithOrder: ({ _line, orderNumber }: IOccupyLineWithOrder) => void;
+}
+
+interface IFormProps extends React.ChangeEvent<HTMLInputElement> {
+  order: string;
+}
+
+class OrderPicker extends Component<
+  InjectedFormProps<IFormProps> & IOrderPickerProps
+> {
   componentDidMount() {
     this.props.getMenu();
   }
 
-  handleOrderChange = (formProps) => {
+  handleOrderChange = (formProps: IFormProps) => {
     const orderNumber = formProps.target.value;
-    const { _line } = this.props;
-    this.props.pickOrder({ orderNumber });
-    this.props.getOrder({ orderNumber });
-    this.props.occupyLineWithOrder({ _line, orderNumber });
+    const { _line, pickOrder, getOrder, occupyLineWithOrder } = this.props;
+    pickOrder({ orderNumber });
+    getOrder({ orderNumber });
+    occupyLineWithOrder({ _line, orderNumber });
   };
-
-  renderAlert() {
-    if (this.props.errorMessage) {
-      return <div className="alert__message">{this.props.errorMessage}</div>;
-    }
-  }
 
   renderTimestamp() {
     if (this.props.menu) {
@@ -88,7 +113,7 @@ class OrderPicker extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     initialValues: { order: localStorage.getItem("order") },
     userName: state.scanner.userName,
@@ -103,4 +128,4 @@ function mapStateToProps(state) {
 export default compose(
   connect(mapStateToProps, actions),
   reduxForm({ form: "orderPicker" })
-)(OrderPicker);
+)(OrderPicker) as ElementType;

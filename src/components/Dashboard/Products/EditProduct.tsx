@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, ElementType } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
 import { ProductType } from "../../../actions";
@@ -17,8 +17,8 @@ interface IEditProductProps {
   initialValues?: ProductType;
   getProduct: (productId?: string | undefined) => void;
   backToProductsList: () => void;
-  LinkAdder: Component;
-  RedirectionAdder: Component;
+  LinkAdder: ElementType;
+  RedirectionAdder: ElementType;
 }
 
 class EditProduct extends Component<IEditProductProps> {
@@ -52,8 +52,8 @@ class EditProduct extends Component<IEditProductProps> {
             {"<< products list"}
           </button>
         </div>
-        {LinkAdder}
-        {RedirectionAdder}
+        <LinkAdder />
+        <RedirectionAdder />
         <div className="connected-lists">
           <ConnectedLinks />
           <ConnectedRedirections />

@@ -5,7 +5,7 @@ import { ROOT_URL } from "../../config";
 
 export type DeleteRedirectionAction = {
   type: ActionTypes.DELETE_REDIRECTION;
-  payload: string;
+  payload?: string;
 };
 
 export type DeleteRedirectionActionError = {
@@ -13,16 +13,16 @@ export type DeleteRedirectionActionError = {
   payload: string;
 };
 
-export const deleteRedirection = (_id: string) => async (
+export const deleteRedirection = (redirectionId?: string) => async (
   dispatch: Dispatch
 ) => {
   try {
-    await axios.delete(`${ROOT_URL}/api/redirection/${_id}`, {
+    await axios.delete(`${ROOT_URL}/api/redirection/${redirectionId}`, {
       headers: { authorization: localStorage.getItem("token") },
     });
     dispatch<DeleteRedirectionAction>({
       type: ActionTypes.DELETE_REDIRECTION,
-      payload: _id,
+      payload: redirectionId,
     });
   } catch (e) {
     dispatch<DeleteRedirectionActionError>({

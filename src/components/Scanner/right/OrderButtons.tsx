@@ -1,15 +1,56 @@
 import React, { Component } from "react";
-
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import {
+  OrderType,
+  MenuDataType,
+  EnableReaderInputAction,
+  DisableReaderInputAction,
+  ICreateOrder,
+  IAddBreakStart,
+  PauseOrderAction,
+  IAddBreakEnd,
+  ResumeOrderAction,
+  OpenFinishModalAction,
+  OpenDeleteModalAction,
+} from "../../../actions";
+import { StoreState } from "../../../reducers";
 import "./OrderButtonsStyle.scss";
 
-class OrderButtons extends Component {
-  componentDidUpdate(prevProps) {
+interface IOrderButtonsProps {
+  orderNumber?: string | null;
+  _line?: string | null;
+  existingOrder?: OrderType;
+  menu: MenuDataType;
+  isPaused: boolean;
+  isRunning: boolean;
+  readerInputState: {
+    isDisabled: boolean;
+  };
+  enableReaderInput: () => EnableReaderInputAction;
+  disableReaderInput: () => DisableReaderInputAction;
+  createOrder: ({
+    orderNumber,
+    quantity,
+    partNumber,
+    qrCode,
+    tactTime,
+    customer,
+  }: ICreateOrder) => void;
+  addBreakStart: ({ orderNumber, _line }: IAddBreakStart) => void;
+  pauseOrder: () => PauseOrderAction;
+  addBreakEnd: ({ orderNumber, _line }: IAddBreakEnd) => void;
+  resumeOrder: () => ResumeOrderAction;
+  openFinishModal: () => OpenFinishModalAction;
+  openDeleteModal: () => OpenDeleteModalAction;
+}
+
+class OrderButtons extends Component<IOrderButtonsProps> {
+  componentDidUpdate(prevProps: IOrderButtonsProps) {
     if (this.props.existingOrder !== prevProps.existingOrder) {
       if (
         this.returnOrderRunningStatus() &&
-        this.props.existingOrder.orderStatus !== "closed"
+        this.props.existingOrder?.orderStatus !== "closed"
       ) {
         this.props.enableReaderInput();
       } else {
@@ -39,7 +80,7 @@ class OrderButtons extends Component {
       } else {
         return true;
       }
-    }
+    } else return false;
   }
 
   createNewOrder() {
@@ -75,15 +116,15 @@ class OrderButtons extends Component {
   }
 
   beginNewBreak() {
-    const { orderNumber, _line } = this.props;
-    this.props.addBreakStart({ orderNumber, _line });
-    this.props.pauseOrder();
+    const { orderNumber, _line, addBreakStart, pauseOrder } = this.props;
+    addBreakStart({ orderNumber, _line });
+    pauseOrder();
   }
 
   endCurrentBreak() {
-    const { orderNumber, _line } = this.props;
-    this.props.addBreakEnd({ orderNumber, _line });
-    this.props.resumeOrder();
+    const { orderNumber, _line, addBreakEnd, resumeOrder } = this.props;
+    addBreakEnd({ orderNumber, _line });
+    resumeOrder();
   }
 
   handleStartClick = () => {
@@ -106,7 +147,7 @@ class OrderButtons extends Component {
     this.props.openDeleteModal();
   };
 
-  renderStartPauseResumeButtons(orderRunningStatus) {
+  renderStartPauseResumeButtons(orderRunningStatus: boolean) {
     if (!this.props.existingOrder) {
       return (
         <button className="btn btn--accent" onClick={this.handleStartClick}>
@@ -198,7 +239,7 @@ class OrderButtons extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
     _line: state.scanner.pickedLine || localStorage.getItem("line"),
@@ -206,7 +247,6 @@ function mapStateToProps(state) {
     menu: state.scanner.menu,
     isPaused: state.scanner.isPaused,
     isRunning: state.scanner.isRunning,
-    errorMessage: state.scanner.errorMessage,
     readerInputState: state.scanner.readerInputState,
   };
 }

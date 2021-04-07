@@ -4,6 +4,7 @@ import { ActionTypes } from "../../actions";
 import { ROOT_URL } from "../../config";
 
 export type LineType = {
+  _id: string;
   lineNumber: number;
   lineDescription: string;
   lineOccupiedWith: string;

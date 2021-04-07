@@ -1,6 +1,48 @@
 import { renderTime } from "./renderTime";
 
-export const getTactTime = ({ orderNumber, menuContent }) => {
+export interface IOrder {
+  _id: string;
+  orderNumber: string;
+  quantity: number;
+  partNumber: string;
+  qrCode: string;
+  tactTime: number;
+  customer: string;
+  orderStatus: string;
+  orderAddedAt: string;
+  breaks: {
+    _id: string;
+    _line: string;
+    breakStart: string;
+    breakEnd: string;
+  }[];
+  scans: {
+    _id: string;
+    timeStamp: string;
+    errorCode: string;
+    scanContent: string;
+    _line: string;
+    _user: string;
+  }[];
+}
+
+export interface IMenuContent {
+  _id: string;
+  orderNumber: string;
+  quantity: number;
+  customer: string;
+  qrCode: string;
+  partNumber: string;
+  tactTime: number;
+}
+
+export const getTactTime: ({
+  orderNumber,
+  menuContent,
+}: {
+  orderNumber: string;
+  menuContent: IMenuContent[];
+}) => number = ({ orderNumber, menuContent }) => {
   const orders = menuContent;
   if (!orderNumber || !orders) {
     return 0;
@@ -14,7 +56,13 @@ export const getTactTime = ({ orderNumber, menuContent }) => {
   return orderDetails.tactTime;
 };
 
-export const getBreaksTime = ({ _line, existingOrder }) => {
+export const getBreaksTime: ({
+  _line,
+  existingOrder,
+}: {
+  _line: string;
+  existingOrder: IOrder;
+}) => number = ({ _line, existingOrder }) => {
   if (existingOrder && _line) {
     const { breaks, scans } = existingOrder;
     if (!_line || !breaks || !scans || scans.length === 0) {
@@ -53,11 +101,11 @@ export const getBreaksTime = ({ _line, existingOrder }) => {
         new Date(item.breakEnd).getTime() - new Date(item.breakStart).getTime()
     );
 
-    const arrSum = (arr) => arr.reduce((a, b) => a + b, 0);
+    const arrSum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
     const breakTimesInMilliseconds = arrSum(individualBreakTimes);
 
     return breakTimesInMilliseconds;
-  }
+  } else return 0;
 };
 
 export const getBreaksInLastCycle = ({
@@ -65,7 +113,12 @@ export const getBreaksInLastCycle = ({
   ealierScan,
   laterScan,
   existingOrder,
-}) => {
+}: {
+  _line: string;
+  ealierScan: string;
+  laterScan: string;
+  existingOrder: IOrder;
+}): number => {
   const earlier = new Date(ealierScan).getTime();
   const later = new Date(laterScan).getTime();
   const { breaks } = existingOrder;
@@ -84,13 +137,19 @@ export const getBreaksInLastCycle = ({
       new Date(item.breakEnd).getTime() - new Date(item.breakStart).getTime()
   );
 
-  const arrSum = (arr) => arr.reduce((a, b) => a + b, 0);
+  const arrSum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
   const breakTimesInMilliseconds = arrSum(individualBreakTimes);
 
   return breakTimesInMilliseconds;
 };
 
-export const getGrossDuration = ({ _line, existingOrder }) => {
+export const getGrossDuration = ({
+  _line,
+  existingOrder,
+}: {
+  _line: string;
+  existingOrder: IOrder;
+}): number => {
   if (existingOrder) {
     const { scans, orderAddedAt } = existingOrder;
 
@@ -139,7 +198,13 @@ export const getGrossDuration = ({ _line, existingOrder }) => {
   } else return 0;
 };
 
-export const getNetDuration = ({ _line, existingOrder }) => {
+export const getNetDuration = ({
+  _line,
+  existingOrder,
+}: {
+  _line: string;
+  existingOrder: IOrder;
+}): number => {
   if (existingOrder) {
     const { scans, orderAddedAt } = existingOrder;
 
@@ -154,7 +219,7 @@ export const getNetDuration = ({ _line, existingOrder }) => {
       return 0;
     }
     if (scansWithoutErrors.length === 1) {
-      return getGrossDuration(_line);
+      return getGrossDuration({ _line, existingOrder });
     } else {
       const scansWithoutErrorsOnThisLine = scans.filter(
         (scan) =>
@@ -179,7 +244,13 @@ export const getNetDuration = ({ _line, existingOrder }) => {
   } else return 0;
 };
 
-export const getMeanCycleTime = ({ _line, existingOrder }) => {
+export const getMeanCycleTime = ({
+  _line,
+  existingOrder,
+}: {
+  _line: string;
+  existingOrder: IOrder;
+}): number => {
   if (existingOrder) {
     const { scans, orderAddedAt } = existingOrder;
 
@@ -220,7 +291,13 @@ export const getMeanCycleTime = ({ _line, existingOrder }) => {
   } else return 0;
 };
 
-export const getLastCycleTime = ({ _line, existingOrder }) => {
+export const getLastCycleTime = ({
+  _line,
+  existingOrder,
+}: {
+  _line: string;
+  existingOrder: IOrder;
+}): number => {
   if (existingOrder) {
     const { scans, orderAddedAt } = existingOrder;
 
@@ -273,7 +350,12 @@ export const getEfficiency = ({
   orderNumber,
   menuContent,
   existingOrder,
-}) => {
+}: {
+  _line: string;
+  orderNumber: string;
+  menuContent: IMenuContent[];
+  existingOrder: IOrder;
+}): number => {
   const tt = getTactTime({ orderNumber, menuContent });
   const mct = getMeanCycleTime({ _line, existingOrder });
 
@@ -281,7 +363,13 @@ export const getEfficiency = ({
   return Math.floor((tt / mct) * 100);
 };
 
-export const getEstDuration = ({ existingOrder, _line }) => {
+export const getEstDuration = ({
+  _line,
+  existingOrder,
+}: {
+  _line: string;
+  existingOrder: IOrder;
+}): number => {
   if (existingOrder && _line) {
     const { quantity } = existingOrder;
     const breaksTime = Math.floor(
@@ -291,7 +379,13 @@ export const getEstDuration = ({ existingOrder, _line }) => {
   } else return 0;
 };
 
-export const getEstCompletionTime = ({ existingOrder, _line }) => {
+export const getEstCompletionTime = ({
+  _line,
+  existingOrder,
+}: {
+  _line: string;
+  existingOrder: IOrder;
+}): string => {
   if (existingOrder && _line) {
     const { orderAddedAt } = existingOrder;
     const estCompletionTimestamp =
@@ -301,18 +395,30 @@ export const getEstCompletionTime = ({ existingOrder, _line }) => {
   } else return "---- -- -- --:--:--";
 };
 
-export const getRealDuration = ({ existingOrder, _line }) => {
+export const getRealDuration = ({
+  _line,
+  existingOrder,
+}: {
+  _line: string;
+  existingOrder: IOrder;
+}): number => {
   if (existingOrder && _line) {
     return Math.floor(getGrossDuration({ _line, existingOrder }) / 1000);
   } else return 0;
 };
 
-export const getRealCompletionTime = ({ existingOrder, _line }) => {
+export const getRealCompletionTime = ({
+  _line,
+  existingOrder,
+}: {
+  _line: string;
+  existingOrder: IOrder;
+}): string => {
   if (existingOrder && _line) {
     const { scans } = existingOrder;
     if (scans[0]) {
       const realCompletionTimestamp = scans[0].timeStamp;
       return renderTime(realCompletionTimestamp);
-    }
+    } else return "---- -- -- --:--:--";
   } else return "---- -- -- --:--:--";
 };

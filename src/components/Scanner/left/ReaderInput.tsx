@@ -1,17 +1,55 @@
-import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import React, { Component, ElementType } from "react";
+import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import {
+  OrderType,
+  MenuDataType,
+  EnableReaderInputAction,
+  DisableReaderInputAction,
+  IInsertScan,
+  IAddBreakStart,
+  ICloseOrder,
+  PauseOrderAction,
+} from "../../../actions";
+import { StoreState } from "../../../reducers";
 import ScannerIcon from "../../icons/ScannerIcon";
 import "./ReaderInputStyle.scss";
 
-class ReaderInput extends Component {
-  componentDidUpdate(prevProps) {
-    const nastyWayToForceFocusOnInputComponent = document.querySelector(
-      "input"
-    );
-    nastyWayToForceFocusOnInputComponent.focus();
+interface IReaderInputProps {
+  errorMessage: string;
+  existingOrder: OrderType;
+  userId: string;
+  orderNumber: string;
+  _line: string;
+  isOrderedQuantityMatchesValidScansQuantity: boolean;
+  menu: MenuDataType;
+  isPaused: boolean;
+  isRunning: boolean;
+  readerInputState: {
+    isDisabled: boolean;
+  };
+  disableReaderInput: () => DisableReaderInputAction;
+  enableReaderInput: () => EnableReaderInputAction;
+  insertScan: ({ scanContent, _line, _user, orderNumber }: IInsertScan) => void;
+  addBreakStart: ({ orderNumber, _line }: IAddBreakStart) => void;
+  closeOrder: ({ orderNumber }: ICloseOrder) => void;
+  pauseOrder: () => PauseOrderAction;
+}
+
+interface IFormProps {
+  scanContent: string;
+}
+
+class ReaderInput extends Component<
+  InjectedFormProps<IFormProps> & IReaderInputProps
+> {
+  componentDidUpdate(prevProps: IReaderInputProps) {
+    const htmlInput = document.querySelector("input");
+    if (htmlInput) {
+      htmlInput.focus();
+    }
 
     if (this.props.existingOrder) {
       if (this.props.existingOrder !== prevProps.existingOrder) {
@@ -28,40 +66,15 @@ class ReaderInput extends Component {
     }
   }
 
-  compareScanQuantitiesAndClose() {
-    if (this.props.existingOrder) {
-      const {
-        orderNumber,
-        _line,
-        isOrderedQuantityMatchesValidScansQuantity,
-      } = this.props;
-      const { orderStatus } = this.props.existingOrder;
-
-      if (
-        isOrderedQuantityMatchesValidScansQuantity &&
-        orderStatus !== "closed"
-      ) {
-        this.props.addBreakStart({ orderNumber, _line });
-
-        this.props.pauseOrder();
-
-        this.props.closeOrder({ orderNumber });
-        // for clearing cached state
-        window.location.reload(false);
-      }
-    }
-  }
-
-  onSubmit = (formProps) => {
+  onSubmit = (formProps: IFormProps) => {
     const { scanContent } = formProps;
     const { orderNumber, _line, userId, insertScan, reset } = this.props;
-    const { compareScanQuantitiesAndClose } = this;
+
     insertScan({
       scanContent,
       _line,
       _user: userId,
       orderNumber,
-      compareScanQuantitiesAndClose,
     });
     reset();
   };
@@ -106,7 +119,7 @@ class ReaderInput extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     errorMessage: state.scanner.errorMessage,
     existingOrder: state.scanner.existingOrder,
@@ -126,4 +139,4 @@ function mapStateToProps(state) {
 export default compose(
   connect(mapStateToProps, actions),
   reduxForm({ form: "readerInput" })
-)(ReaderInput);
+)(ReaderInput) as ElementType;

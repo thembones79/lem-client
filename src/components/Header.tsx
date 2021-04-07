@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
+import { StoreState } from "../reducers";
 import ScannerIcon from "./icons/ScannerIcon";
 import DashboardIcon from "./icons/DashboardIcon";
 import UserIcon from "./icons/UserIcon";
@@ -9,7 +10,14 @@ import LogOutIcon from "./icons/LogOutIcon";
 import InstructionIcon from "./icons/InstructionIcon";
 import "./HeaderStyle.scss";
 
-class Header extends Component {
+interface IHeaderProps {
+  authenticated: string | null;
+  userType: string;
+  userName: string;
+  fetchMessage: () => void;
+}
+
+class Header extends Component<IHeaderProps> {
   componentDidMount() {
     this.props.fetchMessage();
   }
@@ -93,7 +101,7 @@ class Header extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     authenticated: state.auth.authenticated,
     userType: state.scanner.userType,

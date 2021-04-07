@@ -1,14 +1,18 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import * as actions from "../../actions";
 import "./LinkBlockStyle.scss";
 
-class LinkBlock extends Component {
-  handleClick = (url) => {
-    const win = window.open(url, "_blank");
-    win.focus();
-  };
+interface ILinkBlockProps {
+  description: string;
+  url: string;
+}
 
+class LinkBlock extends Component<ILinkBlockProps> {
+  handleClick = (url: string) => {
+    const win = window.open(url, "_blank");
+    if (win) {
+      win.focus();
+    }
+  };
   render() {
     const { description, url } = this.props;
     return (
@@ -24,4 +28,4 @@ class LinkBlock extends Component {
   }
 }
 
-export default connect(null, actions)(LinkBlock);
+export default LinkBlock;

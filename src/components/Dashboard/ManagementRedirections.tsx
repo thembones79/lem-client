@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, ElementType } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
@@ -6,8 +6,13 @@ import RedirectionsRouter from "./Redirections/RedirectionRouter";
 import { StoreState } from "../../reducers";
 import "./MainStyle.scss";
 
-class ManagementRedirections extends Component {
+interface IManagementRedirectionsProps {
+  RedirectionsRouter: React.ElementType;
+}
+
+class ManagementRedirections extends Component<IManagementRedirectionsProps> {
   render() {
+    const { RedirectionsRouter } = this.props;
     return (
       <div className="main-page">
         <RedirectionsRouter />
@@ -19,10 +24,11 @@ class ManagementRedirections extends Component {
 function mapStateToProps(state: StoreState) {
   return {
     authenticated: state.auth.authenticated,
+    RedirectionsRouter,
   };
 }
 
 export default connect(
   mapStateToProps,
   actions
-)(requireAuth(ManagementRedirections));
+)(requireAuth(ManagementRedirections)) as ElementType;

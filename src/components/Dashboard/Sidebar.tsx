@@ -1,4 +1,4 @@
-import React, { Component, ReactChild } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import { Tab } from "../../actions";
@@ -20,19 +20,12 @@ import RedirectionIcon from "../icons/RedirectionIcon";
 interface ISidebarProps {
   authenticated: string | null;
   activeSidebarTab: Tab;
+  SidebarTab: React.ElementType;
 }
 
-interface ISidebarState {
-  activeSidebarTab: Tab;
-}
-
-class Sidebar extends Component<ISidebarProps, ISidebarState> {
-  constructor(props: ISidebarProps) {
-    super(props);
-    this.state = { activeSidebarTab: Tab.ManagementLines };
-  }
-
+class Sidebar extends Component<ISidebarProps> {
   render() {
+    const { SidebarTab } = this.props;
     return (
       <div className="sidebar">
         <div>
@@ -94,6 +87,9 @@ function mapStateToProps(state: StoreState) {
   return {
     authenticated: state.auth.authenticated,
     activeSidebarTab: state.dashboard.activeSidebarTab,
+    SidebarTab,
+    OrderIcon,
+    LineIcon,
   };
 }
 

@@ -1,20 +1,26 @@
 import React, { Component } from "react";
-
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import { OrderType } from "../../../actions";
+import { StoreState } from "../../../reducers";
 import "./DoneTodoCardStyle.scss";
 
-class DoneTodoCard extends Component {
+interface IDoneTodoCardProps {
+  existingOrder?: OrderType;
+  _line: string | null;
+}
+
+class DoneTodoCard extends Component<IDoneTodoCardProps> {
   renderDoneOnThisLine() {
     if (this.props.existingOrder) {
       const { scans } = this.props.existingOrder;
       const { _line } = this.props;
-      const scansWithoutErrorsOnThisLine = scans.filter(
+      const scansWithoutErrorsOnThisLine = scans?.filter(
         (scan) =>
           (scan.errorCode === "e000" || scan.errorCode === "e004") &&
           scan._line === _line
       ).length;
-      return scansWithoutErrorsOnThisLine.toString();
+      return scansWithoutErrorsOnThisLine?.toString();
     } else {
       return 0;
     }
@@ -26,9 +32,11 @@ class DoneTodoCard extends Component {
       if (!quantity) {
         return 0;
       }
-      const scansWithoutErrors = scans.filter(
-        (scan) => scan.errorCode === "e000" || scan.errorCode === "e004"
-      ).length;
+      const scansWithoutErrors = scans
+        ? scans.filter(
+            (scan) => scan.errorCode === "e000" || scan.errorCode === "e004"
+          ).length
+        : 0;
       return (quantity - scansWithoutErrors).toString();
     } else {
       return 0;
@@ -54,7 +62,7 @@ class DoneTodoCard extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     _line: state.scanner.pickedLine || localStorage.getItem("line"),
     existingOrder: state.scanner.existingOrder,

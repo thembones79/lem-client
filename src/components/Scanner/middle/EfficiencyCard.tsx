@@ -1,16 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
+import { MenuDataType } from "../../../actions";
+import { StoreState } from "../../../reducers";
 import { secondsToHhMmSs } from "../../../utils/secondsToHhMmSs";
 import {
   getTactTime,
   getMeanCycleTime,
   getLastCycleTime,
   getEfficiency,
+  IOrder,
+  IMenuContent,
 } from "../../../utils/calculations";
 import "./EfficiencyCardStyle.scss";
 
-class EfficiencyCard extends Component {
+interface IEfficiencyCardProps {
+  orderNumber?: string | null;
+  _line: string;
+  existingOrder: IOrder;
+  menu: MenuDataType;
+}
+
+class EfficiencyCard extends Component<IEfficiencyCardProps> {
   renderTactTime() {
     if (this.props.menu) {
       const { orderNumber } = this.props;
@@ -104,7 +115,7 @@ class EfficiencyCard extends Component {
   renderEfficiency() {
     if (this.props.menu) {
       const { orderNumber, existingOrder } = this.props;
-      const { menuContent } = this.props.menu;
+      const menuContent: IMenuContent[] = this.props.menu.menuContent;
       if (orderNumber) {
         const { _line } = this.props;
         const efficiency = getEfficiency({
@@ -153,12 +164,12 @@ class EfficiencyCard extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
-    existingOrder: state.scanner.existingOrder,
+    existingOrder: state.scanner.existingOrder as IOrder,
     menu: state.scanner.menu,
     orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
-    _line: state.scanner.pickedLine || localStorage.getItem("line"),
+    _line: state.scanner.pickedLine || (localStorage.getItem("line") as string),
   };
 }
 export default connect(mapStateToProps, actions)(EfficiencyCard);

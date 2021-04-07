@@ -10,8 +10,8 @@ export interface ICreateOrder {
   qrCode: string;
   tactTime: number;
   customer: string;
-  orderStatus: string;
-  orderAddedAt: Date;
+  orderStatus?: string;
+  orderAddedAt?: string;
 }
 
 export type OrderType = {
@@ -22,16 +22,16 @@ export type OrderType = {
   tactTime?: number;
   customer?: string;
   orderStatus?: string;
-  orderAddedAt?: Date;
+  orderAddedAt?: string;
   breaks?: {
     _id?: string;
     _line?: string;
-    breakStart?: Date;
-    breakEnd?: Date;
+    breakStart?: string;
+    breakEnd?: string;
   }[];
   scans?: {
     _id?: string;
-    timeStamp?: Date;
+    timeStamp?: string;
     errorCode?: string;
     scanContent?: string;
     _line?: string;

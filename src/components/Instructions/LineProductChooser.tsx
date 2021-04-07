@@ -1,24 +1,50 @@
 import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { by } from "../../utils/by";
 import * as actions from "../../actions";
+import {
+  ProductType,
+  MenuDataType,
+  LineType,
+  SetMessageAction,
+} from "../../actions";
+import { StoreState } from "../../reducers";
 import requireAuth from "../requireAuth";
 
-class LineProductChooser extends Component {
+interface IFormProps extends React.ChangeEvent<HTMLInputElement> {
+  lineDescription: string;
+}
+
+interface ILineProductChooserProps {
+  errorMessage: string;
+  products: ProductType[];
+  productId: string;
+  lines: LineType[];
+  isLoading: boolean;
+  menu: MenuDataType;
+  productDetails: ProductType;
+  getProduct: (productId?: string) => void;
+  setMessage: (message: string) => SetMessageAction;
+  getLines: () => void;
+}
+
+class LineProductChooser extends Component<
+  InjectedFormProps<IFormProps> & ILineProductChooserProps
+> {
   async componentDidMount() {
     await this.props.getLines();
   }
 
-  getZkFromLine(line) {
+  getZkFromLine(line: string) {
     const filteredLines = this.props.lines.filter(
       (l) => l.lineDescription === line
     );
     return filteredLines.length ? filteredLines[0].lineOccupiedWith : null;
   }
 
-  getPartNumberFromZk(zk) {
+  getPartNumberFromZk(zk: string | null) {
     const {
       menu: { menuContent },
     } = this.props;
@@ -26,14 +52,14 @@ class LineProductChooser extends Component {
     return orders.length ? orders[0].partNumber : null;
   }
 
-  getIdForPartNumber(partNumber) {
+  getIdForPartNumber(partNumber: string | null) {
     const filteredProducts = this.props.products.filter(
       (product) => product.partNumber === partNumber
     );
     return filteredProducts.length ? filteredProducts[0]._id : null;
   }
 
-  handleChange = (formProps) => {
+  handleChange = (formProps: IFormProps) => {
     const { getProduct, setMessage, reset } = this.props;
     const line = formProps.target.value;
     const zk = this.getZkFromLine(line);
@@ -106,17 +132,7 @@ class LineProductChooser extends Component {
   }
 }
 
-const validate = (values) => {
-  const errors = {};
-
-  if (!values.lineDescription) {
-    errors.lineDescription = "Required";
-  }
-
-  return errors;
-};
-
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   const {
     errorMessage,
     productId,
@@ -139,5 +155,5 @@ function mapStateToProps(state) {
 
 export default compose(
   connect(mapStateToProps, actions),
-  reduxForm({ form: "lineProductChooser", validate: validate })
+  reduxForm({ form: "lineProductChooser" })
 )(requireAuth(LineProductChooser));

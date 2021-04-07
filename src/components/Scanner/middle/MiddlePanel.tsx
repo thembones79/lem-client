@@ -1,12 +1,27 @@
-import React, { Component } from "react";
+import React, { Component, ElementType } from "react";
+import { connect } from "react-redux";
+import { StoreState } from "../../../reducers";
 import LinePicker from "./LinePicker";
 import OrderInfoCard from "./OrderInfoCard";
 import EfficiencyCard from "./EfficiencyCard";
 import DurationTimeCard from "./DurationTimeCard";
 import "./MiddlePanelStyle.scss";
 
-class MiddlePanel extends Component {
+interface IMiddlePanelProps {
+  LinePicker: ElementType;
+  OrderInfoCard: ElementType;
+  EfficiencyCard: ElementType;
+  DurationTimeCard: ElementType;
+}
+
+class MiddlePanel extends Component<IMiddlePanelProps> {
   render() {
+    const {
+      LinePicker,
+      OrderInfoCard,
+      EfficiencyCard,
+      DurationTimeCard,
+    } = this.props;
     return (
       <div className="middle-panel">
         <LinePicker />
@@ -20,4 +35,13 @@ class MiddlePanel extends Component {
   }
 }
 
-export default MiddlePanel;
+function mapStateToProps(state: StoreState) {
+  return {
+    LinePicker,
+    OrderInfoCard,
+    EfficiencyCard,
+    DurationTimeCard,
+  };
+}
+
+export default connect(mapStateToProps)(MiddlePanel);

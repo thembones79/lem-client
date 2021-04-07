@@ -35,7 +35,7 @@ class ProductsList extends Component<IProductsListProps> {
         if (product && product.partNumber) {
           return product.partNumber.toLowerCase().includes(text.toLowerCase());
         } else {
-          return [];
+          return false;
         }
       });
     } else {

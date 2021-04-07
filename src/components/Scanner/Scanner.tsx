@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
+import { StoreState } from "../../reducers";
 import requireAuth from "../requireAuth";
 import Reader from "./left/Reader";
 import MiddlePanel from "./middle/MiddlePanel";
 import RightPanel from "./right/RightPanel";
 import "./ScannerStyle.scss";
 
-class Scanner extends Component {
+interface IScannerProps {
+  fetchMessage: () => void;
+}
+
+class Scanner extends Component<IScannerProps> {
   componentDidMount() {
     this.props.fetchMessage();
   }
@@ -22,7 +27,7 @@ class Scanner extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StoreState) {
   return {
     userType: state.scanner.userType,
     userName: state.scanner.userName,
