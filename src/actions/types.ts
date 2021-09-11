@@ -54,6 +54,14 @@ import {
   InitLiveDataAction,
   InitLiveDataActionError,
   RefreshLiveDataAction,
+  GetOrdersBeginAction,
+  GetOrdersSuccessAction,
+  GetOrdersActionError,
+  GetOrderDetailsBeginAction,
+  GetOrderDetailsSuccessAction,
+  GetOrderDetailsActionError,
+  ViewOrderDetailsAction,
+  BackToOrdersListAction,
 } from "./dashboardActions";
 
 import {
@@ -174,6 +182,16 @@ export enum ActionTypes {
   GET_PRODUCT_BEGIN,
   GET_PRODUCT_SUCCESS,
   GET_PRODUCT_ERROR,
+
+  GET_ORDERS_BEGIN,
+  GET_ORDERS_SUCCESS,
+  GET_ORDERS_ERROR,
+  GET_ORDER_DETAILS_BEGIN,
+  GET_ORDER_DETAILS_SUCCESS,
+  GET_ORDER_DETAILS_ERROR,
+  VIEW_ORDER_DETAILS,
+  BACK_TO_ORDERS_LIST,
+
   ADD_LINK_IN_PRODUCT,
   ADD_LINK_IN_PRODUCT_ERROR,
   ADD_REDIRECTION_IN_PRODUCT,
@@ -190,6 +208,7 @@ export enum ActionTypes {
   NEW,
   EDIT,
   LIST,
+  VIEW,
 }
 
 export enum Tab {
@@ -257,7 +276,15 @@ export type DashboardAction =
   | ChooseSidebarTabAction
   | InitLiveDataAction
   | InitLiveDataActionError
-  | RefreshLiveDataAction;
+  | RefreshLiveDataAction
+  | GetOrdersBeginAction
+  | GetOrdersSuccessAction
+  | GetOrdersActionError
+  | GetOrderDetailsBeginAction
+  | GetOrderDetailsSuccessAction
+  | GetOrderDetailsActionError
+  | ViewOrderDetailsAction
+  | BackToOrdersListAction;
 
 export type WidsAction =
   | GetRedirectionsAction

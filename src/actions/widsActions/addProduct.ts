@@ -30,27 +30,27 @@ export type AddProductActionError = {
   payload: string;
 };
 
-export const addProduct = ({ partNumber }: IAddProduct) => async (
-  dispatch: Dispatch
-) => {
-  try {
-    const response = await axios.post(
-      `${ROOT_URL}/api/product`,
-      {
-        partNumber: partNumber.trim(),
-      },
-      {
-        headers: { authorization: localStorage.getItem("token") },
-      }
-    );
-    dispatch<AddProductAction>({
-      type: ActionTypes.ADD_PRODUCT,
-      payload: response.data.product,
-    });
-  } catch (e) {
-    dispatch<AddProductActionError>({
-      type: ActionTypes.ADD_PRODUCT_ERROR,
-      payload: e.response.data.error,
-    });
-  }
-};
+export const addProduct =
+  ({ partNumber }: IAddProduct) =>
+  async (dispatch: Dispatch) => {
+    try {
+      const response = await axios.post(
+        `${ROOT_URL}/api/product`,
+        {
+          partNumber: partNumber.trim(),
+        },
+        {
+          headers: { authorization: localStorage.getItem("token") },
+        }
+      );
+      dispatch<AddProductAction>({
+        type: ActionTypes.ADD_PRODUCT,
+        payload: response.data.product,
+      });
+    } catch (e: any) {
+      dispatch<AddProductActionError>({
+        type: ActionTypes.ADD_PRODUCT_ERROR,
+        payload: e.response.data.error,
+      });
+    }
+  };

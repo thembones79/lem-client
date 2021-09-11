@@ -18,7 +18,7 @@ class Welcome extends Component {
         `https://raw.githubusercontent.com/thembones79/lem-server/master/package.json`
       );
       this.setState({ apiVersion: response.data.version });
-    } catch (e) {
+    } catch (e: any) {
       this.setState({ apiVersion: e.message });
     }
   }
@@ -29,7 +29,7 @@ class Welcome extends Component {
         `https://raw.githubusercontent.com/thembones79/lem-client/master/package.json`
       );
       this.setState({ guiVersion: response.data.version });
-    } catch (e) {
+    } catch (e: any) {
       this.setState({ guiVersion: e.message });
     }
   }

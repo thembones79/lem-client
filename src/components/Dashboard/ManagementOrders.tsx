@@ -3,17 +3,19 @@ import { connect } from "react-redux";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
 import { StoreState } from "../../reducers";
+import OrderRouter from "./Orders/OrderRouter";
 import "./MainStyle.scss";
 
-class ManagementOrders extends Component {
-  handleAddUserClick = () => {};
+interface IManagementOrdersProps {
+  OrderRouter: React.ElementType;
+}
 
+class ManagementOrders extends Component<IManagementOrdersProps> {
   render() {
+    const { OrderRouter } = this.props;
     return (
       <div className="main-page">
-        <button className="btn btn--accent" onClick={this.handleAddUserClick}>
-          ManagementOrders
-        </button>
+        <OrderRouter />
       </div>
     );
   }
@@ -22,6 +24,7 @@ class ManagementOrders extends Component {
 function mapStateToProps(state: StoreState) {
   return {
     authenticated: state.auth.authenticated,
+    OrderRouter,
   };
 }
 

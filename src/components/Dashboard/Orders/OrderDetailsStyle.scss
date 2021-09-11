@@ -1,0 +1,20 @@
+@import "../../base";
+
+.order-details {
+  height: $page-height;
+  width: calc(100vw - 350px);
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-left: 60px;
+  margin-right: 60px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 170px;
+    width: 100%;
+  }
+}
