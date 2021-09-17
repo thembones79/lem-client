@@ -1,38 +1,36 @@
 import React, { Component } from "react";
 import { ScanDetailsType } from "../../../actions";
+import "./ScanDetailsStyle.scss";
 
 interface IScanDetailsProps {
   scanDetails: ScanDetailsType[];
+  expanded: boolean;
 }
 
 class ScanDetails extends Component<IScanDetailsProps> {
-  state = {
-    expanded: false,
-  };
-
   renderTimestamps(scansTimestamps: string[]) {
     return scansTimestamps.map((timestamp) => (
       <div key={timestamp}>{timestamp}</div>
     ));
   }
 
-  render() {
-    const { scanDetails } = this.props;
+  renderScanDetails() {
+    const { scanDetails, expanded } = this.props;
     return scanDetails.map((details) => (
-      <td
-        key={details.scansLine}
-        onClick={() => this.setState({ expanded: !this.state.expanded })}
-      >
-        <div>
-          <span>line {details.scansLine}:</span>
-          <span>{details.scansSum}</span>
+      <span key={details.scansLine} className="scan-details__line">
+        <div className="scan-details__line__summary">
+          <span>line {details.scansLine} - </span>
+          <span className="weight700"> {details.scansSum}</span>
         </div>
-        <div>
-          {this.state.expanded &&
-            this.renderTimestamps(details.scansTimestamps)}
+        <div className="scan-details__line__timestamps">
+          {expanded && this.renderTimestamps(details.scansTimestamps)}
         </div>
-      </td>
+      </span>
     ));
+  }
+
+  render() {
+    return <td className="scan-details">{this.renderScanDetails()}</td>;
   }
 }
 

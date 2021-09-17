@@ -1,20 +1,25 @@
 import React, { Component } from "react";
 import { HourlyRatesType } from "../../../actions";
-import ScanDetails from "./ScanDetails";
+import HourlyRatesRow from "./HourlyRatesRow";
+import "./HourlyRatesStyle.scss";
 
 interface IHourlyRatesProps {
   hourlyRates: HourlyRatesType[];
 }
 
 class HourlyRates extends Component<IHourlyRatesProps> {
-  render() {
+  renderHourlyRates() {
     const { hourlyRates } = this.props;
-    return hourlyRates.map((x) => (
-      <tr key={x.dateHour}>
-        <td>{x.dateHour}</td>
-        <ScanDetails scanDetails={x.scanDetails} />
-      </tr>
+    return hourlyRates.map((hourlyRate, i) => (
+      <HourlyRatesRow hourlyRate={hourlyRate} key={i} />
     ));
+  }
+  render() {
+    return (
+      <table className="hourly-rates">
+        <tbody>{this.renderHourlyRates()}</tbody>
+      </table>
+    );
   }
 }
 

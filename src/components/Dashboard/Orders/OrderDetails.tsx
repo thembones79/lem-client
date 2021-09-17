@@ -5,7 +5,7 @@ import { OrderDetailsType } from "../../../actions";
 import { StoreState } from "../../../reducers";
 import Loader from "../../Loader";
 import HourlyRates from "./HourlyRates";
-import "./OrdersListStyle.scss";
+import "./OrderDetailsStyle.scss";
 
 interface IOrderDetailsProps {
   _id: string;
@@ -44,43 +44,112 @@ class OrderDetails extends Component<IOrderDetailsProps> {
         netTime,
         meanCycleTime,
         meanHourlyRate,
-        meanGrossHourlyRate,
         standardHourlyRate,
         hourlyRates,
       } = orderDetails;
 
       return (
-        <div>
-          <button
-            className="btn btn--finish btn--accent adder-form__select--medium"
-            onClick={() => {
-              this.props.backToOrdersList();
-            }}
-          >
-            {"<< orders list"}
-          </button>
-          <div>
-            <div>{orderNumber}</div>
-            <div>{partNumber}</div>
-            <div>{orderStatus}</div>
-            <div>{quantity}</div>
-            <div>{orderAddedAt}</div>
-            <div>{lastValidScan}</div>
-            <div>{scansAlready}</div>
-            <div>{validScans}</div>
-            <div>{linesUsed}</div>
-            <div>{netTime}</div>
-            <div>{meanCycleTime}</div>
-            <div>{meanHourlyRate}</div>
-            <div>{standardHourlyRate}</div>
-            <div>{meanGrossHourlyRate}</div>
+        <div className="order-details">
+          <div className="order-details__header">
+            <h1 className="main-page__title">
+              <span className="weight500">order: </span>
+              <span className="weight800"> {orderNumber}</span>
+            </h1>
+            <button
+              className="btn btn--finish btn--accent adder-form__select--medium"
+              onClick={() => {
+                this.props.backToOrdersList();
+              }}
+            >
+              {"<< orders list"}
+            </button>
           </div>
-          <div>
-            <table>
-              <tbody>
-                <HourlyRates hourlyRates={hourlyRates} />
-              </tbody>
-            </table>
+          <div className="order-details__stats">
+            <div className="order-details__stats__item">
+              <div className="order-details__stats__item__label">
+                part number
+              </div>
+              <div className="order-details__stats__item__data">
+                {partNumber}
+              </div>
+            </div>
+            <div className="order-details__stats__item">
+              <div className="order-details__stats__item__label">status</div>
+              <div className="order-details__stats__item__data">
+                {orderStatus}
+              </div>
+            </div>
+            <div className="order-details__stats__item">
+              <div className="order-details__stats__item__label">quantity</div>
+              <div className="order-details__stats__item__data">{quantity}</div>
+            </div>
+            <div className="order-details__stats__item">
+              <div className="order-details__stats__item__label">start</div>
+              <div className="order-details__stats__item__data">
+                {orderAddedAt}
+              </div>
+            </div>
+            <div className="order-details__stats__item">
+              <div className="order-details__stats__item__label">last scan</div>
+              <div className="order-details__stats__item__data">
+                {lastValidScan}
+              </div>
+            </div>
+            <div className="order-details__stats__item">
+              <div className="order-details__stats__item__label">all scans</div>
+              <div className="order-details__stats__item__data">
+                {scansAlready}
+              </div>
+            </div>
+            <div className="order-details__stats__item">
+              <div className="order-details__stats__item__label">
+                valid scans
+              </div>
+              <div className="order-details__stats__item__data">
+                {validScans}
+              </div>
+            </div>
+            <div className="order-details__stats__item">
+              <div className="order-details__stats__item__label">lines</div>
+              <div className="order-details__stats__item__data">
+                {linesUsed}
+              </div>
+            </div>
+            <div className="order-details__stats__item">
+              <div className="order-details__stats__item__label">
+                net duration
+              </div>
+              <div className="order-details__stats__item__data">{netTime}</div>
+            </div>
+            <div className="order-details__stats__item">
+              <div className="order-details__stats__item__label">
+                mean cycle time
+              </div>
+              <div className="order-details__stats__item__data">
+                {meanCycleTime}
+              </div>
+            </div>
+            <div className="order-details__stats__item">
+              <div className="order-details__stats__item__label">
+                mean hourly pace
+              </div>
+              <div className="order-details__stats__item__data">
+                {
+                  //@ts-ignore
+                  Number(Math.round(meanHourlyRate + "e+2") + "e-2")
+                  // (hack) exponential notation for avoiding the error of performing operations on floating-point number
+                }
+              </div>
+            </div>
+            <div className="order-details__stats__item">
+              <div className="order-details__stats__item__label">set pace</div>
+              <div className="order-details__stats__item__data">
+                {standardHourlyRate}
+              </div>
+            </div>
+          </div>
+          <div className="order-details__hours">
+            <HourlyRates hourlyRates={hourlyRates} />
           </div>
         </div>
       );
