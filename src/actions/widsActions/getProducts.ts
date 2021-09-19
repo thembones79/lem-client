@@ -22,7 +22,7 @@ export const getProducts = () => async (dispatch: Dispatch) => {
       type: ActionTypes.GET_PRODUCTS,
       payload: response.data.products,
     });
-  } catch (e) {
+  } catch (e: any) {
     dispatch<GetProductsActionError>({
       type: ActionTypes.GET_PRODUCTS_ERROR,
       payload: e.response ? e.response.data.error : "server is not responding",

@@ -1,0 +1,36 @@
+@import "../../base";
+
+.order-details {
+  height: $page-height;
+  width: calc(100vw - 350px);
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-left: 60px;
+  margin-right: 60px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    margin: 20px;
+    width: calc(100vw - 390px);
+  }
+  &__stats {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    &__item {
+      margin: 20px;
+
+      &__label {
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+    }
+  }
+}

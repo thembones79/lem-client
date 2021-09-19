@@ -1,0 +1,16 @@
+@import "../../base";
+
+.scan-details {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  &__line {
+    margin-right: 40px;
+    &__summary {
+      margin: 10px;
+    }
+    &__timestamps {
+      margin: 10px;
+    }
+  }
+}

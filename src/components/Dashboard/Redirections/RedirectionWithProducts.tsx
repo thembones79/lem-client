@@ -48,9 +48,8 @@ class RedirectionWithProducts extends Component<
 
   filterProducts(e?: React.FormEvent<HTMLInputElement>) {
     const text = e ? e.currentTarget.value : "";
-    const filteredProducts: ProductType[] = this.getFilteredProductsForText(
-      text
-    );
+    const filteredProducts: ProductType[] =
+      this.getFilteredProductsForText(text);
     this.props.updateProductsList(filteredProducts);
   }
 
@@ -208,9 +207,7 @@ const keyValuesIntoKeysWithCommas = <T extends object, U extends keyof T>({
         if (keyWithDots) {
           // @ts-ignore
           const keyWithCommas = keyWithDots.replace(".", ",");
-          //if (typeof keyWithDots === "string") {
-          //  console.log("string");
-          //}
+
           return (newObj[keyWithCommas] = valueToSet);
         }
       });
