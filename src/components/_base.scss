@@ -257,3 +257,8 @@ em {
 .weight900 {
   font-weight: 900;
 }
+
+.fixed200 {
+  max-height: calc(100vh - 200px);
+  overflow: auto;
+}

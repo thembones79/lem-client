@@ -113,9 +113,9 @@ const SfTable = <T extends { _id: string }>(props: SfTableProps<T>) => {
     return columns.map((column, idx) => {
       const { name } = column;
       return (
-        <td key={idx}>
+        <td key={idx} className="orders-list__filter__wrapper">
           <input
-            className="input is-small mb-3"
+            className="orders-list__filter"
             placeholder="search..."
             name={name.toString()}
             defaultValue=""
@@ -130,7 +130,11 @@ const SfTable = <T extends { _id: string }>(props: SfTableProps<T>) => {
     return columns.map((column, idx) => {
       const { name, label } = column;
       return (
-        <th key={idx} onClick={() => sortTableBy(name)}>
+        <th
+          className="orders-list__label"
+          key={idx}
+          onClick={() => sortTableBy(name)}
+        >
           {label + renderArrows(name)}
         </th>
       );
@@ -142,9 +146,15 @@ const SfTable = <T extends { _id: string }>(props: SfTableProps<T>) => {
       return dataTable.map((row) => {
         const { _id } = row;
         return (
-          <tr key={_id} onClick={() => viewOrderDetails(_id)}>
+          <tr
+            key={_id}
+            onClick={() => viewOrderDetails(_id)}
+            className="orders-list__row"
+          >
             {columnNames.map((columnName, idx) => (
-              <td key={idx}>{row[columnName]}</td>
+              <td className="orders-list__row__item" key={idx}>
+                {row[columnName]}
+              </td>
             ))}
           </tr>
         );
@@ -152,16 +162,30 @@ const SfTable = <T extends { _id: string }>(props: SfTableProps<T>) => {
     }
   };
 
+  const renderCount = dataTable ? dataTable.length : 0;
+
   useEffect(() => filterItems(), [inputValues]);
 
   return (
-    <table className="table is-striped is-narrow is-hoverable is-fullwidth is-size-7">
-      <thead>
-        <tr>{renderInputs()}</tr>
-        <tr>{renderTableHeader()}</tr>
-      </thead>
-      <tbody className="fixed200 ">{renderTableBody()}</tbody>
-    </table>
+    <div className="orders-list__page">
+      <div className="orders-list__page__header">
+        <h1 className="main-page__title">Orders List</h1>
+        <h1 className="main-page__title">
+          <span className="weight500">count: </span>
+          <span className="weight800"> {renderCount}</span>
+        </h1>
+      </div>
+
+      <div className="orders-list">
+        <table>
+          <thead className="orders-list__header">
+            <tr>{renderInputs()}</tr>
+            <tr>{renderTableHeader()}</tr>
+          </thead>
+          <tbody className="fixed200 ">{renderTableBody()}</tbody>
+        </table>
+      </div>
+    </div>
   );
 };
 

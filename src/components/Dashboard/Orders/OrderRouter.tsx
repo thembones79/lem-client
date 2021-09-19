@@ -4,7 +4,7 @@ import * as actions from "../../../actions";
 import requireAuth from "../../requireAuth";
 import { ActionTypes } from "../../../actions/types";
 import { StoreState } from "../../../reducers";
-import OrdersList2 from "./OrdersList2";
+import OrdersList from "./OrdersList";
 import OrderDetails from "./OrderDetails";
 
 interface IOrderRouterProps {
@@ -17,10 +17,10 @@ class OrderRouter extends Component<IOrderRouterProps> {
       case ActionTypes.VIEW:
         return <OrderDetails />;
       case ActionTypes.LIST:
-        return <OrdersList2 />;
+        return <OrdersList />;
 
       default:
-        return <OrdersList2 />;
+        return <OrdersList />;
     }
   }
 

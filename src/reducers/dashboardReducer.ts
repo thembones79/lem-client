@@ -19,7 +19,7 @@ export interface IDashboardState {
 }
 
 const DASHBOARD_INITIAL_STATE: IDashboardState = {
-  activeSidebarTab: Tab.ManagementOrders,
+  activeSidebarTab: Tab.ManagementProducts,
   activeOrderComponent: ActionTypes.LIST,
   liveView: [],
   _id: "",
