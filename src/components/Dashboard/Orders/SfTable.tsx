@@ -72,43 +72,6 @@ const SfTable = <T extends { _id: string }>(props: SfTableProps<T>) => {
     return "";
   };
 
-  const filterItems = () => {
-    const filteredItems = getFilteredTable() as RowType<T>;
-
-    setDataTable(filteredItems);
-  };
-
-  const getFilteredTable = () => {
-    return rows.filter(includesAllTheDataFromInputs);
-  };
-
-  function includesAllTheDataFromInputs(
-    element: Object,
-    index: number,
-    array: Object[]
-  ) {
-    const inputs = Object.entries(inputValues);
-
-    let validInputs = 0;
-
-    inputs.forEach((entry) => {
-      const [key, value] = entry;
-
-      if (
-        //@ts-ignore
-        element[key]
-          .toString()
-          .toLowerCase()
-          //@ts-ignore
-          .includes(value.toString().toLowerCase())
-      ) {
-        validInputs++;
-      }
-    });
-
-    return validInputs === inputs.length;
-  }
-
   const renderInputs = () => {
     return columns.map((column, idx) => {
       const { name } = column;
@@ -164,7 +127,45 @@ const SfTable = <T extends { _id: string }>(props: SfTableProps<T>) => {
 
   const renderCount = dataTable ? dataTable.length : 0;
 
-  useEffect(() => filterItems(), [inputValues]);
+  useEffect(() => {
+    function includesAllTheDataFromInputs(
+      element: Object,
+      index: number,
+      array: Object[]
+    ) {
+      const inputs = Object.entries(inputValues);
+
+      let validInputs = 0;
+
+      inputs.forEach((entry) => {
+        const [key, value] = entry;
+
+        if (
+          //@ts-ignore
+          element[key]
+            .toString()
+            .toLowerCase()
+            //@ts-ignore
+            .includes(value.toString().toLowerCase())
+        ) {
+          validInputs++;
+        }
+      });
+
+      return validInputs === inputs.length;
+    }
+    const getFilteredTable = () => {
+      return rows.filter(includesAllTheDataFromInputs);
+    };
+
+    const filterItems = () => {
+      const filteredItems = getFilteredTable() as RowType<T>;
+
+      setDataTable(filteredItems);
+    };
+
+    filterItems();
+  }, [inputValues, rows]);
 
   return (
     <div className="orders-list__page">
