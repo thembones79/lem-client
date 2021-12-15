@@ -19,7 +19,7 @@ export type OrderDetailsType = OrderListType & {
   meanCycleTime: string;
   meanHourlyRate: number;
   meanGrossHourlyRate: number;
-  standardHourlyRate: string;
+  givenHourlyRate: number;
   hourlyRates: HourlyRatesType[];
 };
 

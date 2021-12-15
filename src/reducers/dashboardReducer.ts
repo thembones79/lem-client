@@ -39,7 +39,7 @@ const DASHBOARD_INITIAL_STATE: IDashboardState = {
     meanCycleTime: "",
     meanHourlyRate: 0,
     meanGrossHourlyRate: 0,
-    standardHourlyRate: "",
+    givenHourlyRate: 0,
     hourlyRates: [],
   },
   isLoading: false,

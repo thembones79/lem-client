@@ -44,7 +44,7 @@ class OrderDetails extends Component<IOrderDetailsProps> {
         netTime,
         meanCycleTime,
         meanHourlyRate,
-        standardHourlyRate,
+        givenHourlyRate,
         hourlyRates,
       } = orderDetails;
 
@@ -144,7 +144,7 @@ class OrderDetails extends Component<IOrderDetailsProps> {
             <div className="order-details__stats__item">
               <div className="order-details__stats__item__label">set pace</div>
               <div className="order-details__stats__item__data">
-                {standardHourlyRate}
+                {givenHourlyRate}
               </div>
             </div>
           </div>
