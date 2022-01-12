@@ -62,6 +62,14 @@ import {
   GetOrderDetailsActionError,
   ViewOrderDetailsAction,
   BackToOrdersListAction,
+  GetPartnumbersBeginAction,
+  GetPartnumbersSuccessAction,
+  GetPartnumbersActionError,
+  GetPartnumberDetailsBeginAction,
+  GetPartnumberDetailsSuccessAction,
+  GetPartnumberDetailsActionError,
+  //  EditPartnumberDetailsAction,
+  //  BackToPartnumbersListAction,
 } from "./dashboardActions";
 
 import {
@@ -192,6 +200,15 @@ export enum ActionTypes {
   VIEW_ORDER_DETAILS,
   BACK_TO_ORDERS_LIST,
 
+  GET_PARTNUMBERS_BEGIN,
+  GET_PARTNUMBERS_SUCCESS,
+  GET_PARTNUMBERS_ERROR,
+  GET_PARTNUMBER_DETAILS_BEGIN,
+  GET_PARTNUMBER_DETAILS_SUCCESS,
+  GET_PARTNUMBER_DETAILS_ERROR,
+  EDIT_PARTNUMBER_DETAILS,
+  BACK_TO_PARTNUMBERS_LIST,
+
   ADD_LINK_IN_PRODUCT,
   ADD_LINK_IN_PRODUCT_ERROR,
   ADD_REDIRECTION_IN_PRODUCT,
@@ -214,6 +231,7 @@ export enum ActionTypes {
 export enum Tab {
   AnalyticsLines,
   AnalyticsOrders,
+  AnalyticsPartnumbers,
   AnalyticsLiveView,
   ManagementCustomers,
   ManagementLines,
@@ -277,6 +295,14 @@ export type DashboardAction =
   | InitLiveDataAction
   | InitLiveDataActionError
   | RefreshLiveDataAction
+  | GetPartnumbersBeginAction
+  | GetPartnumbersSuccessAction
+  | GetPartnumbersActionError
+  | GetPartnumberDetailsBeginAction
+  | GetPartnumberDetailsSuccessAction
+  | GetPartnumberDetailsActionError
+  // | EditPartnumberDetailsAction
+  // | BackToPartnumbersListAction
   | GetOrdersBeginAction
   | GetOrdersSuccessAction
   | GetOrdersActionError

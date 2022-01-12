@@ -5,3 +5,5 @@ export * from "./getOrders";
 export * from "./getOrderDetails";
 export * from "./viewOrderDetails";
 export * from "./backToOrdersList";
+export * from "./getPartnumbers";
+export * from "./getPartnumberDetails";
