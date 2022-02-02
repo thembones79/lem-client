@@ -7,3 +7,4 @@ export * from "./viewOrderDetails";
 export * from "./backToOrdersList";
 export * from "./getPartnumbers";
 export * from "./getPartnumberDetails";
+export * from "./updatePartnumbersList";

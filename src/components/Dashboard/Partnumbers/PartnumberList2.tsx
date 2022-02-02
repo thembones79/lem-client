@@ -11,13 +11,13 @@ interface IPartnumbersListProps {
   partnumbers?: PartnumberListType[];
   filteredPartnumbers?: PartnumberListType[];
   getPartnumbers: () => void;
-  //updatePartnumbersList: (filteredPartnumbers: PartnumberListType[]) => void;
+  updatePartnumbersList: (filteredPartnumbers: PartnumberListType[]) => void;
   //startAddingPartnumber: () => void;
   errorMessage: string;
   isLoading: boolean;
 }
 
-class PartnumbersList extends Component<IPartnumbersListProps> {
+class PartnumbersList2 extends Component<IPartnumbersListProps> {
   async componentDidMount() {
     await this.props.getPartnumbers();
     await this.filterPartnumbers();
@@ -31,8 +31,8 @@ class PartnumbersList extends Component<IPartnumbersListProps> {
   }
 
   getFilteredPartnumbersForText(text: string) {
-    if (this.props.products) {
-      return this.props.products.filter((product) => {
+    if (this.props.partnumbers) {
+      return this.props.partnumbers.filter((product) => {
         if (product && product.partNumber) {
           return product.partNumber.toLowerCase().includes(text.toLowerCase());
         } else {
@@ -77,7 +77,7 @@ class PartnumbersList extends Component<IPartnumbersListProps> {
 
           <button
             className="btn btn--accent "
-            onClick={this.props.startAddingPartnumber}
+            // onClick={this.props.startAddingPartnumber}
           >
             NEW PRODUCT
           </button>
@@ -102,4 +102,4 @@ function mapStateToProps(state: StoreState) {
   };
 }
 
-export default connect(mapStateToProps, actions)(PartnumbersList);
+export default connect(mapStateToProps, actions)(PartnumbersList2);

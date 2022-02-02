@@ -19,6 +19,7 @@ class PartnumberItem extends Component<IPartnumberItemProps> {
     const {
       partNumber,
       _id,
+
       //      startEditingPartnumber,
       //      openDeletePartnumberModal,
     } = this.props;
@@ -27,6 +28,8 @@ class PartnumberItem extends Component<IPartnumberItemProps> {
       <div className="product-row">
         <div className="product-row__items">
           <span className="product-row__item--first">{partNumber}</span>
+          <span className="product-row__item">{_id}</span>
+          <span className="product-row__item">{partNumber}</span>
         </div>
 
         <div className="product-row__buttons">

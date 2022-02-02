@@ -180,6 +180,12 @@ export const dashboardReducer = (
     //     activePartnumberComponent: ActionTypes.LIST,
     //   };
 
+    case ActionTypes.UPDATE_PARTNUMBERS_LIST:
+      return {
+        ...state,
+        filteredPartnumbers: action.payload,
+      };
+
     case ActionTypes.INIT_LIVEDATA:
       return {
         ...state,
