@@ -3,36 +3,45 @@ import { Dispatch } from "redux";
 import { ActionTypes } from "..";
 import { ROOT_URL } from "../../config";
 
-export type LineType = {
+export enum SourceOfTruth {
+  internal = "internal",
+  excel = "excel",
+}
+
+export enum ComputationsBase {
+  tactTime = "tactTime",
+  hourlyRate = "hourlyRate",
+}
+
+export type PartnumberConfigType = {
   _id: string;
-  lineNumber: number;
-  lineDescription: string;
-  lineOccupiedWith: string;
-  lineStatus: string;
+  sourceOftruth: SourceOfTruth;
+  computationsBase: ComputationsBase;
+  whatToShow: ComputationsBase;
 };
 
-export type GetLinesAction = {
-  type: ActionTypes.GET_LINES;
-  payload: LineType[];
+export type GetPartnumberConfigAction = {
+  type: ActionTypes.GET_PARTNUMBER_CONFIG;
+  payload: PartnumberConfigType;
 };
 
-export type GetLinesActionError = {
-  type: ActionTypes.GET_LINES_ERROR;
+export type GetPartnumberConfigActionError = {
+  type: ActionTypes.GET_PARTNUMBER_CONFIG_ERROR;
   payload: string;
 };
 
-export const getLines = () => async (dispatch: Dispatch) => {
+export const getPartnumberConfig = () => async (dispatch: Dispatch) => {
   try {
-    const response = await axios.get(`${ROOT_URL}/api/lines`, {
+    const response = await axios.get(`${ROOT_URL}/api/pnconfig`, {
       headers: { authorization: localStorage.getItem("token") },
     });
-    dispatch<GetLinesAction>({
-      type: ActionTypes.GET_LINES,
-      payload: response.data.lines,
+    dispatch<GetPartnumberConfigAction>({
+      type: ActionTypes.GET_PARTNUMBER_CONFIG,
+      payload: response.data,
     });
   } catch (e: any) {
-    dispatch<GetLinesActionError>({
-      type: ActionTypes.GET_LINES_ERROR,
+    dispatch<GetPartnumberConfigActionError>({
+      type: ActionTypes.GET_PARTNUMBER_CONFIG_ERROR,
       payload: e.message,
     });
   }

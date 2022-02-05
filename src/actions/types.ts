@@ -69,6 +69,8 @@ import {
   GetPartnumberDetailsSuccessAction,
   GetPartnumberDetailsActionError,
   UpdatePartnumbersListAction,
+  GetPartnumberConfigAction,
+  GetPartnumberConfigActionError,
   //  EditPartnumberDetailsAction,
   //  BackToPartnumbersListAction,
 } from "./dashboardActions";
@@ -207,6 +209,8 @@ export enum ActionTypes {
   GET_PARTNUMBER_DETAILS_BEGIN,
   GET_PARTNUMBER_DETAILS_SUCCESS,
   GET_PARTNUMBER_DETAILS_ERROR,
+  GET_PARTNUMBER_CONFIG,
+  GET_PARTNUMBER_CONFIG_ERROR,
   UPDATE_PARTNUMBERS_LIST,
   EDIT_PARTNUMBER_DETAILS,
   BACK_TO_PARTNUMBERS_LIST,
@@ -303,6 +307,8 @@ export type DashboardAction =
   | GetPartnumberDetailsBeginAction
   | GetPartnumberDetailsSuccessAction
   | GetPartnumberDetailsActionError
+  | GetPartnumberConfigAction
+  | GetPartnumberConfigActionError
   | UpdatePartnumbersListAction
   // | EditPartnumberDetailsAction
   // | BackToPartnumbersListAction

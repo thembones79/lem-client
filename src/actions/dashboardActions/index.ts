@@ -8,3 +8,4 @@ export * from "./backToOrdersList";
 export * from "./getPartnumbers";
 export * from "./getPartnumberDetails";
 export * from "./updatePartnumbersList";
+export * from "./getPartnumberConfig";

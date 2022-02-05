@@ -6,7 +6,10 @@ import {
   OrderDetailsType,
   PartnumberListType,
   PartnumberDetailsType,
+  PartnumberConfigType,
   Tab,
+  ComputationsBase,
+  SourceOfTruth,
 } from "../actions";
 
 export interface IDashboardState {
@@ -17,6 +20,7 @@ export interface IDashboardState {
   filteredPartnumbers: PartnumberListType[];
   orderDetails: OrderDetailsType;
   partnumberDetails: PartnumberDetailsType;
+  partnumberConfig: PartnumberConfigType;
   liveView: OrderStatsType[];
   activeOrderComponent: ActionTypes;
   isLoading: boolean;
@@ -48,6 +52,12 @@ const DASHBOARD_INITIAL_STATE: IDashboardState = {
     meanGrossHourlyRate: 0,
     givenHourlyRate: 0,
     hourlyRates: [],
+  },
+  partnumberConfig: {
+    _id: "",
+    sourceOftruth: SourceOfTruth.excel,
+    computationsBase: ComputationsBase.tactTime,
+    whatToShow: ComputationsBase.tactTime,
   },
   partnumberDetails: {
     _id: "",

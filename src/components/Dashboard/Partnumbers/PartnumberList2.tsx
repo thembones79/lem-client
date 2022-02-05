@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
-import { PartnumberListType } from "../../../actions";
+import { PartnumberListType, PartnumberConfigType } from "../../../actions";
 import { StoreState } from "../../../reducers";
 import { by } from "../../../utils/by";
 import PartnumberItem from "./PartnumberItem";
@@ -9,8 +9,10 @@ import "../Products/ProductsListStyle.scss";
 
 interface IPartnumbersListProps {
   partnumbers?: PartnumberListType[];
+  partnumberConfig: PartnumberConfigType;
   filteredPartnumbers?: PartnumberListType[];
   getPartnumbers: () => void;
+  getPartnumberConfig: () => void;
   updatePartnumbersList: (filteredPartnumbers: PartnumberListType[]) => void;
   //startAddingPartnumber: () => void;
   errorMessage: string;
@@ -19,6 +21,7 @@ interface IPartnumbersListProps {
 
 class PartnumbersList2 extends Component<IPartnumbersListProps> {
   async componentDidMount() {
+    await this.props.getPartnumberConfig();
     await this.props.getPartnumbers();
     await this.filterPartnumbers();
   }
@@ -61,6 +64,7 @@ class PartnumbersList2 extends Component<IPartnumbersListProps> {
   }
 
   render() {
+    const { partnumberConfig } = this.props;
     return (
       <div className="product-page">
         <div className="product-page__header">
@@ -74,12 +78,14 @@ class PartnumbersList2 extends Component<IPartnumbersListProps> {
               }}
             />
           </div>
-
+          <div>
+            {partnumberConfig.computationsBase} {partnumberConfig.sourceOftruth}
+          </div>
           <button
             className="btn btn--accent "
             // onClick={this.props.startAddingPartnumber}
           >
-            NEW PRODUCT
+            NEW PRODUCT2
           </button>
         </div>
         <div className="products-list__header">
@@ -92,13 +98,19 @@ class PartnumbersList2 extends Component<IPartnumbersListProps> {
 }
 
 function mapStateToProps(state: StoreState) {
-  const { filteredPartnumbers, partnumbers, isLoading, errorMessage } =
-    state.dashboard;
+  const {
+    filteredPartnumbers,
+    partnumbers,
+    isLoading,
+    errorMessage,
+    partnumberConfig,
+  } = state.dashboard;
   return {
     filteredPartnumbers,
     partnumbers,
     isLoading,
     errorMessage,
+    partnumberConfig,
   };
 }
 
