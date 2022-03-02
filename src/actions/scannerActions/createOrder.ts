@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "../../actions";
-import { ROOT_URL } from "../../config";
+import { ROOT_URL, headers } from "../../config";
 
 export interface ICreateOrder {
   orderNumber: string;
@@ -49,37 +49,39 @@ export type CreateOrderActionError = {
   payload: string;
 };
 
-export const createOrder = ({
-  orderNumber,
-  quantity,
-  partNumber,
-  qrCode,
-  tactTime,
-  customer,
-}: ICreateOrder) => async (dispatch: Dispatch) => {
-  try {
-    const response = await axios.post(
-      `${ROOT_URL}/api/order`,
-      {
-        orderNumber,
-        quantity,
-        partNumber,
-        qrCode,
-        tactTime,
-        customer,
-      },
-      {
-        headers: { authorization: localStorage.getItem("token") },
-      }
-    );
-    dispatch<CreateOrderAction>({
-      type: ActionTypes.CREATE_ORDER,
-      payload: response.data,
-    });
-  } catch (e) {
-    dispatch<CreateOrderActionError>({
-      type: ActionTypes.CREATE_ORDER_ERROR,
-      payload: "Can not create this order - incomplete information",
-    });
-  }
-};
+export const createOrder =
+  ({
+    orderNumber,
+    quantity,
+    partNumber,
+    qrCode,
+    tactTime,
+    customer,
+  }: ICreateOrder) =>
+  async (dispatch: Dispatch) => {
+    try {
+      const response = await axios.post(
+        `${ROOT_URL}/api/order`,
+        {
+          orderNumber,
+          quantity,
+          partNumber,
+          qrCode,
+          tactTime,
+          customer,
+        },
+        {
+          headers,
+        }
+      );
+      dispatch<CreateOrderAction>({
+        type: ActionTypes.CREATE_ORDER,
+        payload: response.data,
+      });
+    } catch (e: any) {
+      dispatch<CreateOrderActionError>({
+        type: ActionTypes.CREATE_ORDER_ERROR,
+        payload: "Can not create this order - incomplete information",
+      });
+    }
+  };

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "../../actions";
-import { ROOT_URL } from "../../config";
+import { ROOT_URL, headers } from "../../config";
 
 export type OrderStatsType = {
   lineDescription: string;
@@ -52,13 +52,13 @@ export type InitLiveDataActionError = {
 export const initLiveData = () => async (dispatch: Dispatch) => {
   try {
     const response = await axios.get(`${ROOT_URL}/api/liveview`, {
-      headers: { authorization: localStorage.getItem("token") },
+      headers,
     });
     dispatch<InitLiveDataAction>({
       type: ActionTypes.INIT_LIVEDATA,
       payload: response.data.liveView,
     });
-  } catch (e) {
+  } catch (e: any) {
     dispatch<InitLiveDataActionError>({
       type: ActionTypes.INIT_LIVEDATA_ERROR,
       payload: "could not contact the API",

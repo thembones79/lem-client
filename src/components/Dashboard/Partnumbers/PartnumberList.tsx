@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
-import { PartnumberListType } from "../../../actions";
+import { PartnumberType } from "../../../actions";
 import { StoreState } from "../../../reducers";
 import Loader from "../../Loader";
 import SfTable, { IColumn } from "./SfTable";
 import "../Orders/OrdersListStyle.scss";
 
 interface IPartnumbersListProps {
-  partnumbers?: PartnumberListType[];
+  partnumbers?: PartnumberType[];
   //  viewPartnumberDetails: (_id: string) => void;
   getPartnumbers: () => void;
   errorMessage: string;

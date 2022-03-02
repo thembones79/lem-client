@@ -9,3 +9,8 @@ export * from "./getPartnumbers";
 export * from "./getPartnumberDetails";
 export * from "./updatePartnumbersList";
 export * from "./getPartnumberConfig";
+export * from "./backToPartnumbersList";
+export * from "./configurePartnumbers";
+export * from "./savePartnumberConfig";
+export * from "./savePartnumber";
+export * from "./startEditingPartnumber";

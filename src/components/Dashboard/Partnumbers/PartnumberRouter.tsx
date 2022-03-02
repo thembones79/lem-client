@@ -6,18 +6,21 @@ import { ActionTypes } from "../../../actions/types";
 import { StoreState } from "../../../reducers";
 import PartnumberList from "./PartnumberList2";
 import PartnumberEdit from "./PartnumberEdit";
+import ConfigurePartnumbers from "./ConfigurePartnumbers";
 
 interface IPartnumberRouterProps {
-  activeOrderComponent: ActionTypes;
+  activePartnumberComponent: ActionTypes;
 }
 
 class PartnumberRouter extends Component<IPartnumberRouterProps> {
-  renderOrderComponent(activeComponent: ActionTypes) {
+  renderPartnumberComponent(activeComponent: ActionTypes) {
     switch (activeComponent) {
       case ActionTypes.EDIT:
         return <PartnumberEdit />;
       case ActionTypes.LIST:
         return <PartnumberList />;
+      case ActionTypes.CONFIG:
+        return <ConfigurePartnumbers />;
 
       default:
         return <PartnumberList />;
@@ -25,13 +28,17 @@ class PartnumberRouter extends Component<IPartnumberRouterProps> {
   }
 
   render() {
-    return <>{this.renderOrderComponent(this.props.activeOrderComponent)}</>;
+    return (
+      <>
+        {this.renderPartnumberComponent(this.props.activePartnumberComponent)}
+      </>
+    );
   }
 }
 
 function mapStateToProps(state: StoreState) {
   return {
-    activeOrderComponent: state.dashboard.activeOrderComponent,
+    activePartnumberComponent: state.dashboard.activePartnumberComponent,
   };
 }
 

@@ -1,9 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { ActionTypes, PartnumberListType } from "..";
-import { ROOT_URL } from "../../config";
-
-export type PartnumberDetailsType = PartnumberListType;
+import { ActionTypes, PartnumberType } from "..";
+import { ROOT_URL, headers } from "../../config";
 
 export type GetPartnumberDetailsBeginAction = {
   type: ActionTypes.GET_PARTNUMBER_DETAILS_BEGIN;
@@ -11,7 +9,7 @@ export type GetPartnumberDetailsBeginAction = {
 
 export type GetPartnumberDetailsSuccessAction = {
   type: ActionTypes.GET_PARTNUMBER_DETAILS_SUCCESS;
-  payload: PartnumberDetailsType;
+  payload: PartnumberType;
 };
 
 export type GetPartnumberDetailsActionError = {
@@ -28,7 +26,7 @@ export const getPartnumberDetails =
       const response = await axios.get(
         `${ROOT_URL}/api/product/statistics/${partnumberId}`,
         {
-          headers: { authorization: localStorage.getItem("token") },
+          headers,
         }
       );
       dispatch<GetPartnumberDetailsSuccessAction>({

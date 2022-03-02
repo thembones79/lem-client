@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "..";
-import { ROOT_URL } from "../../config";
+import { ROOT_URL, headers } from "../../config";
 
 export type OrderListType = {
   orderNumber: string;
@@ -36,7 +36,7 @@ export const getOrders = () => async (dispatch: Dispatch) => {
   });
   try {
     const response = await axios.get(`${ROOT_URL}/api/orders/stats`, {
-      headers: { authorization: localStorage.getItem("token") },
+      headers,
     });
     dispatch<GetOrdersSuccessAction>({
       type: ActionTypes.GET_ORDERS_SUCCESS,

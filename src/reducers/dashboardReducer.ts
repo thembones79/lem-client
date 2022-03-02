@@ -4,8 +4,7 @@ import {
   OrderStatsType,
   OrderListType,
   OrderDetailsType,
-  PartnumberListType,
-  PartnumberDetailsType,
+  PartnumberType,
   PartnumberConfigType,
   Tab,
   ComputationsBase,
@@ -16,13 +15,14 @@ export interface IDashboardState {
   activeSidebarTab: Tab;
   _id: string;
   orders: OrderListType[];
-  partnumbers: PartnumberListType[];
-  filteredPartnumbers: PartnumberListType[];
+  partnumbers: PartnumberType[];
+  filteredPartnumbers: PartnumberType[];
   orderDetails: OrderDetailsType;
-  partnumberDetails: PartnumberDetailsType;
+  partnumberDetails: PartnumberType;
   partnumberConfig: PartnumberConfigType;
   liveView: OrderStatsType[];
   activeOrderComponent: ActionTypes;
+  activePartnumberComponent: ActionTypes;
   isLoading: boolean;
   errorMessage: string;
 }
@@ -30,6 +30,7 @@ export interface IDashboardState {
 const DASHBOARD_INITIAL_STATE: IDashboardState = {
   activeSidebarTab: Tab.ManagementProducts,
   activeOrderComponent: ActionTypes.LIST,
+  activePartnumberComponent: ActionTypes.LIST,
   liveView: [],
   _id: "",
   orders: [],
@@ -128,6 +129,20 @@ export const dashboardReducer = (
         isLoading: false,
       };
 
+    case ActionTypes.GET_PARTNUMBER_CONFIG:
+      return {
+        ...state,
+        partnumberConfig: action.payload,
+        isLoading: false,
+      };
+
+    case ActionTypes.GET_PARTNUMBER_CONFIG_ERROR:
+      return {
+        ...state,
+        errorMessage: action.payload,
+        isLoading: false,
+      };
+
     case ActionTypes.GET_ORDER_DETAILS_BEGIN:
       return {
         ...state,
@@ -177,24 +192,48 @@ export const dashboardReducer = (
     case ActionTypes.GET_PARTNUMBER_DETAILS_ERROR:
       return { ...state, isLoading: false, errorMessage: action.payload };
 
-    // case ActionTypes.EDIT_PARTNUMBER_DETAILS:
-    //   return {
-    //     ...state,
-    //     activePartnumberComponent: ActionTypes.EDIT,
-    //     _id: action.payload,
-    //   };
+    case ActionTypes.CONFIGURE_PARTNUMBERS:
+      return {
+        ...state,
+        activePartnumberComponent: ActionTypes.CONFIG,
+      };
 
-    // case ActionTypes.BACK_TO_PARTNUMBERS_LIST:
-    //   return {
-    //     ...state,
-    //     activePartnumberComponent: ActionTypes.LIST,
-    //   };
+    case ActionTypes.BACK_TO_PARTNUMBERS_LIST:
+      return {
+        ...state,
+        activePartnumberComponent: ActionTypes.LIST,
+      };
+
+    case ActionTypes.SAVE_PARTNUMBER_CONFIG:
+      return {
+        ...state,
+        activePartnumberComponent: ActionTypes.LIST,
+      };
+
+    case ActionTypes.SAVE_PARTNUMBER_CONFIG_ERROR:
+      return { ...state, isLoading: false, errorMessage: action.payload };
 
     case ActionTypes.UPDATE_PARTNUMBERS_LIST:
       return {
         ...state,
         filteredPartnumbers: action.payload,
       };
+
+    case ActionTypes.START_EDITING_PARTNUMBER:
+      return {
+        ...state,
+        activePartnumberComponent: ActionTypes.EDIT,
+        partnumberDetails: action.payload,
+      };
+
+    case ActionTypes.SAVE_PARTNUMBER:
+      return {
+        ...state,
+        activePartnumberComponent: ActionTypes.LIST,
+      };
+
+    case ActionTypes.SAVE_PARTNUMBER_ERROR:
+      return { ...state, isLoading: false, errorMessage: action.payload };
 
     case ActionTypes.INIT_LIVEDATA:
       return {

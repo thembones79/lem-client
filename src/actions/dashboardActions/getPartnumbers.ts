@@ -1,9 +1,9 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "..";
-import { ROOT_URL } from "../../config";
+import { ROOT_URL, headers } from "../../config";
 
-export type PartnumberListType = {
+export type PartnumberType = {
   _id: string;
   givenHourlyRate: number;
   suggestedHourlyRate: number;
@@ -20,7 +20,7 @@ export type GetPartnumbersBeginAction = {
 
 export type GetPartnumbersSuccessAction = {
   type: ActionTypes.GET_PARTNUMBERS_SUCCESS;
-  payload: PartnumberListType[];
+  payload: PartnumberType[];
 };
 
 export type GetPartnumbersActionError = {
@@ -34,7 +34,7 @@ export const getPartnumbers = () => async (dispatch: Dispatch) => {
   });
   try {
     const response = await axios.get(`${ROOT_URL}/api/product/statistics`, {
-      headers: { authorization: localStorage.getItem("token") },
+      headers,
     });
     dispatch<GetPartnumbersSuccessAction>({
       type: ActionTypes.GET_PARTNUMBERS_SUCCESS,

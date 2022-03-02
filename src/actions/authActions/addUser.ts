@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "../../actions";
-import { ROOT_URL } from "../../config";
+import { ROOT_URL, headers } from "../../config";
 
 export interface IAddUser {
   firstname: string;
@@ -27,34 +27,36 @@ export type AddUserActionError = {
   payload: string;
 };
 
-export const addUser = (
-  { firstname, lastname, email, password, type }: IAddUser,
-  callback: () => void // for redirect user to "scanner" route
-) => async (dispatch: Dispatch) => {
-  try {
-    const response = await axios.post<NewUser>(
-      `${ROOT_URL}/api/user`,
-      {
-        firstname,
-        lastname,
-        email,
-        password,
-        type,
-      },
-      {
-        headers: { authorization: localStorage.getItem("token") },
-      }
-    );
-    dispatch<AddUserAction>({
-      type: ActionTypes.ADD_USER,
-      payload: response.data,
-    });
+export const addUser =
+  (
+    { firstname, lastname, email, password, type }: IAddUser,
+    callback: () => void // for redirect user to "scanner" route
+  ) =>
+  async (dispatch: Dispatch) => {
+    try {
+      const response: any = await axios.post<NewUser>(
+        `${ROOT_URL}/api/user`,
+        {
+          firstname,
+          lastname,
+          email,
+          password,
+          type,
+        },
+        {
+          headers,
+        }
+      );
+      dispatch<AddUserAction>({
+        type: ActionTypes.ADD_USER,
+        payload: response.data,
+      });
 
-    callback(); // for redirect user to "scanner" route (in this case)
-  } catch (e) {
-    dispatch<AddUserActionError>({
-      type: ActionTypes.ADD_USER_ERROR,
-      payload: e.message,
-    });
-  }
-};
+      callback(); // for redirect user to "scanner" route (in this case)
+    } catch (e: any) {
+      dispatch<AddUserActionError>({
+        type: ActionTypes.ADD_USER_ERROR,
+        payload: e.message,
+      });
+    }
+  };

@@ -71,8 +71,14 @@ import {
   UpdatePartnumbersListAction,
   GetPartnumberConfigAction,
   GetPartnumberConfigActionError,
+  ConfigurePartnumbersAction,
+  SavePartnumberConfigAction,
+  SavePartnumberConfigActionError,
+  SavePartnumberAction,
+  SavePartnumberActionError,
+  StartEditingPartnumberAction,
   //  EditPartnumberDetailsAction,
-  //  BackToPartnumbersListAction,
+  BackToPartnumbersListAction,
 } from "./dashboardActions";
 
 import {
@@ -211,6 +217,12 @@ export enum ActionTypes {
   GET_PARTNUMBER_DETAILS_ERROR,
   GET_PARTNUMBER_CONFIG,
   GET_PARTNUMBER_CONFIG_ERROR,
+  SAVE_PARTNUMBER_CONFIG,
+  SAVE_PARTNUMBER_CONFIG_ERROR,
+  SAVE_PARTNUMBER,
+  SAVE_PARTNUMBER_ERROR,
+  START_EDITING_PARTNUMBER,
+  CONFIGURE_PARTNUMBERS,
   UPDATE_PARTNUMBERS_LIST,
   EDIT_PARTNUMBER_DETAILS,
   BACK_TO_PARTNUMBERS_LIST,
@@ -232,6 +244,7 @@ export enum ActionTypes {
   EDIT,
   LIST,
   VIEW,
+  CONFIG,
 }
 
 export enum Tab {
@@ -310,8 +323,14 @@ export type DashboardAction =
   | GetPartnumberConfigAction
   | GetPartnumberConfigActionError
   | UpdatePartnumbersListAction
+  | ConfigurePartnumbersAction
   // | EditPartnumberDetailsAction
-  // | BackToPartnumbersListAction
+  | SavePartnumberConfigAction
+  | SavePartnumberConfigActionError
+  | SavePartnumberAction
+  | SavePartnumberActionError
+  | StartEditingPartnumberAction
+  | BackToPartnumbersListAction
   | GetOrdersBeginAction
   | GetOrdersSuccessAction
   | GetOrdersActionError

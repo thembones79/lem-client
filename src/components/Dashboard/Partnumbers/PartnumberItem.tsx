@@ -1,17 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { StoreState } from "../../../reducers";
 import * as actions from "../../../actions";
-// import { IStartEditingPartnumber } from "../../../actions";
-import "../Products/ProductItemStyle.scss";
+import { PartnumberType } from "../../../actions";
+import "./PartnumberItemStyle.scss";
 
-interface IPartnumberItemProps {
-  partNumber: string;
-  _id: string;
-  // startEditingPartnumber: ({
-  //   _id,
-  //   partNumber,
-  // }: IStartEditingPartnumber) => void;
-  // openDeletePartnumberModal: ({ _id }: { _id: string }) => void;
+interface IPartnumberItemProps extends PartnumberType {
+  startEditingPartnumber: (Partnumber: PartnumberType) => void;
 }
 
 class PartnumberItem extends Component<IPartnumberItemProps> {
@@ -19,38 +14,43 @@ class PartnumberItem extends Component<IPartnumberItemProps> {
     const {
       partNumber,
       _id,
-
-      //      startEditingPartnumber,
-      //      openDeletePartnumberModal,
+      givenHourlyRate,
+      givenTactTime,
+      suggestedHourlyRate,
+      suggestedTactTime,
+      xlsxTactTime,
+      startEditingPartnumber,
+      automatic,
     } = this.props;
 
     return (
-      <div className="product-row">
-        <div className="product-row__items">
-          <span className="product-row__item--first">{partNumber}</span>
-          <span className="product-row__item">{_id}</span>
-          <span className="product-row__item">{partNumber}</span>
+      <div className="partnumber-row">
+        <div className="partnumber-row__items">
+          <span className="partnumber-row__item--first">{partNumber}</span>
+          <span className="partnumber-row__item">{givenTactTime}</span>
+          <span className="partnumber-row__item">{suggestedTactTime}</span>
+          <span className="partnumber-row__item">{givenHourlyRate}</span>
+          <span className="partnumber-row__item">{suggestedHourlyRate}</span>
+          <span className="partnumber-row__item">{xlsxTactTime}</span>
         </div>
 
-        <div className="product-row__buttons">
+        <div className="partnumber-row__buttons">
           <button
             className="btn btn--finish btn--thin"
-            //            onClick={() => {
-            //             startEditingPartnumber({
-            //                _id,
-            //                partNumber,
-            //              });
-            //           }}
+            onClick={() => {
+              startEditingPartnumber({
+                partNumber,
+                _id,
+                givenHourlyRate,
+                givenTactTime,
+                suggestedHourlyRate,
+                suggestedTactTime,
+                xlsxTactTime,
+                automatic,
+              });
+            }}
           >
             EDIT
-          </button>
-          <button
-            className="btn btn--delete btn--thin"
-            //            onClick={() => {
-            //              openDeletePartnumberModal({ _id });
-            //            }}
-          >
-            DELETE
           </button>
         </div>
       </div>
@@ -58,4 +58,11 @@ class PartnumberItem extends Component<IPartnumberItemProps> {
   }
 }
 
-export default connect(null, actions)(PartnumberItem);
+function mapStateToProps(state: StoreState) {
+  const { partnumberConfig } = state.dashboard;
+  return {
+    partnumberConfig,
+  };
+}
+
+export default connect(mapStateToProps, actions)(PartnumberItem);

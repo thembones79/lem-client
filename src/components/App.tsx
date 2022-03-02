@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./Header";
 import "./AppStyle.scss";
 
-export default ({ children }: any) => {
+const App = ({ children }: any) => {
   return (
     <div className="app">
       <Header />
@@ -10,3 +10,5 @@ export default ({ children }: any) => {
     </div>
   );
 };
+
+export default App;

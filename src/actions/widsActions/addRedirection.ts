@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "../../actions";
-import { ROOT_URL } from "../../config";
+import { ROOT_URL, headers } from "../../config";
 
 export interface IRedirection {
   redirectFrom: string;
@@ -39,7 +39,7 @@ export const addRedirection =
           fileName: redirectTo.trim(),
         },
         {
-          headers: { authorization: localStorage.getItem("token") },
+          headers,
         }
       );
       dispatch<AddRedirectionAction>({

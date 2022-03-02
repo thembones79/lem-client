@@ -3,10 +3,9 @@ import { connect } from "react-redux";
 import * as actions from "../../../actions";
 import { PartnumberType, PartnumberConfigType } from "../../../actions";
 import { StoreState } from "../../../reducers";
-import Loader from "../../Loader";
 import { by } from "../../../utils/by";
 import PartnumberItem from "./PartnumberItem";
-import "./PartnumberListStyle.scss";
+import "../Products/ProductsListStyle.scss";
 
 interface IPartnumbersListProps {
   partnumbers?: PartnumberType[];
@@ -14,7 +13,6 @@ interface IPartnumbersListProps {
   filteredPartnumbers?: PartnumberType[];
   getPartnumbers: () => void;
   getPartnumberConfig: () => void;
-  configurePartnumbers: () => void;
   updatePartnumbersList: (filteredPartnumbers: PartnumberType[]) => void;
   //startAddingPartnumber: () => void;
   errorMessage: string;
@@ -60,40 +58,20 @@ class PartnumbersList2 extends Component<IPartnumbersListProps> {
             key={product._id}
             _id={product._id}
             partNumber={product.partNumber}
-            givenTactTime={product.givenTactTime}
-            suggestedTactTime={product.suggestedTactTime}
-            givenHourlyRate={product.givenHourlyRate}
-            suggestedHourlyRate={product.suggestedHourlyRate}
-            xlsxTactTime={product.xlsxTactTime}
-            automatic={product.automatic}
           />
         ));
     }
   }
-  renderAlert() {
-    if (this.props.errorMessage) {
-      return <div className="alert__message">{this.props.errorMessage}</div>;
-    }
-  }
 
   render() {
-    console.log({ propsy: this.props });
-    const { partnumberConfig, isLoading, errorMessage } = this.props;
-
-    if (errorMessage) {
-      return <div className="alert">{this.renderAlert()}</div>;
-    }
-
-    if (isLoading) {
-      return <Loader />;
-    }
+    const { partnumberConfig } = this.props;
     return (
-      <div className="partnumber-page">
-        <div className="partnumber-page__header">
-          <div className="partnumber-list__filter">
-            <label className="partnumber-list__filter__label">filter</label>
+      <div className="product-page">
+        <div className="product-page__header">
+          <div className="products-list__filter">
+            <label className="products-list__filter__label">filter</label>
             <input
-              className="partnumber-list__filter__input"
+              className="products-list__filter__input"
               placeholder="search..."
               onChange={(e) => {
                 this.filterPartnumbers(e);
@@ -105,24 +83,15 @@ class PartnumbersList2 extends Component<IPartnumbersListProps> {
           </div>
           <button
             className="btn btn--accent "
-            onClick={this.props.configurePartnumbers}
+            // onClick={this.props.startAddingPartnumber}
           >
             NEW PRODUCT2
           </button>
         </div>
-        <div className="partnumber-list__header">
-          <span className="partnumber-list__header__item--first">product</span>
-          <span className="partnumber-list__header__item">givenTactTime</span>
-          <span className="partnumber-list__header__item">
-            suggestedTactTime
-          </span>
-          <span className="partnumber-list__header__item">givenHourlyPace</span>
-          <span className="partnumber-list__header__item">
-            suggestedHourlyPace
-          </span>
-          <span className="partnumber-list__header__item">xlsxTactTime</span>
+        <div className="products-list__header">
+          <span className="products-list__header__item--first">product</span>
         </div>
-        <div className="partnumber-list">{this.renderPartnumbersList()}</div>
+        <div className="products-list">{this.renderPartnumbersList()}</div>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes, OrderListType } from "../../actions";
-import { ROOT_URL } from "../../config";
+import { ROOT_URL, headers } from "../../config";
 
 export type ScanDetailsType = {
   scansLine: string;
@@ -46,7 +46,7 @@ export const getOrderDetails =
       const response = await axios.get(
         `${ROOT_URL}/api/order/stats/${orderId}`,
         {
-          headers: { authorization: localStorage.getItem("token") },
+          headers,
         }
       );
       dispatch<GetOrderDetailsSuccessAction>({

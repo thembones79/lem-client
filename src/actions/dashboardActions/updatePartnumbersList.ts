@@ -1,12 +1,12 @@
-import { ActionTypes, PartnumberListType } from "..";
+import { ActionTypes, PartnumberType } from "..";
 
 export type UpdatePartnumbersListAction = {
   type: ActionTypes.UPDATE_PARTNUMBERS_LIST;
-  payload: PartnumberListType[];
+  payload: PartnumberType[];
 };
 
 export const updatePartnumbersList = (
-  partnumbers: PartnumberListType[]
+  partnumbers: PartnumberType[]
 ): UpdatePartnumbersListAction => {
   return {
     type: ActionTypes.UPDATE_PARTNUMBERS_LIST,

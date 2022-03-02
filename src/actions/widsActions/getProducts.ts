@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes, ProductType } from "../../actions";
-import { ROOT_URL } from "../../config";
+import { ROOT_URL, headers } from "../../config";
 
 export type GetProductsAction = {
   type: ActionTypes.GET_PRODUCTS;
@@ -16,7 +16,7 @@ export type GetProductsActionError = {
 export const getProducts = () => async (dispatch: Dispatch) => {
   try {
     const response = await axios.get(`${ROOT_URL}/api/product`, {
-      headers: { authorization: localStorage.getItem("token") },
+      headers,
     });
     dispatch<GetProductsAction>({
       type: ActionTypes.GET_PRODUCTS,
