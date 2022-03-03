@@ -4,13 +4,18 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import * as actions from "../../../actions";
-import { PartnumberType } from "../../../actions";
+import {
+  PartnumberType,
+  PartnumberConfigType,
+  ComputationsBase,
+} from "../../../actions";
 import { StoreState } from "../../../reducers";
 import requireAuth from "../../requireAuth";
 
 interface IEditPartnumberProps extends RouteComponentProps {
   errorMessage: string;
   redirectionId: string;
+  partnumberConfig: PartnumberConfigType;
   initialValues: PartnumberType;
   savePartnumber: (
     { givenHourlyRate, givenTactTime }: PartnumberType,
@@ -33,12 +38,14 @@ class PartnumberEdit extends Component<
     }
   }
 
-  render() {
-    const { handleSubmit, submitting } = this.props;
-    return (
-      <div className="add-user-page">
-        <form className="add-user-form " onSubmit={handleSubmit(this.onSubmit)}>
-          <h1 className="main-page__title">Edit Partnumber</h1>
+  renderConditionalFields = () => {
+    const { initialValues, partnumberConfig } = this.props;
+    const { suggestedTactTime, suggestedHourlyRate } = initialValues;
+    const { computationsBase } = partnumberConfig;
+
+    if (computationsBase === ComputationsBase.tactTime) {
+      return (
+        <>
           <fieldset>
             <label className="add-user-form__label" htmlFor="givenTactTime">
               givenTactTime
@@ -46,7 +53,7 @@ class PartnumberEdit extends Component<
             <Field
               className="add-user-form__select"
               name="givenTactTime"
-              type="text"
+              type="number"
               placeholder="given tact time"
               component="input"
               required
@@ -56,15 +63,15 @@ class PartnumberEdit extends Component<
             <label className="add-user-form__label" htmlFor="suggestedTactTime">
               suggestedTactTime
             </label>
-            <Field
-              className="add-user-form__select"
-              name="suggestedTactTime"
-              type="text"
-              placeholder="suggested tact time"
-              component="input"
-              required
-            />
+            <div className="add-user-form__static">{suggestedTactTime}</div>
           </fieldset>
+        </>
+      );
+    }
+
+    if (computationsBase === ComputationsBase.hourlyRate) {
+      return (
+        <>
           <fieldset>
             <label className="add-user-form__label" htmlFor="givenHourlyRate">
               givenHourlyRate
@@ -72,7 +79,7 @@ class PartnumberEdit extends Component<
             <Field
               className="add-user-form__select"
               name="givenHourlyRate"
-              type="text"
+              type="number"
               placeholder="given hourly rate"
               component="input"
               required
@@ -85,31 +92,29 @@ class PartnumberEdit extends Component<
             >
               suggestedHourlyRate
             </label>
-            <Field
-              className="add-user-form__select"
-              name="suggestedHourlyRate"
-              type="text"
-              placeholder="suggested hourly rate"
-              component="input"
-              required
-            />
+            <div className="add-user-form__static">{suggestedHourlyRate}</div>
           </fieldset>
+        </>
+      );
+    }
+  };
+
+  render() {
+    const { handleSubmit, submitting, initialValues } = this.props;
+    const { xlsxTactTime, partNumber } = initialValues;
+
+    return (
+      <div className="add-user-page">
+        <form className="add-user-form " onSubmit={handleSubmit(this.onSubmit)}>
+          <h1 className="main-page__title">Edit Partnumber: {partNumber}</h1>
+          {this.renderConditionalFields()}
           <fieldset>
             <label className="add-user-form__label" htmlFor="xlsxTactTime">
               xlsxTactTime
             </label>
-            <Field
-              className="add-user-form__select"
-              name="xlsxTactTime"
-              type="text"
-              placeholder="excel tact time"
-              component="input"
-              required
-            />
+            <div className="add-user-form__static">{xlsxTactTime}</div>
           </fieldset>
-
           <div className="alert">{this.renderAlert()}</div>
-
           <div className="order-buttons">
             <div className="order-buttons__row">
               <button
@@ -132,9 +137,10 @@ class PartnumberEdit extends Component<
 }
 
 function mapStateToProps(state: StoreState) {
-  const { errorMessage, partnumberDetails } = state.dashboard;
+  const { errorMessage, partnumberDetails, partnumberConfig } = state.dashboard;
   return {
     errorMessage,
+    partnumberConfig,
     enableReinitialize: true,
     initialValues: partnumberDetails,
   };

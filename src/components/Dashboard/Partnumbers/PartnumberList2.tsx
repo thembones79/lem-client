@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
-import { PartnumberType, PartnumberConfigType } from "../../../actions";
+import {
+  PartnumberType,
+  PartnumberConfigType,
+  ComputationsBase,
+} from "../../../actions";
 import { StoreState } from "../../../reducers";
 import Loader from "../../Loader";
 import { by } from "../../../utils/by";
@@ -70,6 +74,33 @@ class PartnumbersList2 extends Component<IPartnumbersListProps> {
         ));
     }
   }
+
+  renderConditionalHeaders() {
+    const { partnumberConfig } = this.props;
+    const { computationsBase } = partnumberConfig;
+    if (computationsBase === ComputationsBase.tactTime) {
+      return (
+        <>
+          <span className="partnumber-list__header__item">givenTactTime</span>
+          <span className="partnumber-list__header__item">
+            suggestedTactTime
+          </span>
+        </>
+      );
+    }
+
+    if (computationsBase === ComputationsBase.hourlyRate) {
+      return (
+        <>
+          <span className="partnumber-list__header__item">givenHourlyPace</span>
+          <span className="partnumber-list__header__item">
+            suggestedHourlyPace
+          </span>
+        </>
+      );
+    }
+  }
+
   renderAlert() {
     if (this.props.errorMessage) {
       return <div className="alert__message">{this.props.errorMessage}</div>;
@@ -79,11 +110,9 @@ class PartnumbersList2 extends Component<IPartnumbersListProps> {
   render() {
     console.log({ propsy: this.props });
     const { partnumberConfig, isLoading, errorMessage } = this.props;
-
     if (errorMessage) {
       return <div className="alert">{this.renderAlert()}</div>;
     }
-
     if (isLoading) {
       return <Loader />;
     }
@@ -112,14 +141,7 @@ class PartnumbersList2 extends Component<IPartnumbersListProps> {
         </div>
         <div className="partnumber-list__header">
           <span className="partnumber-list__header__item--first">product</span>
-          <span className="partnumber-list__header__item">givenTactTime</span>
-          <span className="partnumber-list__header__item">
-            suggestedTactTime
-          </span>
-          <span className="partnumber-list__header__item">givenHourlyPace</span>
-          <span className="partnumber-list__header__item">
-            suggestedHourlyPace
-          </span>
+          {this.renderConditionalHeaders()}
           <span className="partnumber-list__header__item">xlsxTactTime</span>
         </div>
         <div className="partnumber-list">{this.renderPartnumbersList()}</div>

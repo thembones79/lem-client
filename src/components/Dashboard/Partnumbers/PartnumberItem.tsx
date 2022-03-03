@@ -2,14 +2,47 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { StoreState } from "../../../reducers";
 import * as actions from "../../../actions";
-import { PartnumberType } from "../../../actions";
+import {
+  PartnumberType,
+  PartnumberConfigType,
+  ComputationsBase,
+} from "../../../actions";
 import "./PartnumberItemStyle.scss";
 
 interface IPartnumberItemProps extends PartnumberType {
   startEditingPartnumber: (Partnumber: PartnumberType) => void;
+  partnumberConfig: PartnumberConfigType;
 }
 
 class PartnumberItem extends Component<IPartnumberItemProps> {
+  renderConditionalColumns() {
+    const {
+      partnumberConfig,
+      givenHourlyRate,
+      givenTactTime,
+      suggestedHourlyRate,
+      suggestedTactTime,
+    } = this.props;
+    const { computationsBase } = partnumberConfig;
+    if (computationsBase === ComputationsBase.tactTime) {
+      return (
+        <>
+          <span className="partnumber-row__item">{givenTactTime}</span>
+          <span className="partnumber-row__item">{suggestedTactTime}</span>
+        </>
+      );
+    }
+
+    if (computationsBase === ComputationsBase.hourlyRate) {
+      return (
+        <>
+          <span className="partnumber-row__item">{givenHourlyRate}</span>
+          <span className="partnumber-row__item">{suggestedHourlyRate}</span>
+        </>
+      );
+    }
+  }
+
   render() {
     const {
       partNumber,
@@ -27,10 +60,8 @@ class PartnumberItem extends Component<IPartnumberItemProps> {
       <div className="partnumber-row">
         <div className="partnumber-row__items">
           <span className="partnumber-row__item--first">{partNumber}</span>
-          <span className="partnumber-row__item">{givenTactTime}</span>
-          <span className="partnumber-row__item">{suggestedTactTime}</span>
-          <span className="partnumber-row__item">{givenHourlyRate}</span>
-          <span className="partnumber-row__item">{suggestedHourlyRate}</span>
+          {this.renderConditionalColumns()}
+
           <span className="partnumber-row__item">{xlsxTactTime}</span>
         </div>
 
