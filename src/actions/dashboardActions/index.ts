@@ -14,3 +14,5 @@ export * from "./configurePartnumbers";
 export * from "./savePartnumberConfig";
 export * from "./savePartnumber";
 export * from "./startEditingPartnumber";
+export * from "./updateGivenTactTime";
+export * from "./updateGivenHourlyRate";

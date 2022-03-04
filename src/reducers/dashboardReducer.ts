@@ -18,6 +18,8 @@ export interface IDashboardState {
   partnumbers: PartnumberType[];
   filteredPartnumbers: PartnumberType[];
   orderDetails: OrderDetailsType;
+  givenTactTime: number;
+  givenHourlyRate: number;
   partnumberDetails: PartnumberType;
   partnumberConfig: PartnumberConfigType;
   liveView: OrderStatsType[];
@@ -35,6 +37,8 @@ const DASHBOARD_INITIAL_STATE: IDashboardState = {
   _id: "",
   orders: [],
   partnumbers: [],
+  givenTactTime: 0,
+  givenHourlyRate: 0,
   filteredPartnumbers: [],
   orderDetails: {
     orderNumber: "",
@@ -234,6 +238,18 @@ export const dashboardReducer = (
 
     case ActionTypes.SAVE_PARTNUMBER_ERROR:
       return { ...state, isLoading: false, errorMessage: action.payload };
+
+    case ActionTypes.UPDATE_GIVEN_HOURLY_RATE:
+      return {
+        ...state,
+        givenHourlyRate: Math.ceil(parseFloat(action.payload)),
+      };
+
+    case ActionTypes.UPDATE_GIVEN_TACT_TIME:
+      return {
+        ...state,
+        givenTactTime: Math.floor(parseFloat(action.payload)),
+      };
 
     case ActionTypes.INIT_LIVEDATA:
       return {

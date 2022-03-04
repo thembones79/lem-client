@@ -4,7 +4,7 @@ import * as actions from "../../../actions";
 import requireAuth from "../../requireAuth";
 import { ActionTypes } from "../../../actions/types";
 import { StoreState } from "../../../reducers";
-import PartnumberList from "./PartnumberList2";
+import PartnumberList from "./PartnumberList";
 import PartnumberEdit from "./PartnumberEdit";
 import ConfigurePartnumbers from "./ConfigurePartnumbers";
 

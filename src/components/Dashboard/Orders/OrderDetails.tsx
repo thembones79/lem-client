@@ -14,6 +14,7 @@ interface IOrderDetailsProps {
   errorMessage: string;
   getOrderDetails: (_id: string) => void;
   backToOrdersList: () => void;
+  openDeleteOrderFromStatsModal: (callbackOnClose: () => void) => void;
 }
 
 class OrderDetails extends Component<IOrderDetailsProps> {
@@ -28,7 +29,8 @@ class OrderDetails extends Component<IOrderDetailsProps> {
   }
 
   renderOrderDetails() {
-    const { orderDetails } = this.props;
+    const { orderDetails, backToOrdersList, openDeleteOrderFromStatsModal } =
+      this.props;
 
     if (orderDetails) {
       const {
@@ -58,10 +60,18 @@ class OrderDetails extends Component<IOrderDetailsProps> {
             <button
               className="btn btn--finish btn--accent adder-form__select--medium"
               onClick={() => {
-                this.props.backToOrdersList();
+                backToOrdersList();
               }}
             >
               {"<< orders list"}
+            </button>
+            <button
+              className="btn btn--delete btn--accent adder-form__select--medium"
+              onClick={() => {
+                openDeleteOrderFromStatsModal(backToOrdersList);
+              }}
+            >
+              {"delete order"}
             </button>
           </div>
           <div className="order-details__stats">

@@ -32,16 +32,18 @@
 
   &__header {
     display: flex;
-    width: 80%;
+    width: calc(100vw - 610px);
     justify-content: flex-start;
     font-weight: 600;
-    padding-left: 10px;
+    font-size: 0.9em;
 
     &__item {
-      width: 30%;
+      width: 40%;
+      padding-left: 10px;
 
       &--first {
-        width: 40%;
+        width: 800px;
+        padding-left: 10px;
       }
     }
   }

@@ -7,6 +7,8 @@ import {
   PartnumberConfigType,
   ComputationsBase,
 } from "../../../actions";
+import { hourlyPaceToTactTime } from "../../../utils/hourlyPaceToTactTime";
+import { tactTimeToHourlyPace } from "../../../utils/tactTimeToHourlyPace";
 import "./PartnumberItemStyle.scss";
 
 interface IPartnumberItemProps extends PartnumberType {
@@ -29,6 +31,9 @@ class PartnumberItem extends Component<IPartnumberItemProps> {
         <>
           <span className="partnumber-row__item">{givenTactTime}</span>
           <span className="partnumber-row__item">{suggestedTactTime}</span>
+          <span className="partnumber-row__item">
+            {tactTimeToHourlyPace(givenTactTime)}
+          </span>
         </>
       );
     }
@@ -38,6 +43,9 @@ class PartnumberItem extends Component<IPartnumberItemProps> {
         <>
           <span className="partnumber-row__item">{givenHourlyRate}</span>
           <span className="partnumber-row__item">{suggestedHourlyRate}</span>
+          <span className="partnumber-row__item">
+            {hourlyPaceToTactTime(givenHourlyRate)}
+          </span>
         </>
       );
     }

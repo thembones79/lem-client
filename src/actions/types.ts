@@ -47,6 +47,7 @@ import {
   OpenDeleteModalAction,
   OpenDeleteRedirectionModalAction,
   OpenDeleteProductModalAction,
+  OpenDeleteOrderFromStatsModalAction,
 } from "./modalActions";
 
 import {
@@ -77,7 +78,8 @@ import {
   SavePartnumberAction,
   SavePartnumberActionError,
   StartEditingPartnumberAction,
-  //  EditPartnumberDetailsAction,
+  UpdateGivenHourlyRateAction,
+  UpdateGivenTactTimeAction,
   BackToPartnumbersListAction,
 } from "./dashboardActions";
 
@@ -168,6 +170,7 @@ export enum ActionTypes {
   OPEN_DELETE_MODAL,
   OPEN_DELETE_REDIRECTION_MODAL,
   OPEN_DELETE_PRODUCT_MODAL,
+  OPEN_DELETE_ORDER_FROM_STATS_MODAL,
   CHOOSE_SIDEBAR_TAB,
   INIT_LIVEDATA,
   INIT_LIVEDATA_ERROR,
@@ -226,6 +229,8 @@ export enum ActionTypes {
   UPDATE_PARTNUMBERS_LIST,
   EDIT_PARTNUMBER_DETAILS,
   BACK_TO_PARTNUMBERS_LIST,
+  UPDATE_GIVEN_HOURLY_RATE,
+  UPDATE_GIVEN_TACT_TIME,
 
   ADD_LINK_IN_PRODUCT,
   ADD_LINK_IN_PRODUCT_ERROR,
@@ -307,7 +312,8 @@ export type ModalAction =
   | CloseModalAction
   | OpenDeleteModalAction
   | OpenDeleteRedirectionModalAction
-  | OpenDeleteProductModalAction;
+  | OpenDeleteProductModalAction
+  | OpenDeleteOrderFromStatsModalAction;
 
 export type DashboardAction =
   | ChooseSidebarTabAction
@@ -324,7 +330,8 @@ export type DashboardAction =
   | GetPartnumberConfigActionError
   | UpdatePartnumbersListAction
   | ConfigurePartnumbersAction
-  // | EditPartnumberDetailsAction
+  | UpdateGivenHourlyRateAction
+  | UpdateGivenTactTimeAction
   | SavePartnumberConfigAction
   | SavePartnumberConfigActionError
   | SavePartnumberAction

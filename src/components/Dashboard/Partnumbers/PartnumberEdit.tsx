@@ -9,6 +9,8 @@ import {
   PartnumberConfigType,
   ComputationsBase,
 } from "../../../actions";
+import { hourlyPaceToTactTime } from "../../../utils/hourlyPaceToTactTime";
+import { tactTimeToHourlyPace } from "../../../utils/tactTimeToHourlyPace";
 import { StoreState } from "../../../reducers";
 import requireAuth from "../../requireAuth";
 
@@ -17,6 +19,10 @@ interface IEditPartnumberProps extends RouteComponentProps {
   redirectionId: string;
   partnumberConfig: PartnumberConfigType;
   initialValues: PartnumberType;
+  givenTactTime: number;
+  givenHourlyRate: number;
+  updateGivenTactTime: (givenTactTime: string) => void;
+  updateGivenHourlyRate: (givenHourlyRate: string) => void;
   savePartnumber: (
     { givenHourlyRate, givenTactTime }: PartnumberType,
     id: string
@@ -27,6 +33,14 @@ interface IEditPartnumberProps extends RouteComponentProps {
 class PartnumberEdit extends Component<
   InjectedFormProps<PartnumberType> & IEditPartnumberProps
 > {
+  componentDidMount() {
+    const { initialValues, updateGivenHourlyRate, updateGivenTactTime } =
+      this.props;
+    const { givenHourlyRate, givenTactTime } = initialValues;
+    updateGivenHourlyRate(givenHourlyRate + "");
+    updateGivenTactTime(givenTactTime + "");
+  }
+
   onSubmit = (formProps: PartnumberType) => {
     const { savePartnumber, initialValues } = this.props;
     savePartnumber(formProps, initialValues._id);
@@ -39,7 +53,14 @@ class PartnumberEdit extends Component<
   }
 
   renderConditionalFields = () => {
-    const { initialValues, partnumberConfig } = this.props;
+    const {
+      initialValues,
+      partnumberConfig,
+      givenHourlyRate,
+      givenTactTime,
+      updateGivenHourlyRate,
+      updateGivenTactTime,
+    } = this.props;
     const { suggestedTactTime, suggestedHourlyRate } = initialValues;
     const { computationsBase } = partnumberConfig;
 
@@ -56,6 +77,11 @@ class PartnumberEdit extends Component<
               type="number"
               placeholder="given tact time"
               component="input"
+              min="1"
+              max="7200"
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                updateGivenTactTime(e.currentTarget.value)
+              }
               required
             />
           </fieldset>
@@ -64,6 +90,14 @@ class PartnumberEdit extends Component<
               suggestedTactTime
             </label>
             <div className="add-user-form__static">{suggestedTactTime}</div>
+          </fieldset>
+          <fieldset>
+            <label className="add-user-form__label" htmlFor="suggestedTactTime">
+              computedHourlyRate
+            </label>
+            <div className="add-user-form__static">
+              {tactTimeToHourlyPace(givenTactTime)}
+            </div>
           </fieldset>
         </>
       );
@@ -82,6 +116,11 @@ class PartnumberEdit extends Component<
               type="number"
               placeholder="given hourly rate"
               component="input"
+              min="1"
+              max="3600"
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                updateGivenHourlyRate(e.currentTarget.value)
+              }
               required
             />
           </fieldset>
@@ -94,6 +133,14 @@ class PartnumberEdit extends Component<
             </label>
             <div className="add-user-form__static">{suggestedHourlyRate}</div>
           </fieldset>
+          <fieldset>
+            <label className="add-user-form__label" htmlFor="suggestedTactTime">
+              computedTactTime
+            </label>
+            <div className="add-user-form__static">
+              {hourlyPaceToTactTime(givenHourlyRate)}
+            </div>
+          </fieldset>
         </>
       );
     }
@@ -102,11 +149,11 @@ class PartnumberEdit extends Component<
   render() {
     const { handleSubmit, submitting, initialValues } = this.props;
     const { xlsxTactTime, partNumber } = initialValues;
-
+    console.log({ props: this.props });
     return (
       <div className="add-user-page">
         <form className="add-user-form " onSubmit={handleSubmit(this.onSubmit)}>
-          <h1 className="main-page__title">Edit Partnumber: {partNumber}</h1>
+          <h1 className="main-page__title">{partNumber}</h1>
           {this.renderConditionalFields()}
           <fieldset>
             <label className="add-user-form__label" htmlFor="xlsxTactTime">
@@ -137,10 +184,18 @@ class PartnumberEdit extends Component<
 }
 
 function mapStateToProps(state: StoreState) {
-  const { errorMessage, partnumberDetails, partnumberConfig } = state.dashboard;
+  const {
+    errorMessage,
+    partnumberDetails,
+    partnumberConfig,
+    givenHourlyRate,
+    givenTactTime,
+  } = state.dashboard;
   return {
     errorMessage,
     partnumberConfig,
+    givenHourlyRate,
+    givenTactTime,
     enableReinitialize: true,
     initialValues: partnumberDetails,
   };
