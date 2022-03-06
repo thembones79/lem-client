@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "../../actions";
-import { ROOT_URL } from "../../config";
+import { ROOT_URL, headers } from "../../config";
 
 export type MenuDataType = {
   menuContent: {
@@ -30,13 +30,13 @@ export type GetMenuActionError = {
 export const getMenu = () => async (dispatch: Dispatch) => {
   try {
     const response = await axios.get(`${ROOT_URL}/api/menu`, {
-      headers: { authorization: localStorage.getItem("token") },
+      headers,
     });
     dispatch<GetMenuAction>({
       type: ActionTypes.GET_MENU,
       payload: response.data,
     });
-  } catch (e) {
+  } catch (e: any) {
     dispatch<GetMenuActionError>({
       type: ActionTypes.GET_MENU_ERROR,
       payload: e.message,

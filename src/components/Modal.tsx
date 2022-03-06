@@ -8,11 +8,13 @@ import "./ModalStyle.scss";
 
 interface IModalProps extends IModalState {
   orderNumber: string | null;
-  closeModal: () => actions.CloseModalAction;
+  orderNumberFromStats: string | null;
+  closeModal: (callbackOnClose?: () => void) => actions.CloseModalAction;
   closeOrder: ({ orderNumber }: actions.ICloseOrder) => void;
   deleteOrder: ({ orderNumber }: actions.IDeleteOrder) => void;
   deleteRedirection: (redirectionId?: string) => void;
   deleteProduct: (productId?: string) => void;
+  callbackOnClose?: () => void;
 }
 
 class Modal extends Component<IModalProps> {
@@ -35,33 +37,44 @@ class Modal extends Component<IModalProps> {
         this.handleDeleteProductClick();
         break;
 
+      case "delete order":
+        this.handleDeleteOrderFromStatsClick();
+        break;
+
       default:
         return;
     }
   };
 
   handleFinishClick = () => {
-    const { orderNumber } = this.props;
-    this.props.closeOrder({ orderNumber });
-    this.props.closeModal();
+    const { orderNumber, closeOrder, closeModal } = this.props;
+    closeOrder({ orderNumber });
+    closeModal();
   };
 
   handleDeleteClick = () => {
-    const { orderNumber } = this.props;
-    this.props.deleteOrder({ orderNumber });
-    this.props.closeModal();
+    const { orderNumber, deleteOrder, closeModal } = this.props;
+    deleteOrder({ orderNumber });
+    closeModal();
+  };
+
+  handleDeleteOrderFromStatsClick = () => {
+    const { orderNumberFromStats, deleteOrder, closeModal, callbackOnClose } =
+      this.props;
+    deleteOrder({ orderNumber: orderNumberFromStats });
+    closeModal(callbackOnClose);
   };
 
   handleDeleteRedirectionClick = () => {
-    const { redirectionId } = this.props;
-    this.props.deleteRedirection(redirectionId);
-    this.props.closeModal();
+    const { redirectionId, deleteRedirection, closeModal } = this.props;
+    deleteRedirection(redirectionId);
+    closeModal();
   };
 
   handleDeleteProductClick = () => {
-    const { productId } = this.props;
-    this.props.deleteProduct(productId);
-    this.props.closeModal();
+    const { productId, deleteProduct, closeModal } = this.props;
+    deleteProduct(productId);
+    closeModal();
   };
 
   handleCancelClick = () => {
@@ -69,12 +82,8 @@ class Modal extends Component<IModalProps> {
   };
 
   render() {
-    const {
-      isModalOpened,
-      modalHeader,
-      modalContent,
-      modalAction,
-    } = this.props;
+    const { isModalOpened, modalHeader, modalContent, modalAction } =
+      this.props;
     return (
       <div
         className={`modal ${isModalOpened ? "modal--active" : ""}`}
@@ -108,12 +117,14 @@ class Modal extends Component<IModalProps> {
 function mapStateToProps(state: StoreState) {
   return {
     orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
+    orderNumberFromStats: state.dashboard.orderDetails.orderNumber,
     isModalOpened: state.modal.isModalOpened,
     modalHeader: state.modal.modalHeader,
     modalContent: state.modal.modalContent,
     modalAction: state.modal.modalAction,
     redirectionId: state.modal.redirectionId,
     productId: state.modal.productId,
+    callbackOnClose: state.modal.callbackOnClose,
   };
 }
 export default connect(mapStateToProps, actions)(Modal);

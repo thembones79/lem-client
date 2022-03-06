@@ -8,7 +8,7 @@ interface IComposedComponentProps extends RouteComponentProps {
   userType: string;
 }
 
-export default (ChildComponent: React.ElementType) => {
+const RequireManager = (ChildComponent: React.ElementType) => {
   class ComposedComponent extends Component<IComposedComponentProps> {
     componentDidMount() {
       this.shouldNavigateAway();
@@ -37,3 +37,5 @@ export default (ChildComponent: React.ElementType) => {
 
   return connect(mapStateToProps)(ComposedComponent);
 };
+
+export default RequireManager;

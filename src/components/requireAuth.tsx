@@ -7,7 +7,7 @@ interface IComposedComponentProps extends RouteComponentProps {
   auth: string | null;
 }
 
-export default (ChildComponent: React.ElementType) => {
+const RequireAuth = (ChildComponent: React.ElementType) => {
   class ComposedComponent extends Component<IComposedComponentProps> {
     componentDidMount() {
       this.shouldNavigateAway();
@@ -34,3 +34,5 @@ export default (ChildComponent: React.ElementType) => {
 
   return connect(mapStateToProps)(ComposedComponent);
 };
+
+export default RequireAuth;

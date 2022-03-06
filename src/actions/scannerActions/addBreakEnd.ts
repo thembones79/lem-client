@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes, OrderType } from "../../actions";
-import { ROOT_URL } from "../../config";
+import { ROOT_URL, headers } from "../../config";
 
 export interface IAddBreakEnd {
   orderNumber?: string | null;
@@ -18,22 +18,22 @@ export type AddBreakEndActionError = {
   payload: string;
 };
 
-export const addBreakEnd = ({ orderNumber, _line }: IAddBreakEnd) => async (
-  dispatch: Dispatch
-) => {
-  try {
-    const response = await axios.post(
-      `${ROOT_URL}/api/break/end`,
-      {
-        orderNumber,
-        _line,
-      },
-      {
-        headers: { authorization: localStorage.getItem("token") },
-      }
-    );
-    dispatch({ type: ActionTypes.ADD_BREAK_END, payload: response.data });
-  } catch (e) {
-    dispatch({ type: ActionTypes.ADD_BREAK_END_ERROR, payload: e.message });
-  }
-};
+export const addBreakEnd =
+  ({ orderNumber, _line }: IAddBreakEnd) =>
+  async (dispatch: Dispatch) => {
+    try {
+      const response = await axios.post(
+        `${ROOT_URL}/api/break/end`,
+        {
+          orderNumber,
+          _line,
+        },
+        {
+          headers,
+        }
+      );
+      dispatch({ type: ActionTypes.ADD_BREAK_END, payload: response.data });
+    } catch (e: any) {
+      dispatch({ type: ActionTypes.ADD_BREAK_END_ERROR, payload: e.message });
+    }
+  };

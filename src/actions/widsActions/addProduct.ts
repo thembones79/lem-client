@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes, RedirectionType } from "../../actions";
-import { ROOT_URL } from "../../config";
+import { ROOT_URL, headers } from "../../config";
 
 export type ProductType = {
   _id: string;
@@ -40,7 +40,7 @@ export const addProduct =
           partNumber: partNumber.trim(),
         },
         {
-          headers: { authorization: localStorage.getItem("token") },
+          headers,
         }
       );
       dispatch<AddProductAction>({

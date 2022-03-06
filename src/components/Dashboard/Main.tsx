@@ -6,6 +6,7 @@ import requireAuth from "../requireAuth";
 import "./MainStyle.scss";
 import AnalyticsLines from "./AnalyticsLines";
 import AnalyticsOrders from "./AnalyticsOrders";
+import AnalyticsPartnumbers from "./AnalyticsPartnumbers";
 import AnalyticsLiveView from "./AnalyticsLiveView";
 import ManagementCustomers from "./ManagementCustomers";
 import ManagementLines from "./ManagementLines";
@@ -21,6 +22,7 @@ interface IMainPageProps {
   activeSidebarTab: Tab;
   AnalyticsLines: ElementType;
   AnalyticsOrders: ElementType;
+  AnalyticsPartnumbers: ElementType;
   AnalyticsLiveView: ElementType;
   ManagementCustomers: ElementType;
   ManagementLines: ElementType;
@@ -36,6 +38,7 @@ class Main extends Component<IMainPageProps> {
     const {
       AnalyticsLines,
       AnalyticsOrders,
+      AnalyticsPartnumbers,
       AnalyticsLiveView,
       ManagementCustomers,
       ManagementLines,
@@ -52,6 +55,8 @@ class Main extends Component<IMainPageProps> {
         return <AnalyticsOrders />;
       case Tab.AnalyticsLiveView:
         return <AnalyticsLiveView />;
+      case Tab.AnalyticsPartnumbers:
+        return <AnalyticsPartnumbers />;
       case Tab.ManagementCustomers:
         return <ManagementCustomers />;
       case Tab.ManagementLines:
@@ -83,6 +88,7 @@ function mapStateToProps(state: StoreState) {
     AnalyticsLines,
     AnalyticsOrders,
     AnalyticsLiveView,
+    AnalyticsPartnumbers,
     ManagementCustomers,
     ManagementLines,
     ManagementOrders,

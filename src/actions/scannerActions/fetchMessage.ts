@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "../../actions";
-import { ROOT_URL } from "../../config";
+import { ROOT_URL, headers } from "../../config";
 
 export type FetchMessageAction = {
   type: ActionTypes.FETCH_MESSAGE;
@@ -20,7 +20,7 @@ export const fetchMessage = () => {
   return function (dispatch: Dispatch) {
     axios
       .get(ROOT_URL, {
-        headers: { authorization: localStorage.getItem("token") },
+        headers,
       })
       .then((response) => {
         dispatch<FetchMessageAction>({

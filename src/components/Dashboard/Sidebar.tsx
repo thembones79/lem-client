@@ -70,6 +70,11 @@ class Sidebar extends Component<ISidebarProps> {
             <SidebarTab tab={Tab.AnalyticsOrders} text="orders">
               <OrderIcon />
             </SidebarTab>
+
+            <SidebarTab tab={Tab.AnalyticsPartnumbers} text="partnumbers">
+              <ProductIcon />
+            </SidebarTab>
+
             <SidebarTab tab={Tab.AnalyticsLines} text="lines">
               <LineIcon />
             </SidebarTab>

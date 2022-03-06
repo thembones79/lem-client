@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes, OrderType } from "../../actions";
-import { ROOT_URL } from "../../config";
+import { ROOT_URL, headers } from "../../config";
 
 export interface IPickOrder {
   orderNumber: string;
@@ -22,29 +22,29 @@ export type PickOrderActionError = {
   payload: string;
 };
 
-export const pickOrder = ({ orderNumber }: IPickOrder) => async (
-  dispatch: Dispatch
-) => {
-  try {
-    const dashedOrderNumber = orderNumber.replace(/\//g, "-");
-    const response = await axios.get(
-      `${ROOT_URL}/api/order/${dashedOrderNumber}`,
-      {
-        headers: { authorization: localStorage.getItem("token") },
-      }
-    );
-    dispatch<PickOrderAction>({
-      type: ActionTypes.PICK_ORDER,
-      payload: {
-        orderNumberFromMenu: orderNumber,
-        orderDetails: response.data,
-      },
-    });
-    localStorage.setItem("order", orderNumber);
-  } catch (e) {
-    dispatch<PickOrderActionError>({
-      type: ActionTypes.PICK_ORDER_ERROR,
-      payload: e.message,
-    });
-  }
-};
+export const pickOrder =
+  ({ orderNumber }: IPickOrder) =>
+  async (dispatch: Dispatch) => {
+    try {
+      const dashedOrderNumber = orderNumber.replace(/\//g, "-");
+      const response = await axios.get(
+        `${ROOT_URL}/api/order/${dashedOrderNumber}`,
+        {
+          headers,
+        }
+      );
+      dispatch<PickOrderAction>({
+        type: ActionTypes.PICK_ORDER,
+        payload: {
+          orderNumberFromMenu: orderNumber,
+          orderDetails: response.data,
+        },
+      });
+      localStorage.setItem("order", orderNumber);
+    } catch (e: any) {
+      dispatch<PickOrderActionError>({
+        type: ActionTypes.PICK_ORDER_ERROR,
+        payload: e.message,
+      });
+    }
+  };

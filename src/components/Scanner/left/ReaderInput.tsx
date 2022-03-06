@@ -12,6 +12,7 @@ import {
   IAddBreakStart,
   ICloseOrder,
   PauseOrderAction,
+  PartnumberConfigType,
 } from "../../../actions";
 import { StoreState } from "../../../reducers";
 import ScannerIcon from "../../icons/ScannerIcon";
@@ -32,6 +33,8 @@ interface IReaderInputProps {
   };
   disableReaderInput: () => DisableReaderInputAction;
   enableReaderInput: () => EnableReaderInputAction;
+  getPartnumberConfig: () => void;
+  partnumberConfig: PartnumberConfigType;
   insertScan: ({ scanContent, _line, _user, orderNumber }: IInsertScan) => void;
   addBreakStart: ({ orderNumber, _line }: IAddBreakStart) => void;
   closeOrder: ({ orderNumber }: ICloseOrder) => void;
@@ -68,7 +71,14 @@ class ReaderInput extends Component<
 
   onSubmit = (formProps: IFormProps) => {
     const { scanContent } = formProps;
-    const { orderNumber, _line, userId, insertScan, reset } = this.props;
+    const {
+      orderNumber,
+      _line,
+      userId,
+      insertScan,
+      reset,
+      getPartnumberConfig,
+    } = this.props;
 
     insertScan({
       scanContent,
@@ -77,6 +87,7 @@ class ReaderInput extends Component<
       orderNumber,
     });
     reset();
+    getPartnumberConfig();
   };
 
   renderAlert() {
@@ -133,6 +144,7 @@ function mapStateToProps(state: StoreState) {
     isPaused: state.scanner.isPaused,
     isRunning: state.scanner.isRunning,
     readerInputState: state.scanner.readerInputState,
+    partnumberConfig: state.dashboard.partnumberConfig,
   };
 }
 

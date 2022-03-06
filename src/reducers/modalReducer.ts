@@ -9,9 +9,11 @@ export interface IModalState {
     | "delete"
     | "delete redirection"
     | "delete product"
+    | "delete order"
     | "";
   redirectionId?: string;
   productId?: string;
+  callbackOnClose?: () => void;
 }
 
 const MODAL_INITIAL_STATE: IModalState = {
@@ -58,6 +60,17 @@ export const modalReducer = (
         modalContent: `It can't be undone! So, if you are really 100% sure,
            smash the “YES…” button`,
         modalAction: "delete",
+      };
+
+    case ActionTypes.OPEN_DELETE_ORDER_FROM_STATS_MODAL:
+      return {
+        ...state,
+        isModalOpened: true,
+        modalHeader: "Are you sure you want to delete this order?",
+        modalContent: `It can't be undone! So, if you are really 100% sure,
+             smash the “YES…” button`,
+        modalAction: "delete order",
+        callbackOnClose: action.payload,
       };
 
     case ActionTypes.OPEN_DELETE_REDIRECTION_MODAL:

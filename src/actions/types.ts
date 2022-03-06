@@ -47,6 +47,7 @@ import {
   OpenDeleteModalAction,
   OpenDeleteRedirectionModalAction,
   OpenDeleteProductModalAction,
+  OpenDeleteOrderFromStatsModalAction,
 } from "./modalActions";
 
 import {
@@ -62,6 +63,24 @@ import {
   GetOrderDetailsActionError,
   ViewOrderDetailsAction,
   BackToOrdersListAction,
+  GetPartnumbersBeginAction,
+  GetPartnumbersSuccessAction,
+  GetPartnumbersActionError,
+  GetPartnumberDetailsBeginAction,
+  GetPartnumberDetailsSuccessAction,
+  GetPartnumberDetailsActionError,
+  UpdatePartnumbersListAction,
+  GetPartnumberConfigAction,
+  GetPartnumberConfigActionError,
+  ConfigurePartnumbersAction,
+  SavePartnumberConfigAction,
+  SavePartnumberConfigActionError,
+  SavePartnumberAction,
+  SavePartnumberActionError,
+  StartEditingPartnumberAction,
+  UpdateGivenHourlyRateAction,
+  UpdateGivenTactTimeAction,
+  BackToPartnumbersListAction,
 } from "./dashboardActions";
 
 import {
@@ -151,6 +170,7 @@ export enum ActionTypes {
   OPEN_DELETE_MODAL,
   OPEN_DELETE_REDIRECTION_MODAL,
   OPEN_DELETE_PRODUCT_MODAL,
+  OPEN_DELETE_ORDER_FROM_STATS_MODAL,
   CHOOSE_SIDEBAR_TAB,
   INIT_LIVEDATA,
   INIT_LIVEDATA_ERROR,
@@ -192,6 +212,26 @@ export enum ActionTypes {
   VIEW_ORDER_DETAILS,
   BACK_TO_ORDERS_LIST,
 
+  GET_PARTNUMBERS_BEGIN,
+  GET_PARTNUMBERS_SUCCESS,
+  GET_PARTNUMBERS_ERROR,
+  GET_PARTNUMBER_DETAILS_BEGIN,
+  GET_PARTNUMBER_DETAILS_SUCCESS,
+  GET_PARTNUMBER_DETAILS_ERROR,
+  GET_PARTNUMBER_CONFIG,
+  GET_PARTNUMBER_CONFIG_ERROR,
+  SAVE_PARTNUMBER_CONFIG,
+  SAVE_PARTNUMBER_CONFIG_ERROR,
+  SAVE_PARTNUMBER,
+  SAVE_PARTNUMBER_ERROR,
+  START_EDITING_PARTNUMBER,
+  CONFIGURE_PARTNUMBERS,
+  UPDATE_PARTNUMBERS_LIST,
+  EDIT_PARTNUMBER_DETAILS,
+  BACK_TO_PARTNUMBERS_LIST,
+  UPDATE_GIVEN_HOURLY_RATE,
+  UPDATE_GIVEN_TACT_TIME,
+
   ADD_LINK_IN_PRODUCT,
   ADD_LINK_IN_PRODUCT_ERROR,
   ADD_REDIRECTION_IN_PRODUCT,
@@ -209,11 +249,13 @@ export enum ActionTypes {
   EDIT,
   LIST,
   VIEW,
+  CONFIG,
 }
 
 export enum Tab {
   AnalyticsLines,
   AnalyticsOrders,
+  AnalyticsPartnumbers,
   AnalyticsLiveView,
   ManagementCustomers,
   ManagementLines,
@@ -270,13 +312,32 @@ export type ModalAction =
   | CloseModalAction
   | OpenDeleteModalAction
   | OpenDeleteRedirectionModalAction
-  | OpenDeleteProductModalAction;
+  | OpenDeleteProductModalAction
+  | OpenDeleteOrderFromStatsModalAction;
 
 export type DashboardAction =
   | ChooseSidebarTabAction
   | InitLiveDataAction
   | InitLiveDataActionError
   | RefreshLiveDataAction
+  | GetPartnumbersBeginAction
+  | GetPartnumbersSuccessAction
+  | GetPartnumbersActionError
+  | GetPartnumberDetailsBeginAction
+  | GetPartnumberDetailsSuccessAction
+  | GetPartnumberDetailsActionError
+  | GetPartnumberConfigAction
+  | GetPartnumberConfigActionError
+  | UpdatePartnumbersListAction
+  | ConfigurePartnumbersAction
+  | UpdateGivenHourlyRateAction
+  | UpdateGivenTactTimeAction
+  | SavePartnumberConfigAction
+  | SavePartnumberConfigActionError
+  | SavePartnumberAction
+  | SavePartnumberActionError
+  | StartEditingPartnumberAction
+  | BackToPartnumbersListAction
   | GetOrdersBeginAction
   | GetOrdersSuccessAction
   | GetOrdersActionError
