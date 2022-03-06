@@ -69,7 +69,7 @@ class PartnumberEdit extends Component<
         <>
           <fieldset>
             <label className="add-user-form__label" htmlFor="givenTactTime">
-              givenTactTime
+              given tact time
             </label>
             <Field
               className="add-user-form__select"
@@ -87,13 +87,13 @@ class PartnumberEdit extends Component<
           </fieldset>
           <fieldset>
             <label className="add-user-form__label" htmlFor="suggestedTactTime">
-              suggestedTactTime
+              suggested tact time
             </label>
             <div className="add-user-form__static">{suggestedTactTime}</div>
           </fieldset>
           <fieldset>
             <label className="add-user-form__label" htmlFor="suggestedTactTime">
-              computedHourlyRate
+              computed hourly pace for given tact time
             </label>
             <div className="add-user-form__static">
               {tactTimeToHourlyPace(givenTactTime)}
@@ -108,7 +108,7 @@ class PartnumberEdit extends Component<
         <>
           <fieldset>
             <label className="add-user-form__label" htmlFor="givenHourlyRate">
-              givenHourlyRate
+              given hourly pace
             </label>
             <Field
               className="add-user-form__select"
@@ -129,13 +129,13 @@ class PartnumberEdit extends Component<
               className="add-user-form__label"
               htmlFor="suggestedHourlyRate"
             >
-              suggestedHourlyRate
+              suggested hourly pace
             </label>
             <div className="add-user-form__static">{suggestedHourlyRate}</div>
           </fieldset>
           <fieldset>
             <label className="add-user-form__label" htmlFor="suggestedTactTime">
-              computedTactTime
+              computed tact time for given hourly pace
             </label>
             <div className="add-user-form__static">
               {hourlyPaceToTactTime(givenHourlyRate)}
@@ -157,7 +157,7 @@ class PartnumberEdit extends Component<
           {this.renderConditionalFields()}
           <fieldset>
             <label className="add-user-form__label" htmlFor="xlsxTactTime">
-              xlsxTactTime
+              tact time from excel
             </label>
             <div className="add-user-form__static">{xlsxTactTime}</div>
           </fieldset>

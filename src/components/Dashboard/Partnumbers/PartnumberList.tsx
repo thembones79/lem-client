@@ -127,9 +127,23 @@ class PartnumbersList2 extends Component<IPartnumbersListProps> {
               }}
             />
           </div>
-          <div>Count: {filteredPartnumbers?.length}</div>
           <div>
-            {partnumberConfig.computationsBase} {partnumberConfig.sourceOftruth}
+            <span>Count:</span>
+            <span className="partnumber-page__header__info">
+              {filteredPartnumbers?.length}
+            </span>
+          </div>
+          <div>
+            <span>base:</span>
+            <span className="partnumber-page__header__info">
+              {partnumberConfig.computationsBase}
+            </span>
+          </div>
+          <div>
+            <span>source:</span>
+            <span className="partnumber-page__header__info">
+              {partnumberConfig.sourceOftruth}
+            </span>
           </div>
           <button
             className="btn btn--accent "
