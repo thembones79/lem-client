@@ -1,6 +1,5 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { isConditionalExpression } from "typescript";
 import { ActionTypes } from "../../actions";
 import { ROOT_URL } from "../../config";
 
@@ -40,6 +39,7 @@ export const signin =
           password,
         }
       );
+      console.log({ email, password });
       //update state
       dispatch<SigninAction>({
         type: ActionTypes.AUTH_USER,
