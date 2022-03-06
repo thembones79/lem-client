@@ -10,6 +10,7 @@ import { ISignin, SigninAction, SigninActionError } from "../../actions";
 
 interface ISigninProps extends RouteComponentProps {
   errorMessage: string;
+  fetchMessage: () => void;
   signin: (
     formProps: ISignin,
     callback: () => void
@@ -22,6 +23,7 @@ class Signin extends React.Component<
 > {
   onSubmit = (formProps: ISignin): void => {
     this.props.signin(formProps, () => {
+      this.props.fetchMessage();
       this.props.history.push("/scanner");
     });
   };
