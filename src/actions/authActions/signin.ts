@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Dispatch } from "redux";
+import { isConditionalExpression } from "typescript";
 import { ActionTypes } from "../../actions";
 import { ROOT_URL } from "../../config";
 
@@ -45,11 +46,13 @@ export const signin =
         payload: response.data,
       });
       // save JWT
+      console.log("token", response.data.token);
       localStorage.setItem("token", response.data.token);
 
       // redirect user to "scanner" route (in this case)
       callback();
     } catch (e: any) {
+      console.log({ e });
       dispatch<SigninActionError>({
         type: ActionTypes.AUTH_ERROR,
         payload: "Wrong email or password",
