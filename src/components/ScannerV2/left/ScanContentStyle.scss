@@ -1,0 +1,81 @@
+@import "../../base";
+
+.crossmark-icon {
+  width: 18px;
+  margin: 5px;
+}
+
+.checkmark-icon {
+  width: 22px;
+  margin: 5px;
+}
+
+.warning-icon {
+  width: 25px;
+  margin: 5px;
+}
+
+.scan-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.5px solid #6565881a;
+
+  &__mark-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px;
+  }
+
+  &__mark {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    padding: 5px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 336px;
+    padding: 5px;
+  }
+
+  &__timestamp {
+    font-weight: 600;
+    padding: 5px;
+  }
+
+  &__partnumber {
+    font-family: $accent-font;
+    font-size: 0.9em;
+    font-weight: 300;
+    padding: 5px;
+  }
+
+  &__message {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    text-align: center;
+    padding: 5px;
+
+    &--good {
+      color: $success-color;
+      font-weight: 800;
+      font-size: 1.1em;
+    }
+
+    &--bad {
+      color: $danger-color;
+    }
+    &--pretty {
+      @include riverdi-gradient;
+    }
+  }
+}

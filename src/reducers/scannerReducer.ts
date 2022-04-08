@@ -3,6 +3,7 @@ import {
   ActionTypes,
   OrderType,
   LineType,
+  OrderStatisticsType,
   MenuDataType,
 } from "../actions";
 
@@ -21,6 +22,7 @@ export interface IScannerState {
   isRunning: boolean;
   isOrderedQuantityMatchesValidScansQuantity: boolean;
   orderDetails?: OrderType;
+  orderStats: OrderStatisticsType;
   errorMessage: string;
   readerInputState: { isDisabled: boolean };
   existingOrder?: OrderType;
@@ -57,6 +59,28 @@ const SCANNER_INITIAL_STATE: IScannerState = {
   orderDetails: {},
   errorMessage: "",
   readerInputState: { isDisabled: true },
+  orderStats: {
+    absoluteTime: "",
+    givenHourlyRate: 0,
+    givenTactTime: 0,
+    grossTime: "",
+    lastValidScan: "",
+    linesUsed: "",
+    meanCycleTime: "",
+    meanCycleTimeInMilliseconds: 0,
+    meanGrossHourlyRate: 0,
+    meanHourlyRate: 0,
+    netTime: "",
+    orderAddedAt: "",
+    orderNumber: "",
+    orderStatus: "",
+    partNumber: "",
+    quantity: 0,
+    scansAlready: 0,
+    validScans: 0,
+    xlsxTactTime: 0,
+    _orderId: "",
+  },
   existingOrder: {
     scans: [
       {
@@ -111,9 +135,11 @@ export const scannerReducer = (
       return {
         ...state,
         existingOrder: action.payload.existingOrder,
-        isOrderedQuantityMatchesValidScansQuantity: compareOrderedQuantityWithValidScansQuantity(
-          action.payload.existingOrder
-        ),
+        orderStats: action.payload.orderStats,
+        isOrderedQuantityMatchesValidScansQuantity:
+          compareOrderedQuantityWithValidScansQuantity(
+            action.payload.existingOrder
+          ),
         errorMessage: "",
       };
     case ActionTypes.INSERT_SCAN_ERROR:
@@ -123,9 +149,8 @@ export const scannerReducer = (
       return {
         ...state,
         existingOrder: action.payload,
-        isOrderedQuantityMatchesValidScansQuantity: compareOrderedQuantityWithValidScansQuantity(
-          action.payload
-        ),
+        isOrderedQuantityMatchesValidScansQuantity:
+          compareOrderedQuantityWithValidScansQuantity(action.payload),
         errorMessage: "",
       };
     case ActionTypes.GET_ORDER_ERROR:

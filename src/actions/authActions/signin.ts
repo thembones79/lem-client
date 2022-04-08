@@ -48,7 +48,6 @@ export const signin =
       // save JWT
 
       localStorage.setItem("token", response.data.token);
-
       // redirect user to "scanner" route (in this case)
       callback();
     } catch (e: any) {

@@ -1,0 +1,53 @@
+@import "../../base";
+
+.order-picker {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+
+  &__label {
+    font-size: 1.3em;
+    padding-left: 10px;
+    font-weight: 500;
+    display: flex;
+    stroke: $primary-color;
+    justify-content: flex-start;
+    align-items: center;
+
+    &--sync-time {
+      font-size: 0.65em;
+      font-weight: 400;
+      margin-left: 20px;
+    }
+  }
+
+  &__select {
+    width: 100%;
+    height: 40px;
+    background-color: $foreground-color;
+    border-radius: $small-radius;
+    border: 0;
+    box-shadow: $normal-shadow;
+    font-family: $primary-font;
+    margin-top: 15px;
+    color: $primary-color;
+    padding: 10px;
+    padding-right: 30px;
+    font-size: 0.9em;
+    cursor: pointer;
+
+    &:disabled {
+      background-color: $disabled-color;
+      box-shadow: $disabled-shadow;
+    }
+  }
+}
+
+.order-icon {
+  width: 18px;
+  fill: inherit;
+  stroke: inherit;
+  margin-bottom: 0;
+  margin-right: 8px;
+}

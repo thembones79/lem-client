@@ -1,0 +1,35 @@
+@import "../../base";
+
+.missing-scans {
+  width: 100%;
+  height: calc(100vh - 550px);
+  padding: 10px;
+  overflow: auto;
+  background-color: $foreground-color;
+  margin-top: 15px;
+  border-radius: $small-radius;
+  box-shadow: $normal-shadow;
+
+  &__label {
+    margin-top: 30px;
+    padding-left: 10px;
+    font-size: 1.3em;
+    font-weight: 500;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  &__item {
+    font-family: $accent-font;
+    font-weight: 300;
+    font-size: 0.8em;
+    line-height: 1.45em;
+  }
+}
+
+.missing-scans-icon {
+  width: 17px;
+  margin-bottom: 0;
+  margin-right: 8px;
+}

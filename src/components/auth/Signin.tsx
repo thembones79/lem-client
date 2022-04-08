@@ -24,7 +24,9 @@ class Signin extends React.Component<
   onSubmit = (formProps: ISignin): void => {
     this.props.signin(formProps, () => {
       this.props.fetchMessage();
-      this.props.history.push("/scanner");
+      window.location.replace(
+        `${window.location.protocol}//${window.location.hostname}:${window.location.port}/scanner`
+      );
     });
   };
 

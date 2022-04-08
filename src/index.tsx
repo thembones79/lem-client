@@ -12,6 +12,7 @@ import Signout from "./components/auth/Signout";
 import Signin from "./components/auth/Signin";
 import User from "./components/auth/User";
 import Scanner from "./components/Scanner/Scanner";
+import ScannerV2 from "./components/ScannerV2/ScannerV2";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Instructions from "./components/Instructions/Instructions";
 
@@ -30,6 +31,7 @@ ReactDOM.render(
         <Switch>
           <Route path="/" exact component={Welcome} />
           <Route path="/scanner" component={Scanner} />
+          <Route path="/scannerv2" component={ScannerV2} />
           <Route path="/signout" component={Signout} />
           <Route path="/user" component={User} />
           <Route path="/dashboard" component={Dashboard} />

@@ -1,0 +1,141 @@
+@import "../../base";
+
+.order-buttons {
+  margin-top: 30px;
+
+  &__row {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    &--wide {
+      justify-content: space-between;
+    }
+  }
+}
+
+.btn {
+  color: $foreground-color;
+  background-color: $accent-color;
+  font-family: $primary-font;
+  font-weight: 900;
+  padding: 15px 20px;
+  margin: 20px 15px;
+  border: 0;
+  height: 46px;
+  min-width: 60px;
+  width: 140px;
+  letter-spacing: 1px;
+  display: flex;
+  transition: 0.3s;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: $big-radius;
+  box-shadow: $accent-btn-shadow;
+
+  &:disabled {
+    background-color: $disabled-color;
+    box-shadow: $disabled-shadow;
+  }
+
+  &--delete {
+    background-color: $danger-color;
+    box-shadow: $danger-btn-shadow;
+    align-self: center;
+
+    &:hover {
+      box-shadow: $danger-btn-shadow-hover;
+      &:disabled {
+        background-color: $disabled-color;
+        box-shadow: $disabled-shadow;
+      }
+    }
+  }
+
+  &--warning {
+    background-color: $background-color;
+    font-size: 1.05em;
+    font-weight: 600;
+    color: $primary-color;
+    height: 52px;
+    margin: 5px;
+    margin-top: 40px;
+    box-shadow: $normal-shadow;
+    max-width: 442px;
+    width: calc((100vw - 350px) / 1.5);
+
+    &:hover {
+      box-shadow: $big-shadow;
+    }
+  }
+
+  &--alt-delete {
+    background-color: white;
+    box-shadow: none;
+    align-self: center;
+    padding: 0;
+    transition: 0.9s;
+    width: 46px;
+    min-width: 46px;
+
+    &:hover {
+      box-shadow: $danger-btn-alt-shadow;
+      &:disabled {
+        background-color: $disabled-color;
+        box-shadow: $disabled-shadow;
+      }
+    }
+  }
+
+  &--accent {
+    font-size: 1.05em;
+    height: 52px;
+    margin: 5px;
+    max-width: 332px;
+    width: calc((100vw - 350px) / 4);
+
+    &:hover {
+      box-shadow: $accent-btn-shadow-hover;
+    }
+  }
+
+  &--finish {
+    background-color: $primary-color;
+    box-shadow: $primary-btn-shadow;
+
+    &:hover {
+      box-shadow: $primary-btn-shadow-hover;
+      &:disabled {
+        background-color: $disabled-color;
+        box-shadow: $disabled-shadow;
+      }
+    }
+  }
+
+  &--cancel {
+    color: $primary-color;
+    background-color: $background-color;
+    box-shadow: $cancel-btn-shadow;
+    font-weight: 500;
+    height: 44px;
+
+    &:hover {
+      box-shadow: $primary-btn-shadow-hover;
+    }
+  }
+
+  &--thin {
+    margin: 8px 4px;
+    stroke: white;
+  }
+}
+
+.order-completed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-size: 1.6em;
+}

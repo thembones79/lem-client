@@ -58,6 +58,13 @@ class Header extends Component<IHeaderProps> {
           <NavLink
             className="nav__link"
             activeClassName="nav__link--selected"
+            to="/scannerv2"
+          >
+            <ScannerIcon /> Scanner V2
+          </NavLink>
+          <NavLink
+            className="nav__link"
+            activeClassName="nav__link--selected"
             to="/user"
           >
             <UserIcon /> {this.props.userName}

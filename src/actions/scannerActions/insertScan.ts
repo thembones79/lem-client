@@ -11,9 +11,32 @@ export interface IInsertScan {
   orderNumber: string;
 }
 
+export type OrderStatisticsType = {
+  absoluteTime: string;
+  givenHourlyRate: number;
+  givenTactTime: number;
+  grossTime: string;
+  lastValidScan: string;
+  linesUsed: string;
+  meanCycleTime: string;
+  meanCycleTimeInMilliseconds: number;
+  meanGrossHourlyRate: number;
+  meanHourlyRate: number;
+  netTime: string;
+  orderAddedAt: string;
+  orderNumber: string;
+  orderStatus: string;
+  partNumber: string;
+  quantity: number;
+  scansAlready: number;
+  validScans: number;
+  xlsxTactTime: number;
+  _orderId: string;
+};
+
 export type InsertScanAction = {
   type: ActionTypes.INSERT_SCAN;
-  payload: { existingOrder: OrderType };
+  payload: { existingOrder: OrderType; orderStats: OrderStatisticsType };
 };
 
 export type InsertScanActionError = {

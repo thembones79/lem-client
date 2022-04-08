@@ -1,0 +1,22 @@
+@import "../base";
+
+.scanner-page {
+  height: $page-height;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.alert {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 60px;
+
+  &__message {
+    color: $danger-color;
+    font-weight: 700;
+  }
+}
