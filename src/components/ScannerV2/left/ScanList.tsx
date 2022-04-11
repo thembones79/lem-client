@@ -41,6 +41,7 @@ class ScanList extends Component<IScanListProps> {
     if (this.props.existingOrder) {
       const { scans } = this.props.existingOrder;
       const { _line, ScanContent } = this.props;
+      //getOrderDetails(this.props.existingOrder._id);
       const scansOnThisLine = scans?.filter((scan) => scan._line === _line);
 
       return scansOnThisLine?.map((scan) => (
@@ -74,6 +75,7 @@ function mapStateToProps(state: StoreState) {
     isOrderedQuantityMatchesValidScansQuantity:
       state.scanner.isOrderedQuantityMatchesValidScansQuantity,
     enableReinitialize: true,
+    orderDetails: state.dashboard.orderDetails,
     ScanContent,
   };
 }

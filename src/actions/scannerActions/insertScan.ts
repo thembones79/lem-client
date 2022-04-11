@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { ActionTypes, OrderType } from "../../actions";
+import { ActionTypes, OrderType, HourlyRatesType } from "../../actions";
 import { ROOT_URL, headers } from "../../config";
 import { playProperSound } from "../../utils/audioPlayer";
 
@@ -36,7 +36,11 @@ export type OrderStatisticsType = {
 
 export type InsertScanAction = {
   type: ActionTypes.INSERT_SCAN;
-  payload: { existingOrder: OrderType; orderStats: OrderStatisticsType };
+  payload: {
+    existingOrder: OrderType;
+    orderStats: OrderStatisticsType;
+    hourlyRates: HourlyRatesType[];
+  };
 };
 
 export type InsertScanActionError = {

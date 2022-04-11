@@ -5,6 +5,7 @@ import {
   MenuDataType,
   OrderStatisticsType,
   PartnumberConfigType,
+  HourlyRatesType,
 } from "../../../actions";
 import { StoreState } from "../../../reducers";
 import { secondsToHhMmSs } from "../../../utils/secondsToHhMmSs";
@@ -21,6 +22,7 @@ interface IEfficiencyCardProps {
   existingOrder: IOrder;
   orderStats: OrderStatisticsType;
   pnConfig: PartnumberConfigType;
+  hourlyRates: HourlyRatesType[];
   menu: MenuDataType;
 }
 
@@ -80,6 +82,7 @@ class EfficiencyCard extends Component<IEfficiencyCardProps> {
   }
 
   render() {
+    console.log({ propsy: this.props });
     return (
       <div className="eff-card-v2">
         <div className="eff-card-v2__item eff-card-v2__item">
@@ -97,6 +100,7 @@ function mapStateToProps(state: StoreState) {
   return {
     existingOrder: state.scanner.existingOrder as IOrder,
     orderStats: state.scanner.orderStats,
+    hourlyRates: state.scanner.hourlyRates,
     pnConfig: state.dashboard.partnumberConfig,
     menu: state.scanner.menu,
     orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),

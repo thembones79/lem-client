@@ -1,6 +1,11 @@
 import axios from "axios";
 import { Dispatch } from "redux";
-import { ActionTypes, OrderType } from "../../actions";
+import {
+  ActionTypes,
+  OrderType,
+  OrderStatisticsType,
+  HourlyRatesType,
+} from "../../actions";
 import { ROOT_URL, headers } from "../../config";
 
 export interface IGetOrder {
@@ -9,7 +14,11 @@ export interface IGetOrder {
 
 export type GetOrderAction = {
   type: ActionTypes.GET_ORDER;
-  payload: OrderType;
+  payload: {
+    existingOrder: OrderType;
+    orderStats: OrderStatisticsType;
+    hourlyRates: HourlyRatesType[];
+  };
 };
 
 export type GetOrderActionError = {
@@ -28,9 +37,20 @@ export const getOrder =
           headers,
         }
       );
+
+      const stats = await axios.get(
+        `${ROOT_URL}/api/order/stats/${response.data.existingOrder._id}`,
+        {
+          headers,
+        }
+      );
       dispatch<GetOrderAction>({
         type: ActionTypes.GET_ORDER,
-        payload: response.data.existingOrder,
+        payload: {
+          existingOrder: response.data.existingOrder,
+          orderStats: stats.data,
+          hourlyRates: stats.data.hourlyRates,
+        },
       });
       localStorage.setItem("order", orderNumber);
     } catch (e: any) {
