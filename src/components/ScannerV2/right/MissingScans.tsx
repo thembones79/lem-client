@@ -61,7 +61,7 @@ class MissingScans extends Component<IMissingScansProps> {
   }
 
   renderMissingScans() {
-    if (this.props.existingOrder) {
+    if (this.props?.existingOrder?._id) {
       const { scans } = this.props.existingOrder;
       const scansWithoutErrors = scans
         ? scans

@@ -5,7 +5,6 @@ export type ConfigurePartnumbersAction = {
 };
 
 export const configurePartnumbers = (): ConfigurePartnumbersAction => {
-  console.log("config");
   return {
     type: ActionTypes.CONFIGURE_PARTNUMBERS,
   };

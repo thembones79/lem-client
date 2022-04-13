@@ -43,12 +43,14 @@ class OrderPicker extends Component<
     this.props.getMenu();
   }
 
-  handleOrderChange = (formProps: IFormProps) => {
+  handleOrderChange = async (formProps: IFormProps) => {
     const orderNumber = formProps.target.value;
     const { _line, pickOrder, getOrder, occupyLineWithOrder } = this.props;
-    pickOrder({ orderNumber });
-    getOrder({ orderNumber });
-    occupyLineWithOrder({ _line, orderNumber });
+    const occupied = await occupyLineWithOrder({ _line, orderNumber });
+    const got = await getOrder({ orderNumber });
+    const picked = await pickOrder({ orderNumber });
+    console.info(occupied, got, picked);
+    window.location.reload();
   };
 
   renderTimestamp() {

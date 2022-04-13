@@ -2,87 +2,73 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../actions";
 import {
-  MenuDataType,
   OrderStatisticsType,
   PartnumberConfigType,
   HourlyRatesType,
 } from "../../../actions";
 import { StoreState } from "../../../reducers";
 import { secondsToHhMmSs } from "../../../utils/secondsToHhMmSs";
-import {
-  getTactTime,
-  getMeanCycleTime,
-  IOrder,
-} from "../../../utils/calculations";
+import { getColor } from "../../../utils/getColor";
+import { hourlyPaceToTactTime } from "../../../utils/hourlyPaceToTactTime";
 import "./EfficiencyCardStyle.scss";
 
 interface IEfficiencyCardProps {
   orderNumber?: string | null;
   _line: string;
-  existingOrder: IOrder;
   orderStats: OrderStatisticsType;
   pnConfig: PartnumberConfigType;
   hourlyRates: HourlyRatesType[];
-  menu: MenuDataType;
 }
 
 class EfficiencyCard extends Component<IEfficiencyCardProps> {
+  getTactTime() {
+    const { orderStats, pnConfig } = this.props;
+    const { givenHourlyRate, givenTactTime, xlsxTactTime } = orderStats;
+    const { computationsBase, sourceOftruth } = pnConfig;
+    const tt =
+      computationsBase === "tactTime"
+        ? givenTactTime
+        : hourlyPaceToTactTime(givenHourlyRate);
+
+    return sourceOftruth === "excel" ? xlsxTactTime : tt;
+  }
+
   renderTactTime() {
-    if (this.props.menu) {
-      const { orderNumber } = this.props;
-      const { menuContent } = this.props.menu;
-      if (orderNumber) {
-        const tactTime = secondsToHhMmSs(
-          getTactTime({ orderNumber, menuContent })
-        );
-        return (
-          <div className="eff-card-v2__item">
-            <span>Tact time</span>
-            <span>{tactTime ? tactTime : "--:--:--"}</span>
-          </div>
-        );
-      }
+    const { orderNumber } = this.props;
+
+    if (orderNumber) {
+      const tactTime = secondsToHhMmSs(this.getTactTime());
+      return (
+        <div className="eff-card-v2__item">
+          <span>Tact time</span>
+          <span>{tactTime ? tactTime : "--:--:--"}</span>
+        </div>
+      );
     }
   }
 
   renderMeanCycleTime() {
-    if (this.props.menu) {
-      const { orderNumber, existingOrder } = this.props;
-      const { menuContent } = this.props.menu;
-      if (orderNumber) {
-        const { _line } = this.props;
-        const mct = getMeanCycleTime({ _line, existingOrder });
-        const tt = getTactTime({ orderNumber, menuContent });
-        const meanCycleTime = secondsToHhMmSs(mct);
+    const { orderNumber, orderStats } = this.props;
+    const { meanCycleTimeInMilliseconds } = orderStats;
 
-        const mctClassName = () => {
-          if (!mct) {
-            return "";
-          }
+    if (orderNumber) {
+      const mct = meanCycleTimeInMilliseconds / 1000;
+      const tt = this.getTactTime();
+      const meanCycleTime = secondsToHhMmSs(mct);
+      const color = getColor({ givenTime: tt, actualTime: mct });
 
-          if (tt / mct > 0.97) {
-            return "eff-card-v2__item--good";
-          }
-          if (tt / mct > 0.8) {
-            return "eff-card-v2__item--pretty";
-          }
-          return "eff-card-v2__item--bad";
-        };
-
-        return (
-          <div className="eff-card-v2__item">
-            <span className={mctClassName()}>Your time</span>
-            <span className={mctClassName()}>
-              {meanCycleTime ? meanCycleTime : "--:--:--"}
-            </span>
-          </div>
-        );
-      }
+      return (
+        <div className="eff-card-v2__item">
+          <span className={`eff-card-v2__item--${color}`}>Your time</span>
+          <span className={`eff-card-v2__item--${color}`}>
+            {meanCycleTime ? meanCycleTime : "--:--:--"}
+          </span>
+        </div>
+      );
     }
   }
 
   render() {
-    console.log({ propsy: this.props });
     return (
       <div className="eff-card-v2">
         <div className="eff-card-v2__item eff-card-v2__item">
@@ -98,11 +84,9 @@ class EfficiencyCard extends Component<IEfficiencyCardProps> {
 
 function mapStateToProps(state: StoreState) {
   return {
-    existingOrder: state.scanner.existingOrder as IOrder,
     orderStats: state.scanner.orderStats,
     hourlyRates: state.scanner.hourlyRates,
     pnConfig: state.dashboard.partnumberConfig,
-    menu: state.scanner.menu,
     orderNumber: state.scanner.pickedOrder || localStorage.getItem("order"),
     _line: state.scanner.pickedLine || (localStorage.getItem("line") as string),
   };

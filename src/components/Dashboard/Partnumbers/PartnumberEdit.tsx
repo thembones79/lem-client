@@ -149,7 +149,7 @@ class PartnumberEdit extends Component<
   render() {
     const { handleSubmit, submitting, initialValues } = this.props;
     const { xlsxTactTime, partNumber } = initialValues;
-    console.log({ props: this.props });
+
     return (
       <div className="add-user-page">
         <form className="add-user-form " onSubmit={handleSubmit(this.onSubmit)}>

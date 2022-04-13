@@ -93,14 +93,8 @@ class OrderButtons extends Component<IOrderButtonsProps> {
 
       const details = filteredOrders[0];
 
-      const {
-        orderNumber,
-        quantity,
-        partNumber,
-        qrCode,
-        tactTime,
-        customer,
-      } = details;
+      const { orderNumber, quantity, partNumber, qrCode, tactTime, customer } =
+        details;
 
       const orderInfo = {
         orderNumber,
@@ -148,7 +142,7 @@ class OrderButtons extends Component<IOrderButtonsProps> {
   };
 
   renderStartPauseResumeButtons(orderRunningStatus: boolean) {
-    if (!this.props.existingOrder) {
+    if (!this.props.existingOrder || this.props.existingOrder._id === "") {
       return (
         <button className="btn btn--accent" onClick={this.handleStartClick}>
           START

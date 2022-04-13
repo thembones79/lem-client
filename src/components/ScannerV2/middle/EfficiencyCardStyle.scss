@@ -18,7 +18,7 @@
 
   &__item {
     display: flex;
-    width: 100%;
+    width: 90%;
     height: 40%;
     padding: 20px;
     flex-direction: row;
@@ -26,10 +26,10 @@
     justify-content: space-around;
     align-items: center;
 
+
     &--accent {
       flex-direction: column;
       border-radius: $big-radius;
-      width: 90%;
       background-color: $background-color;
     }
 
@@ -37,16 +37,16 @@
       font-weight: 400;
     }
 
-    &--bad {
+    &--red {
       color: $danger-color;
     }
 
-    &--good {
+    &--green {
       color: $success-color;
     }
 
-    &--pretty {
-      @include riverdi-gradient;
+    &--yellow {
+      color: #ffae00;
     }
   }
 }
