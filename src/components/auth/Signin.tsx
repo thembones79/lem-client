@@ -25,7 +25,7 @@ class Signin extends React.Component<
     this.props.signin(formProps, () => {
       this.props.fetchMessage();
       window.location.replace(
-        `${window.location.protocol}//${window.location.hostname}:${window.location.port}/scanner`
+        `${window.location.protocol}//${window.location.hostname}:${window.location.port}/scannerv2`
       );
     });
   };
