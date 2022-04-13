@@ -5,6 +5,7 @@ import {
   LineType,
   OrderStatisticsType,
   MenuDataType,
+  HourlyRatesType,
 } from "../actions";
 
 export interface IScannerState {
@@ -23,6 +24,7 @@ export interface IScannerState {
   isOrderedQuantityMatchesValidScansQuantity: boolean;
   orderDetails?: OrderType;
   orderStats: OrderStatisticsType;
+  hourlyRates: HourlyRatesType[];
   errorMessage: string;
   readerInputState: { isDisabled: boolean };
   existingOrder?: OrderType;
@@ -56,9 +58,10 @@ const SCANNER_INITIAL_STATE: IScannerState = {
   isPaused: false,
   isRunning: false,
   isOrderedQuantityMatchesValidScansQuantity: false,
-  orderDetails: {},
+  orderDetails: { _id: "" },
   errorMessage: "",
   readerInputState: { isDisabled: true },
+  hourlyRates: [],
   orderStats: {
     absoluteTime: "",
     givenHourlyRate: 0,
@@ -82,6 +85,7 @@ const SCANNER_INITIAL_STATE: IScannerState = {
     _orderId: "",
   },
   existingOrder: {
+    _id: "",
     scans: [
       {
         _id: "waiting...",
@@ -136,6 +140,7 @@ export const scannerReducer = (
         ...state,
         existingOrder: action.payload.existingOrder,
         orderStats: action.payload.orderStats,
+        hourlyRates: action.payload.hourlyRates,
         isOrderedQuantityMatchesValidScansQuantity:
           compareOrderedQuantityWithValidScansQuantity(
             action.payload.existingOrder
@@ -148,9 +153,13 @@ export const scannerReducer = (
     case ActionTypes.GET_ORDER:
       return {
         ...state,
-        existingOrder: action.payload,
+        existingOrder: action.payload.existingOrder,
+        orderStats: action.payload.orderStats,
+        hourlyRates: action.payload.hourlyRates,
         isOrderedQuantityMatchesValidScansQuantity:
-          compareOrderedQuantityWithValidScansQuantity(action.payload),
+          compareOrderedQuantityWithValidScansQuantity(
+            action.payload.existingOrder
+          ),
         errorMessage: "",
       };
     case ActionTypes.GET_ORDER_ERROR:

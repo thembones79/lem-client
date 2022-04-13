@@ -58,7 +58,7 @@ class ScanList extends Component<IScanListProps> {
   render() {
     return (
       <div
-        className="scan-list-v2"
+        className="scan-list-v3"
         ref={this.resultsDiv as React.RefObject<HTMLDivElement>}
       >
         {this.renderScanList()}

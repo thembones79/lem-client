@@ -79,7 +79,7 @@ class MissingScans extends Component<IMissingScansProps> {
       );
 
       return missingScans.map((scan) => (
-        <div key={scan} className="missing-scans__item">
+        <div key={scan} className="missing-scans-v3__item">
           {scan}
         </div>
       ));
@@ -87,12 +87,12 @@ class MissingScans extends Component<IMissingScansProps> {
   }
   render() {
     return (
-      <div className="missing">
-        <div className="missing-scans__label">
+      <div className="missing-v3">
+        <div className="missing-scans-v3__label">
           {" "}
           <MissingScansIcon /> missing scans
         </div>
-        <div className="missing-scans">{this.renderMissingScans()}</div>
+        <div className="missing-scans-v3">{this.renderMissingScans()}</div>
       </div>
     );
   }

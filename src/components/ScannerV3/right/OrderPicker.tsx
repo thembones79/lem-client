@@ -87,10 +87,10 @@ class OrderPicker extends Component<
     return (
       <div>
         <form>
-          <fieldset className="order-picker">
-            <label className="order-picker__label" htmlFor="order">
+          <fieldset className="order-picker-v3">
+            <label className="order-picker-v3__label" htmlFor="order">
               <OrderIcon /> order{" "}
-              <span className="order-picker__label--sync-time">
+              <span className="order-picker-v3__label--sync-time">
                 {" "}
                 {this.renderTimestamp()}
               </span>
@@ -99,13 +99,13 @@ class OrderPicker extends Component<
               name="order"
               type="text"
               component="select"
-              className="order-picker__select"
+              className="order-picker-v3__select"
               onChange={this.handleOrderChange}
               required
               // because it will be always opposite to reader input enabled/disabled state
               disabled={isReaderInputEnabled || isLineMissing}
             >
-              <option className="order-picker__option" />
+              <option className="order-picker-v3__option" />
               {this.renderOptions()}
             </Field>
           </fieldset>

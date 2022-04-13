@@ -144,7 +144,10 @@ class OrderButtons extends Component<IOrderButtonsProps> {
   renderStartPauseResumeButtons(orderRunningStatus: boolean) {
     if (!this.props.existingOrder || this.props.existingOrder._id === "") {
       return (
-        <button className="btn btn--accent" onClick={this.handleStartClick}>
+        <button
+          className="btn-v3 btn-v3--accent"
+          onClick={this.handleStartClick}
+        >
           START
         </button>
       );
@@ -154,20 +157,26 @@ class OrderButtons extends Component<IOrderButtonsProps> {
     if (orderStatus !== "closed") {
       if (orderRunningStatus) {
         return (
-          <button className="btn btn--accent" onClick={this.handlePauseClick}>
+          <button
+            className="btn-v3 btn-v3--accent"
+            onClick={this.handlePauseClick}
+          >
             PAUSE
           </button>
         );
       } else {
         return (
-          <button className="btn btn--accent" onClick={this.handleResumeClick}>
+          <button
+            className="btn-v3 btn-v3--accent"
+            onClick={this.handleResumeClick}
+          >
             RESUME
           </button>
         );
       }
     } else {
       return (
-        <div className="order-completed">
+        <div className="order-completed-v3">
           order completed &nbsp;{" "}
           <span role="img" aria-label="Confetti">
             🎉
@@ -184,7 +193,7 @@ class OrderButtons extends Component<IOrderButtonsProps> {
         const isReaderInputEnabled = !this.props.readerInputState.isDisabled;
         return (
           <button
-            className="btn btn--finish"
+            className="btn-v3 btn-v3--finish"
             disabled={isReaderInputEnabled}
             onClick={this.handleFinishClick}
           >
@@ -200,7 +209,7 @@ class OrderButtons extends Component<IOrderButtonsProps> {
       const isReaderInputEnabled = !this.props.readerInputState.isDisabled;
       return (
         <button
-          className="btn btn--delete"
+          className="btn-v3 btn-v3--delete"
           disabled={isReaderInputEnabled}
           onClick={this.handleDeleteClick}
         >
@@ -213,13 +222,13 @@ class OrderButtons extends Component<IOrderButtonsProps> {
   renderAllTheButtons() {
     if (this.props.orderNumber && this.props._line) {
       return (
-        <div className="order-buttons">
-          <div className="order-buttons__row">
+        <div className="order-buttons-v3">
+          <div className="order-buttons-v3__row">
             {this.renderStartPauseResumeButtons(
               this.returnOrderRunningStatus()
             )}
           </div>
-          <div className="order-buttons__row">
+          <div className="order-buttons-v3__row">
             {this.renderFinishButton()}
             {this.renderDeleteButton()}
           </div>

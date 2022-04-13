@@ -48,13 +48,7 @@ class Header extends Component<IHeaderProps> {
             <InstructionIcon /> Instructions
           </NavLink>
           {this.renderManagerLinks()}
-          <NavLink
-            className="nav__link"
-            activeClassName="nav__link--selected"
-            to="/scanner"
-          >
-            <ScannerIcon /> Scanner
-          </NavLink>
+
           <NavLink
             className="nav__link"
             activeClassName="nav__link--selected"

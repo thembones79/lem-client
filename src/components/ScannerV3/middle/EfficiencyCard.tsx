@@ -39,7 +39,7 @@ class EfficiencyCard extends Component<IEfficiencyCardProps> {
     if (orderNumber) {
       const tactTime = secondsToHhMmSs(this.getTactTime());
       return (
-        <div className="eff-card-v2__item">
+        <div className="eff-card-v3__item">
           <span>Tact time</span>
           <span>{tactTime ? tactTime : "--:--:--"}</span>
         </div>
@@ -58,9 +58,9 @@ class EfficiencyCard extends Component<IEfficiencyCardProps> {
       const color = getColor({ givenTime: tt, actualTime: mct });
 
       return (
-        <div className="eff-card-v2__item">
-          <span className={`eff-card-v2__item--${color}`}>Your time</span>
-          <span className={`eff-card-v2__item--${color}`}>
+        <div className="eff-card-v3__item">
+          <span className={`eff-card-v3__item--${color}`}>Your time</span>
+          <span className={`eff-card-v3__item--${color}`}>
             {meanCycleTime ? meanCycleTime : "--:--:--"}
           </span>
         </div>
@@ -70,11 +70,11 @@ class EfficiencyCard extends Component<IEfficiencyCardProps> {
 
   render() {
     return (
-      <div className="eff-card-v2">
-        <div className="eff-card-v2__item eff-card-v2__item">
+      <div className="eff-card-v3">
+        <div className="eff-card-v3__item eff-card-v3__item">
           {this.renderTactTime()}
         </div>
-        <div className="eff-card-v2__item eff-card-v2__item--accent">
+        <div className="eff-card-v3__item eff-card-v3__item--accent">
           {this.renderMeanCycleTime()}
         </div>
       </div>

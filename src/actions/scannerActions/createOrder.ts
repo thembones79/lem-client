@@ -15,6 +15,7 @@ export interface ICreateOrder {
 }
 
 export type OrderType = {
+  _id: string;
   orderNumber?: string;
   quantity?: number;
   partNumber?: string;

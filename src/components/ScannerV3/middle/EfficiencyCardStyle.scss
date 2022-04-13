@@ -1,18 +1,18 @@
 @import "../../base";
 
-.eff-card-v2 {
+.eff-card-v3 {
   background-color: $foreground-color;
   margin-top: 30px;
   border-radius: $big-radius;
   width: 100%;
-  min-height: 180px;
+  min-height: 10vw;
   height: 40%;
-  max-height: 180px;
+  max-height: 10vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 1.4em;
+  font-size: 1.4vw;
   font-weight: 700;
   box-shadow: $normal-shadow;
 
@@ -20,7 +20,7 @@
     display: flex;
     width: 90%;
     height: 40%;
-    padding: 20px;
+    padding: 1vw;
     flex-direction: row;
     margin: 0px;
     justify-content: space-around;

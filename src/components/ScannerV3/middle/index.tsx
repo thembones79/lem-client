@@ -4,7 +4,7 @@ import Game from "./Game";
 import "./MiddleStyle.scss";
 
 const Middle = () => (
-  <div className="middle">
+  <div className="middle-v3">
     <LinePicker />
     <EfficiencyCard />
     <Game />

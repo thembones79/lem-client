@@ -1,0 +1,11 @@
+@import "../../base";
+
+.middle-v3 {
+  width: 100%;
+  max-width: 34vw;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
