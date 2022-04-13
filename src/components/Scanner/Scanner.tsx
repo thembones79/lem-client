@@ -14,7 +14,10 @@ interface IScannerProps {
 
 class Scanner extends Component<IScannerProps> {
   componentDidMount() {
-    this.props.fetchMessage();
+    //this.props.fetchMessage();
+    window.location.replace(
+      `${window.location.protocol}//${window.location.hostname}:${window.location.port}/scannerv2`
+    );
   }
   render() {
     return (
