@@ -60,7 +60,6 @@ class PartnumberEdit extends Component<
       partnumberConfig,
       givenHourlyRate,
       givenTactTime,
-      cleanRoomTime,
       updateGivenHourlyRate,
       updateGivenTactTime,
     } = this.props;
