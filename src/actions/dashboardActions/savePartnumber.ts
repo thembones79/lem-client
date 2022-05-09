@@ -14,7 +14,10 @@ export type SavePartnumberActionError = {
 };
 
 export const savePartnumber =
-  ({ givenHourlyRate, givenTactTime }: PartnumberType, id: string) =>
+  (
+    { givenHourlyRate, givenTactTime, cleanRoomTime }: PartnumberType,
+    id: string
+  ) =>
   async (dispatch: Dispatch) => {
     try {
       const response = await axios.put(
@@ -22,6 +25,7 @@ export const savePartnumber =
         {
           givenHourlyRate,
           givenTactTime,
+          cleanRoomTime,
         },
         {
           headers,

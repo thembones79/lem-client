@@ -7,6 +7,7 @@ export type PartnumberType = {
   _id: string;
   givenHourlyRate: number;
   suggestedHourlyRate: number;
+  cleanRoomTime: number;
   givenTactTime: number;
   suggestedTactTime: number;
   xlsxTactTime: number;

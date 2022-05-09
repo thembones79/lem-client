@@ -21,10 +21,11 @@ interface IEditPartnumberProps extends RouteComponentProps {
   initialValues: PartnumberType;
   givenTactTime: number;
   givenHourlyRate: number;
+  cleanRoomTime: number;
   updateGivenTactTime: (givenTactTime: string) => void;
   updateGivenHourlyRate: (givenHourlyRate: string) => void;
   savePartnumber: (
-    { givenHourlyRate, givenTactTime }: PartnumberType,
+    { givenHourlyRate, givenTactTime, cleanRoomTime }: PartnumberType,
     id: string
   ) => void;
   backToPartnumbersList: () => void;
@@ -43,6 +44,7 @@ class PartnumberEdit extends Component<
 
   onSubmit = (formProps: PartnumberType) => {
     const { savePartnumber, initialValues } = this.props;
+    console.log({ formProps });
     savePartnumber(formProps, initialValues._id);
   };
 
@@ -58,11 +60,14 @@ class PartnumberEdit extends Component<
       partnumberConfig,
       givenHourlyRate,
       givenTactTime,
+      cleanRoomTime,
       updateGivenHourlyRate,
       updateGivenTactTime,
     } = this.props;
     const { suggestedTactTime, suggestedHourlyRate } = initialValues;
     const { computationsBase } = partnumberConfig;
+
+    console.log({ pr: this.props, initialValues });
 
     if (computationsBase === ComputationsBase.tactTime) {
       return (
@@ -85,6 +90,24 @@ class PartnumberEdit extends Component<
               required
             />
           </fieldset>
+          <fieldset>
+            <label className="add-user-form__label" htmlFor="cleanRoomTime">
+              clean room time
+            </label>
+            <Field
+              className="add-user-form__select"
+              name="cleanRoomTime"
+              type="number"
+              placeholder="clean room time"
+              component="input"
+              min="1"
+              max="7200"
+              // onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              //   updateGivenTactTime(e.currentTarget.value)
+              // }
+            />
+          </fieldset>
+
           <fieldset>
             <label className="add-user-form__label" htmlFor="suggestedTactTime">
               suggested tact time
@@ -190,12 +213,14 @@ function mapStateToProps(state: StoreState) {
     partnumberConfig,
     givenHourlyRate,
     givenTactTime,
+    cleanRoomTime,
   } = state.dashboard;
   return {
     errorMessage,
     partnumberConfig,
     givenHourlyRate,
     givenTactTime,
+    cleanRoomTime,
     enableReinitialize: true,
     initialValues: partnumberDetails,
   };
