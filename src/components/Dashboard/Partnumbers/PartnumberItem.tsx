@@ -59,6 +59,7 @@ class PartnumberItem extends Component<IPartnumberItemProps> {
       givenTactTime,
       suggestedHourlyRate,
       suggestedTactTime,
+      cleanRoomTime,
       xlsxTactTime,
       startEditingPartnumber,
       automatic,
@@ -69,8 +70,7 @@ class PartnumberItem extends Component<IPartnumberItemProps> {
         <div className="partnumber-row__items">
           <span className="partnumber-row__item--first">{partNumber}</span>
           {this.renderConditionalColumns()}
-
-          <span className="partnumber-row__item">{xlsxTactTime}</span>
+          <span className="partnumber-row__item">{cleanRoomTime}</span>
         </div>
 
         <div className="partnumber-row__buttons">
@@ -85,6 +85,7 @@ class PartnumberItem extends Component<IPartnumberItemProps> {
                 suggestedHourlyRate,
                 suggestedTactTime,
                 xlsxTactTime,
+                cleanRoomTime,
                 automatic,
               });
             }}

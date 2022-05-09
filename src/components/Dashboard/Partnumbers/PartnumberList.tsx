@@ -20,7 +20,6 @@ interface IPartnumbersListProps {
   getPartnumberConfig: () => void;
   configurePartnumbers: () => void;
   updatePartnumbersList: (filteredPartnumbers: PartnumberType[]) => void;
-  //startAddingPartnumber: () => void;
   errorMessage: string;
   isLoading: boolean;
 }
@@ -53,6 +52,40 @@ class PartnumbersList2 extends Component<IPartnumbersListProps> {
     }
   }
 
+  fileName() {
+    const d = new Date();
+    const timestamp =
+      d.toISOString().substring(0, 10).split("-").join("") +
+      d.toLocaleTimeString().split(":").join("");
+    return `tactTimes_${timestamp}.csv`;
+  }
+
+  csvMaker(data: any[] | undefined, columns?: string[]) {
+    if (!data) return "";
+
+    let csvRows = [];
+    const headers = columns || Object.keys(data[0]);
+    csvRows.push(headers.join(","));
+
+    const values = data.map((row) => headers.map((col) => row[col]));
+    csvRows.push(values.join("\n"));
+
+    return csvRows.join("\n");
+  }
+
+  downloadCsv(csvData: string) {
+    const blob = new Blob([csvData], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.setAttribute("href", url);
+    a.setAttribute("download", this.fileName());
+    a.click();
+  }
+
+  getCsv(data: any[] | undefined, columns?: string[]) {
+    this.downloadCsv(this.csvMaker(data, columns));
+  }
+
   renderPartnumbersList() {
     const { filteredPartnumbers } = this.props;
 
@@ -66,6 +99,7 @@ class PartnumbersList2 extends Component<IPartnumbersListProps> {
             partNumber={product.partNumber}
             givenTactTime={product.givenTactTime}
             suggestedTactTime={product.suggestedTactTime}
+            cleanRoomTime={product.cleanRoomTime}
             givenHourlyRate={product.givenHourlyRate}
             suggestedHourlyRate={product.suggestedHourlyRate}
             xlsxTactTime={product.xlsxTactTime}
@@ -106,8 +140,7 @@ class PartnumbersList2 extends Component<IPartnumbersListProps> {
   }
 
   render() {
-    const { partnumberConfig, isLoading, errorMessage, filteredPartnumbers } =
-      this.props;
+    const { isLoading, errorMessage, filteredPartnumbers } = this.props;
     if (errorMessage) {
       return <div className="alert">{this.renderAlert()}</div>;
     }
@@ -133,29 +166,23 @@ class PartnumbersList2 extends Component<IPartnumbersListProps> {
               {filteredPartnumbers?.length}
             </span>
           </div>
-          <div>
-            <span>base:</span>
-            <span className="partnumber-page__header__info">
-              {partnumberConfig.computationsBase}
-            </span>
-          </div>
-          <div>
-            <span>source:</span>
-            <span className="partnumber-page__header__info">
-              {partnumberConfig.sourceOftruth}
-            </span>
-          </div>
           <button
             className="btn btn--accent "
-            onClick={this.props.configurePartnumbers}
+            onClick={() => {
+              this.getCsv(filteredPartnumbers, [
+                "partNumber",
+                "givenTactTime",
+                "cleanRoomTime",
+              ]);
+            }}
           >
-            CONFIGURE
+            to CSV
           </button>
         </div>
         <div className="partnumber-list__header">
           <span className="partnumber-list__header__item--first">product</span>
           {this.renderConditionalHeaders()}
-          <span className="partnumber-list__header__item">excel tt</span>
+          <span className="partnumber-list__header__item">clean room tt</span>
         </div>
         <div className="partnumber-list">{this.renderPartnumbersList()}</div>
       </div>

@@ -20,6 +20,7 @@ export interface IDashboardState {
   orderDetails: OrderDetailsType;
   givenTactTime: number;
   givenHourlyRate: number;
+  cleanRoomTime: number;
   partnumberDetails: PartnumberType;
   partnumberConfig: PartnumberConfigType;
   liveView: OrderStatsType[];
@@ -39,6 +40,7 @@ const DASHBOARD_INITIAL_STATE: IDashboardState = {
   partnumbers: [],
   givenTactTime: 0,
   givenHourlyRate: 0,
+  cleanRoomTime: 0,
   filteredPartnumbers: [],
   orderDetails: {
     orderNumber: "",
@@ -67,6 +69,7 @@ const DASHBOARD_INITIAL_STATE: IDashboardState = {
   partnumberDetails: {
     _id: "",
     givenHourlyRate: 0,
+    cleanRoomTime: 0,
     suggestedHourlyRate: 0,
     givenTactTime: 0,
     suggestedTactTime: 0,
