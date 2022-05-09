@@ -20,7 +20,6 @@ interface IPartnumbersListProps {
   getPartnumberConfig: () => void;
   configurePartnumbers: () => void;
   updatePartnumbersList: (filteredPartnumbers: PartnumberType[]) => void;
-  //startAddingPartnumber: () => void;
   errorMessage: string;
   isLoading: boolean;
 }
@@ -51,6 +50,40 @@ class PartnumbersList2 extends Component<IPartnumbersListProps> {
     } else {
       return [];
     }
+  }
+
+  fileName() {
+    const d = new Date();
+    const timestamp =
+      d.toISOString().substring(0, 10).split("-").join("") +
+      d.toLocaleTimeString().split(":").join("");
+    return `tactTimes_${timestamp}.csv`;
+  }
+
+  csvMaker(data: any[] | undefined, columns?: string[]) {
+    if (!data) return "";
+
+    let csvRows = [];
+    const headers = columns || Object.keys(data[0]);
+    csvRows.push(headers.join(","));
+
+    const values = data.map((row) => headers.map((col) => row[col]));
+    csvRows.push(values.join("\n"));
+
+    return csvRows.join("\n");
+  }
+
+  downloadCsv(csvData: string) {
+    const blob = new Blob([csvData], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.setAttribute("href", url);
+    a.setAttribute("download", this.fileName());
+    a.click();
+  }
+
+  getCsv(data: any[] | undefined, columns?: string[]) {
+    this.downloadCsv(this.csvMaker(data, columns));
   }
 
   renderPartnumbersList() {
@@ -145,6 +178,14 @@ class PartnumbersList2 extends Component<IPartnumbersListProps> {
               {partnumberConfig.sourceOftruth}
             </span>
           </div>
+          <button
+            className="btn btn--accent "
+            onClick={() => {
+              this.getCsv(filteredPartnumbers, ["partNumber", "givenTactTime"]);
+            }}
+          >
+            to CSV
+          </button>
           <button
             className="btn btn--accent "
             onClick={this.props.configurePartnumbers}
