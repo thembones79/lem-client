@@ -44,7 +44,6 @@ class PartnumberEdit extends Component<
 
   onSubmit = (formProps: PartnumberType) => {
     const { savePartnumber, initialValues } = this.props;
-    console.log({ formProps });
     savePartnumber(formProps, initialValues._id);
   };
 
@@ -65,8 +64,6 @@ class PartnumberEdit extends Component<
     } = this.props;
     const { suggestedTactTime, suggestedHourlyRate } = initialValues;
     const { computationsBase } = partnumberConfig;
-
-    console.log({ pr: this.props, initialValues });
 
     if (computationsBase === ComputationsBase.tactTime) {
       return (

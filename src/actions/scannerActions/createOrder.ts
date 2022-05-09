@@ -8,7 +8,6 @@ export interface ICreateOrder {
   quantity: number;
   partNumber: string;
   qrCode: string;
-  tactTime: number;
   customer: string;
   orderStatus?: string;
   orderAddedAt?: string;
@@ -51,16 +50,21 @@ export type CreateOrderActionError = {
 };
 
 export const createOrder =
-  ({
-    orderNumber,
-    quantity,
-    partNumber,
-    qrCode,
-    tactTime,
-    customer,
-  }: ICreateOrder) =>
+  ({ orderNumber, quantity, partNumber, qrCode, customer }: ICreateOrder) =>
   async (dispatch: Dispatch) => {
     try {
+      const resp = await axios.post(
+        `${ROOT_URL}/api/product/tt`,
+        {
+          partNumber,
+        },
+        {
+          headers,
+        }
+      );
+
+      const tactTime = resp.data.givenTactTime;
+      console.log({ tactTime });
       const response = await axios.post(
         `${ROOT_URL}/api/order`,
         {

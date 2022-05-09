@@ -34,7 +34,6 @@ interface IOrderButtonsProps {
     quantity,
     partNumber,
     qrCode,
-    tactTime,
     customer,
   }: ICreateOrder) => void;
   addBreakStart: ({ orderNumber, _line }: IAddBreakStart) => void;
@@ -93,15 +92,13 @@ class OrderButtons extends Component<IOrderButtonsProps> {
 
       const details = filteredOrders[0];
 
-      const { orderNumber, quantity, partNumber, qrCode, tactTime, customer } =
-        details;
+      const { orderNumber, quantity, partNumber, qrCode, customer } = details;
 
       const orderInfo = {
         orderNumber,
         quantity,
         partNumber,
         qrCode,
-        tactTime,
         customer,
       };
 
