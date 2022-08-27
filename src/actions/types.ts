@@ -81,6 +81,14 @@ import {
   UpdateGivenHourlyRateAction,
   UpdateGivenTactTimeAction,
   BackToPartnumbersListAction,
+  BackToUsersListAction,
+  ChangePasswordAction,
+  ChangePasswordActionError,
+  GetUsersBeginAction,
+  GetUsersSuccessAction,
+  GetUsersActionError,
+  StartAddingUserAction,
+  StartChangingPasswordAction,
 } from "./dashboardActions";
 
 import {
@@ -133,8 +141,6 @@ export const UPDATE_MANY_PRODS_WITH_ONE_REDIR_ERROR =
 export enum ActionTypes {
   AUTH_USER,
   AUTH_ERROR,
-  ADD_USER,
-  ADD_USER_ERROR,
   FETCH_MESSAGE,
   INSERT_SCAN,
   INSERT_SCAN_ERROR,
@@ -212,6 +218,17 @@ export enum ActionTypes {
   VIEW_ORDER_DETAILS,
   BACK_TO_ORDERS_LIST,
 
+  START_ADDING_USER,
+  ADD_USER,
+  ADD_USER_ERROR,
+  BACK_TO_USERS_LIST,
+  GET_USERS_BEGIN,
+  GET_USERS_SUCCESS,
+  GET_USERS_ERROR,
+  START_CHANGING_PASSWORD,
+  CHANGE_PASSWORD,
+  CHANGE_PASSWORD_ERROR,
+
   GET_PARTNUMBERS_BEGIN,
   GET_PARTNUMBERS_SUCCESS,
   GET_PARTNUMBERS_ERROR,
@@ -225,6 +242,7 @@ export enum ActionTypes {
   SAVE_PARTNUMBER,
   SAVE_PARTNUMBER_ERROR,
   START_EDITING_PARTNUMBER,
+  START_ADDING_PARTNUMBER,
   CONFIGURE_PARTNUMBERS,
   UPDATE_PARTNUMBERS_LIST,
   EDIT_PARTNUMBER_DETAILS,
@@ -345,7 +363,15 @@ export type DashboardAction =
   | GetOrderDetailsSuccessAction
   | GetOrderDetailsActionError
   | ViewOrderDetailsAction
-  | BackToOrdersListAction;
+  | BackToOrdersListAction
+ | BackToUsersListAction      
+ | ChangePasswordAction
+ | ChangePasswordActionError
+ | GetUsersBeginAction
+ | GetUsersSuccessAction
+ | GetUsersActionError
+ | StartAddingUserAction
+ | StartChangingPasswordAction;
 
 export type WidsAction =
   | GetRedirectionsAction

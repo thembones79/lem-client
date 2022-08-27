@@ -2,21 +2,20 @@ import React, { Component, ElementType } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 import requireAuth from "../requireAuth";
-import AddUser from "./AddUser";
+import UsersRouter from "./Users/UserRouter";
 import { StoreState } from "../../reducers";
 import "./MainStyle.scss";
 
 interface IManagementUsersProps {
-  authenticated: string | null;
-  AddUser: ElementType;
+  UsersRouter: React.ElementType;
 }
 
 class ManagementUsers extends Component<IManagementUsersProps> {
   render() {
-    const { AddUser } = this.props;
+    const { UsersRouter } = this.props;
     return (
       <div className="main-page">
-        <AddUser />
+        <UsersRouter />
       </div>
     );
   }
@@ -25,8 +24,12 @@ class ManagementUsers extends Component<IManagementUsersProps> {
 function mapStateToProps(state: StoreState) {
   return {
     authenticated: state.auth.authenticated,
-    AddUser,
+    UsersRouter,
   };
 }
 
-export default connect(mapStateToProps, actions)(requireAuth(ManagementUsers));
+export default connect(
+  mapStateToProps,
+  actions
+)(requireAuth(ManagementUsers)) as ElementType;
+

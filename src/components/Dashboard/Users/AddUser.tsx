@@ -3,10 +3,10 @@ import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import * as actions from "../../actions";
-import { IAddUser, AddUserAction, AddUserActionError } from "../../actions";
-import requireAuth from "../requireAuth";
-import { StoreState } from "../../reducers";
+import * as actions from "../../../actions";
+import { IAddUser, AddUserAction, AddUserActionError } from "../../../actions";
+import requireAuth from "../../requireAuth";
+import { StoreState } from "../../../reducers";
 import "./AddUserStyle.scss";
 
 interface IAddUserProps extends RouteComponentProps {
