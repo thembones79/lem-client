@@ -1,0 +1,30 @@
+@import "../../base";
+
+.redirection-row {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.5px solid #6565881a;
+
+  &__items {
+    display: flex;
+    width: 80%;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  &__item {
+    width: 30%;
+    padding-left: 5px;
+
+    &--first {
+      width: 40%;
+    }
+  }
+  &__buttons {
+    display: flex;
+    width: 20%;
+    justify-content: flex-start;
+  }
+}

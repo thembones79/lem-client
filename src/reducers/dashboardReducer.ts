@@ -6,6 +6,7 @@ import {
   OrderDetailsType,
   PartnumberType,
   PartnumberConfigType,
+  UserType,
   Tab,
   ComputationsBase,
   SourceOfTruth,
@@ -14,7 +15,9 @@ import {
 export interface IDashboardState {
   activeSidebarTab: Tab;
   _id: string;
+  userId: string;
   orders: OrderListType[];
+  users: UserType[];
   partnumbers: PartnumberType[];
   filteredPartnumbers: PartnumberType[];
   orderDetails: OrderDetailsType;
@@ -26,6 +29,7 @@ export interface IDashboardState {
   liveView: OrderStatsType[];
   activeOrderComponent: ActionTypes;
   activePartnumberComponent: ActionTypes;
+  activeUserComponent: ActionTypes;
   isLoading: boolean;
   errorMessage: string;
 }
@@ -34,10 +38,13 @@ const DASHBOARD_INITIAL_STATE: IDashboardState = {
   activeSidebarTab: Tab.ManagementProducts,
   activeOrderComponent: ActionTypes.LIST,
   activePartnumberComponent: ActionTypes.LIST,
+  activeUserComponent: ActionTypes.LIST,
   liveView: [],
   _id: "",
+  userId: "",
   orders: [],
   partnumbers: [],
+  users: [],
   givenTactTime: 0,
   givenHourlyRate: 0,
   cleanRoomTime: 0,
@@ -99,6 +106,12 @@ export const dashboardReducer = (
         errorMessage: null,
       };
 
+    case ActionTypes.START_ADDING_USER:
+      return {
+        ...state,
+        activeUserComponent: ActionTypes.NEW,
+      };
+
     case ActionTypes.GET_ORDERS_SUCCESS:
       return {
         ...state,
@@ -108,6 +121,28 @@ export const dashboardReducer = (
       };
 
     case ActionTypes.GET_ORDERS_ERROR:
+      return {
+        ...state,
+        errorMessage: action.payload,
+        isLoading: false,
+      };
+
+    case ActionTypes.GET_USERS_BEGIN:
+      return {
+        ...state,
+        isLoading: true,
+        errorMessage: null,
+      };
+
+    case ActionTypes.GET_USERS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        users: action.payload,
+        errorMessage: null,
+      };
+
+    case ActionTypes.GET_USERS_ERROR:
       return {
         ...state,
         errorMessage: action.payload,
@@ -240,6 +275,22 @@ export const dashboardReducer = (
       };
 
     case ActionTypes.SAVE_PARTNUMBER_ERROR:
+      return { ...state, isLoading: false, errorMessage: action.payload };
+
+    case ActionTypes.START_CHANGING_PASSWORD:
+      return {
+        ...state,
+        activeUserComponent: ActionTypes.EDIT,
+        userId: action.payload,
+      };
+
+    case ActionTypes.CHANGE_PASSWORD:
+      return {
+        ...state,
+        activeUserComponent: ActionTypes.LIST,
+      };
+
+    case ActionTypes.CHANGE_PASSWORD_ERROR:
       return { ...state, isLoading: false, errorMessage: action.payload };
 
     case ActionTypes.UPDATE_GIVEN_HOURLY_RATE:

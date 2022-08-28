@@ -16,3 +16,8 @@ export * from "./savePartnumber";
 export * from "./startEditingPartnumber";
 export * from "./updateGivenTactTime";
 export * from "./updateGivenHourlyRate";
+export * from "./backToUsersList";
+export * from "./changePassword";
+export * from "./getUsers";
+export * from "./startAddingUser";
+export * from "./startChangingPassword";
